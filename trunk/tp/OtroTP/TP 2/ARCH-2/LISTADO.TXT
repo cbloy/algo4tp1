@@ -1,0 +1,116 @@
+Fecha 20/12/2010                                                         Hoja 01
+
+                  Listado de facturacion por cliente y fecha
+
+     CUIT: 30639453975  Razon Social: -           Banco Pepito S.A.-
+                        Domicilio   : -      Lamadrid 785 Cap. Fed.-
+
+     FECHA: 2010-10-30
+     NRO-VENTA    COD-MICRO    COD-TRAMO    FEC-PART    HORA-PART    IMPORTE
+--------------------------------------------------------------------------------
+        007        000066        0020      2010-12-15     18:25     $  2500,00
+
+                                                      Importe total:  $  2500,00
+            Porc. Descuento 00002525%                 Importe Desc:   $   631,25
+                                                      Total con Desc: $  1868,75
+
+
+                                                      Importe total:  $  2500,00
+            Porc. Descuento 00002525%                 Importe Desc:   $   631,25
+                                                      Total con Desc: $  1868,75
+
+Fecha 20/12/2010                                                         Hoja 02
+
+                  Listado de facturacion por cliente y fecha
+
+     CUIT: 30502866547  Razon Social: -           Otra  Pepito S.A.-
+                        Domicilio   : -Av. SiempreViva 23 Cap. Fed.-
+
+     FECHA: 2010-12-25
+     NRO-VENTA    COD-MICRO    COD-TRAMO    FEC-PART    HORA-PART    IMPORTE
+--------------------------------------------------------------------------------
+        007        000066        0020      2010-12-22     12:25     $  3000,00
+
+                                                      Importe total:  $  3000,00
+            Porc. Descuento 00003000%                 Importe Desc:   $   900,00
+                                                      Total con Desc: $  2100,00
+
+
+                                                      Importe total:  $  3000,00
+            Porc. Descuento 00003000%                 Importe Desc:   $   900,00
+                                                      Total con Desc: $  2100,00
+
+Fecha 20/12/2010                                                         Hoja 03
+
+                  Listado de facturacion por cliente y fecha
+
+     CUIT: 30578036071  Razon Social: -       Repsol Argentina S.A.-
+                        Domicilio   : -      Lalalala 101 Cap. Fed.-
+
+     FECHA: 2010-09-25
+     NRO-VENTA    COD-MICRO    COD-TRAMO    FEC-PART    HORA-PART    IMPORTE
+--------------------------------------------------------------------------------
+        007        000062        0025      2010-12-18     18:25     $  1200,00
+
+                                                      Importe total:  $  1200,00
+            Porc. Descuento 00001000%                 Importe Desc:   $   120,00
+                                                      Total con Desc: $  1080,00
+
+
+                                                      Importe total:  $  1200,00
+            Porc. Descuento 00001000%                 Importe Desc:   $   120,00
+                                                      Total con Desc: $  1080,00
+
+Fecha 20/12/2010                                                         Hoja 04
+
+                  Listado de facturacion por cliente y fecha
+
+     CUIT: 30546689979  Razon Social: -    Razon Social Pepito S.A.-
+                        Domicilio   : -Av. Corrientes 123 Cap. Fed.-
+
+     FECHA: 2010-11-15
+     NRO-VENTA    COD-MICRO    COD-TRAMO    FEC-PART    HORA-PART    IMPORTE
+--------------------------------------------------------------------------------
+        007        000066        0025      2010-12-19     12:25     $   200,00
+
+                                                      Importe total:  $   200,00
+            Porc. Descuento 00005000%                 Importe Desc:   $   100,00
+                                                      Total con Desc: $   100,00
+
+
+                                                      Importe total:  $   200,00
+            Porc. Descuento 00005000%                 Importe Desc:   $   100,00
+                                                      Total con Desc: $   100,00
+
+Fecha 20/12/2010                                                         Hoja 05
+
+                  Listado de facturacion por cliente y fecha
+
+     CUIT: 30536928703  Razon Social: -   Telefonica Argentina S.A.-
+                        Domicilio   : -          Av. Rivadavia 185-1
+
+     FECHA: 2010-11-25
+     NRO-VENTA    COD-MICRO    COD-TRAMO    FEC-PART    HORA-PART    IMPORTE
+--------------------------------------------------------------------------------
+        008        000062        0020      2010-12-25     12:25     $   555,00
+        009        000062        0020      2010-12-25     12:25     $   555,00
+
+                                                      Importe total:  $  1110,00
+            Porc. Descuento 00005000%                 Importe Desc:   $   555,00
+                                                      Total con Desc: $   555,00
+
+
+     FECHA: 2010-11-26
+     NRO-VENTA    COD-MICRO    COD-TRAMO    FEC-PART    HORA-PART    IMPORTE
+--------------------------------------------------------------------------------
+        009        000062        0020      2010-12-25     12:25     $   555,00
+
+                                                      Importe total:  $   555,00
+            Porc. Descuento 00005000%                 Importe Desc:   $   277,50
+                                                      Total con Desc: $   277,50
+
+
+                                                      Importe total:  $  1665,00
+            Porc. Descuento 00005000%                 Importe Desc:   $   832,50
+                                                      Total con Desc: $   832,50
+
