@@ -1,0 +1,924 @@
+
+
+
+                                   README Contents
+
+          This document contains the following sections:
+
+               Diskette Contents
+               5.3 Changes
+               5.3 Deficiencies
+               Documentation Updates
+               Compatibility with Liant Products
+               Compatibility with Other Products
+
+
+                                  Diskette Contents
+
+          The following is a list of files included on your RM/COBOL-85
+          runtime system media:
+
+               README.RTM     - this commentary file
+
+               RUNCOBOL.EXE   - runtime system
+               RUN.MSG        - runtime message file
+               UTL.MSG        - utility message file
+
+               RECOVERY.BAT   - batch command file
+               RECOVER1.EXE   - recover in place
+               RECOVER2.BIG   - recover to sequential file (block size >=
+                                8192)
+               RECOVER2.SML   - recover to sequential file (block size <
+                                8192)
+               C$FILE.EXE     - file utility (object)
+               C$SCRD.EXE     - C$SCRD function
+               C$SCWR.EXE     - C$SCWR function
+               SYSTEM.EXE     - SYSTEM function
+               ATTACH.COB     - attach configuration (object)
+               MKMSGSEG.COB   - attach message file
+               RMCSEQ.BIG     - convert version 2 sequential file (record
+                                size > 10000)
+               RMCSEQ.SML     - convert version 2 sequential file (record
+                                size <= 10000)
+               RMDEFINX.COB   - precreate indexed file
+               RMMAPINX.BIG   - list structure of indexed file (block size
+                                >= 8192)
+               RMMAPINX.SML   - list structure of indexed file (block size
+                                < 8192)
+               RMMAPPGM.COB   - list contents of object file or library
+               RMPATCH.COB    - change contents of object file
+               RMPGMCOM.COB   - create object library
+               FIXDAY.EXE     - date rollover utility
+
+               FILETEST.COB   - file system test (object)
+               NUCTEST.COB    - nucleus test (object)
+               PACETEST.COB   - multiuser file locking test (object)
+               PRNTEST.COB    - printer configuration test (object)
+               SORTTEST.COB   - sort/merge test (object)
+               VDTTEST.COB    - terminal interface test (object)
+               VERIFY.COB     - main menu (object)
+               WINATTRB.COB   - windows sub-test (object)
+               WINBORDR.COB   - windows sub-test (object)
+               WINCOLOR.COB   - windows sub-test (object)
+               WINRELTV.COB   - windows sub-test (object)
+               WINSTAT.COB    - windows sub-test (object)
+               WINTEST.COB    - windows test (object)
+               WINTITLE.COB   - windows sub-test (object)
+
+               TESTASM.BAT    - assembly language example
+               ASMTEST.ASM    - assembly language example
+               LNKTEST.COB    - assembly language example
+
+               TESTLIB.BAT    - assembly language library example
+               LIBSTART.ASM   - assembly language library example
+               FIRST.ASM      - assembly language library example
+               SECOND.ASM     - assembly language library example
+               LIBEND.ASM     - assembly language library example
+               LIBTEST.COB    - assembly language library example
+
+               TESTCLB.BAT    - C library example
+               CLIBTAB.ASM    - C library example
+               CLIB.C         - C library example
+               CLIBTEST.COB   - C library example
+
+               CONFIG.C21     - sample configuration file
+               CONFIG.ANS     - sample configuration file
+
+
+                                     5.3 Changes
+
+          If you have any existing configuration files which modify
+          terminal characteristics, these configuration files will contain
+          a TERM-INTERFACE BIOS record.  You must change this record to
+          TERM-INTERFACE RAM to obtain the improved display performance
+          described in the 5.2 Enhancements section of your User's Guide.
+          This change should be made in the configuration files
+          RMPANELS.CFG and CMPN.CFG provided with RM/PANELS and
+          RM/COMPANION.
+
+
+
+          This version of RM/COBOL-85 implements a buffer pool for all disk
+          files.  This buffer pool allocates memory at initialization of
+          RUNCOBOL, RMCOBOL, or RECOVER1 that buffers for all the files are
+          taken from.  When memory in the pool is exhausted, buffers from
+          less active files are written to disk (if necessary), and given
+          to more active files.  The default size of the pool is 64,000
+          bytes, which, assuming 512 byte block sizes and 10 buffers per
+          file, will consume the same amount of memory as 12 open files on
+          previous releases.  Programs that had fewer files or number of
+          buffers per file, or programs that used Sort Merge, may not work
+          properly with 5.2 using the default pool because insufficient
+          memory exists to load the program.  In other words, the default
+          buffer pool size allocates more memory for buffers that was being
+          used for buffers before.  Use the BUFFER-POOL-SIZE configuration
+          option to reduce the buffer pool size.  The minimum recommended
+          buffer pool size is 20480.
+
+
+
+          A new runtime configuration option can be used to disable the
+          RM/COBOL-85 runtime from opening and closing program and message
+          files that reside on floppy disks between operations on these
+          files.  The RUN-FILES-ATTR configuration record's KEEP-FLOPPY-
+          OPEN keyword, when set to YES, will cause the runtime to keep a
+          floppy based message file open after it uses the file and keep
+          floppy based program files open if it contains overlays that the
+          runtime needs to load.
+
+
+
+          In RM/COBOL-85 Version 5.3, when a COBOL program file is opened
+          for execution, the runtime will no longer attempt to apply region
+          locks on the file.  By not applying locks to program files,
+          performance is increased on CALL statements, particularly over
+          networks or when using COBOL libraries.  This could allow a
+          currently executing program to be overwritten by the compiler
+          though in practice, systems are rarely set up such that this
+          presents a problem.
+
+
+
+          The specification of a TERM-INTERFACE configuration record no
+          longer causes the internal TERM-INPUT configuration to be
+          deleted.  The TERM-INPUT configuration is now deleted when the
+          first TERM-ATTR DATA-CHARACTERS or TERM-INPUT record is read.
+          The allows the TERM-INTERFACE to be specified without requiring
+          the TERM-INPUT to be completely specified in the configuration
+          file.
+
+
+
+          Starting with RM/COBOL-85 version 5.3 a new parameter passing
+          sequence was implemented for calling non-COBOL subprograms under
+          DOS and OS/2.  This new technique maintains compatibility with
+          older Assembly routines which passed parameters through
+          registers.  C routine parameter passing is simplified and now
+          resembles the technique used with RM/COBOL-85 for Unix and
+          Windows.
+
+          The order in which parameters are pushed onto the stack has
+          changed.  In addition a new parameter, Argument Count, has been
+          added.
+
+
+
+          Callable Runtime Services
+
+          Starting with RM/COBOL-85 release 5.3, a called non-COBOL
+          subprogram running under DOS or OS/2 may invoke service routines
+          contained within the RM/COBOL-85 runtime.
+
+          When the runtime calls a non-COBOL subprogram, a table of entry
+          point addresses is set up at the start of the stack segment
+          (SS:0000).  A runtime service may be invoked by issuing a far
+          call to one of the addresses contained in the table.
+
+          WARNING: Only the entry points listed below will be supported in
+          future releases.  The table may contain additional entry points:
+          these are for runtime internal use and will change in future
+          releases.
+
+          The table has this structure:
+
+          [0000H]  WORD  contains 'rm' (byte 0 contains the 'r').
+
+          [0002H]  WORD  contains the location of the byte following
+          another WORD which contains 'rm'.  To guarantee the table is
+          valid (has not been overwritten by the stack), the contents of
+          this word should also be checked.  If this WORD is valid, it is
+          safe to call through the table.
+
+          [0004H]  WORD  contains the table version number: currently 1.                                                                      _
+
+          [0006H]  WORD  reserved: currently 0.          _____________________________________
+
+          The rest of the table consists of double-word addresses.
+
+          Example
+
+          Here is an example of how to check the table's validity:
+
+               XOR  BP, BP                   ; address stack segment
+               CMP  WORD PTR [BP], 'mr'      ; byte-swapped
+               JNE  invalid_runtime_version
+               MOV  DI, WORD PTR [BP+0002H]
+               CMP  WORD PTR [BP+DI-2], 'mr'
+               JNE  table_damaged
+               CMP  WORD PTR [BP+0004H], minimum_required_version
+               JB   service_not_supported
+
+          Available Services
+
+          The following services are available.  A far pointer to the entry
+          point is stored at the given location.
+
+          [SS:0008H] DWORD  CONVERT_ARGUMENT_ADDRESSES
+
+               Purpose:  Under DOS, converts each of the addresses in the
+               argument entry structure from a linear address to
+               segment:offset format.  Under OS/2, where this conversion is
+               not necessary, this routine returns immediately.
+
+               Syntax:   LES       BX, argument_entry_structure_address                              _____
+               CALL DWORD PTR SS:[0008H]
+
+               Input:    ES:[BX] -> Argument entry structure.
+
+               Output:   CX contains number of arguments (retrieved from
+               argument entry structure).
+               All other registers preserved.
+
+          [SS:0010H] DWORD  GET_SCREEN_DIMENSIONS
+
+               Purpose:  Retrieves the size of the display, in rows and
+               columns.
+
+               Syntax:   CALL DWORD PTR SS:[0010H]
+
+               Input:    No parameters.
+
+               Output:   DH contains the number of rows.
+               DL contains the number of columns.
+               All other registers preserved.
+
+          [SS:0018H] DWORD  SET_CURSOR_TYPE
+
+               Purpose:  Sets the type (shape) of the cursor.  The cursor
+               shape remains in effect until the next ACCEPT or DISPLAY
+               operation is performed.  The cursor will normally be
+               invisible when the non-COBOL subprogram is called: if
+               changed, the cursor should again be set invisible before the
+               non-COBOL subprogram returns.
+
+               Syntax:   MOV       BX, cursor_type_code                            __
+               CALL DWORD PTR SS:[0018H]
+
+               Input:    BX == 0 sets invisible cursor
+               BX == 2 sets overtype cursor (underline)
+               BX == 4 sets insert cursor (half block)
+               BX == 6 sets end-of-field cursor (full block)
+
+               Output:   No parameters.
+               All registers preserved.
+
+
+          [SS:001CH] DWORD  LOCATE_ENVIRONMENT_ENTRY
+
+               Purpose:  Searches the environment and returns a pointer to
+               the first non-blank character of the first matching entry.
+
+               Syntax:   LDS       SI, string_addr                            __
+               MOV       CX, string_length                    _____
+               CALL DWORD PTR SS:[001CH]
+               JC        not_found                 ___
+               ; es:di -> first character of environment string
+
+               Input:    DS:SI -> string to search for
+               CX    == length of string
+
+               Output:   CF = 0: ES:DI -> first non-blank character of
+               environment string
+               CF = 1, ES:DI == 0: environment entry not found or consists
+               of all spaces.
+
+          [SS:002CH] DWORD  SET_UNIT          __________________________
+
+               Purpose:  Initializes the display to the state required by               __________________________________________________________
+               the RM/COBOL runtime.  If a non-COBOL subprogram calls               ______________________________________________________
+               RESET_UNIT, it must call SET_UNIT before returning to the               _________________________________________________________
+               RM/COBOL runtime.               _________________
+
+               Syntax:   CALL DWORD PTR SS:[002CH]               ___________________________________
+
+               Input:    No parameters.               ________________________
+
+               Output:   AX = 0               ________________
+               All other registers preserved.               ______________________________
+
+          [SS:0030H] DWORD  RESET_UNIT          ____________________________
+
+               Purpose:  Causes the RM/COBOL runtime to relinquish control               ___________________________________________________________
+               of the display.  This function should be called from a non-               ___________________________________________________________
+               COBOL subprogram if the program will read the keyboard or               _   _____________________________________________________
+               write to the display.               _____________________
+
+               Syntax:   CALL DWORD PTR SS:[0030H]               ___________________________________
+
+               Input:    No parameters.               ________________________
+
+               Output:   AX = 0               ________________
+               All other registers preserved.               ______________________________
+
+
+
+
+                                  5.3 Deficiencies
+
+          On all version 5 and earlier RM/COBOL-85 runtime systems, if a
+          calling program passes a called program two arguments that begin
+          at the same location (either through redefinition or because one
+          is a group which contains the other), when the called program
+          asks C$CARG for the parameter descriptions, it always receives
+          that of the first argument passed.
+
+
+
+          If a COBOL program attempts to DELETE a file which it has open
+          with another FD, the RM/COBOL-85 Btrieve Adapter will return an
+          93,02 (OPEN WITH LOCK Rejected).  Using RM/COBOL-85 Index files,
+          no error status is returned, but the file is also not deleted.
+          In a future release, this problem will be corrected to have both
+          RM/COBOL-85 and Btrieve files return a new error code that better
+          identifies the problem.
+
+
+
+
+                                Documentation Updates                                _____________________
+
+          On page xxviii, in the section Diskette Program and Message File
+          Support, change the last sentence "The application should close
+          message and program files before requesting the user to change
+          diskettes" to:
+
+          The application should close application data files that reside
+          on diskette before requesting the user to change diskettes.
+
+
+
+          On page 9-20, add the following configuration keyword description
+          to the RUN-FILES-ATTR record section.
+
+               11.  KEEP-FLOPPY-OPEN.  This keyword determines whether the
+               runtime will open and close program and message files that
+               reside on a floppy drive every time it accesses them.  If
+               the value is set to NO the runtime closes these files as
+               often as possible to prevent floppy corruption problems that
+               can occur when swapping diskettes while a program executes.
+               If the value is set to YES the runtime will not attempt to
+               close floppy based program and message files after every
+               access.  The default value is NO.
+
+
+
+          On page A-5, add the following paragraphs to the description of
+          procedure error number 204:
+
+               If the CALL statement specified "SYSTEM", this error can
+               occur when the external routine SYSTEM was successfully
+               found and loaded, but the command processor required by
+               SYSTEM could not be found.  This can occur when the COMSPEC
+               environment variable is not defined or its value contains an
+               invalid drive, path, or filename.  This error can also
+               indicate that the length of the parameter passed to SYSTEM
+               exceeds the limits specified in the documentation of SYSTEM
+               on page F-13.
+
+               If the CALL statement, under OS/2 or Windows, specified a
+               DLL file that does not contain a nonresident ordinal one
+               entry point, this error will occur.
+
+               If the CALL statement specified the ON EXCEPTION or ON
+               OVERFLOW phrase, this procedure error is suppressed and
+               execution continues with the imperative-statement in the ON
+               EXCEPTION or ON OVERFLOW phrase.
+
+          On page A-6, add the following paragraphs to the description of
+          procedure error number 207:
+
+               If the CALL statement specified "SYSTEM", this error can
+               occur when there is insufficient memory to load the command
+               processor required by SYSTEM.
+
+               If the CALL statement specified the ON EXCEPTION or ON
+               OVERFLOW phrase, this procedure error is suppressed and
+               execution continues with the imperative-statement in the ON
+               EXCEPTION or ON OVERFLOW phrase.
+          On page A-8, add the following new procedure error number 222:
+
+               The SYSTEM routine was called but the command processor
+               required by SYSTEM could not be loaded for some unexpected
+               reason such as bad environment, access denied, too many open
+               files, or bad format for the command processor.  If the
+               reason was that the command processor could not be found,
+               error 204 would occur instead of this error.  If the reason
+               was insufficient memory, procedure error 207 would occur
+               instead of this error.  If the operating system fails to
+               load the command processor for any other reasons, then this
+               error occurs.
+
+               If the CALL statement specified the ON EXCEPTION or ON
+               OVERFLOW phrase, this procedure error is suppressed and
+               execution continues with the imperative-statement in the ON
+               EXCEPTION or ON OVERFLOW phrase.
+
+          On page A-8, add the following new procedure error number 223:
+
+               An error occurred while loading a DLL file (Windows and OS/2
+               only).  If the reason was that the DLL file could not be
+               found, error 204 would occur instead of this error.  If the
+               reason was insufficient memory, procedure error 207 would
+               occur instead of this error.  If the operating system fails
+               to load the DLL for any other reasons, then this error
+               occurs.  This error generally indicates that the DLL was
+               found, but has an invalid format for the operating system
+               being used.  Some "system out of memory" conditions may
+               cause an error 223 since Windows returns an ambiguous error
+               status in some low memory situations.
+
+               If the CALL statement specified the ON EXCEPTION or ON
+               OVERFLOW phrase, this procedure error is suppressed and
+               execution continues with the imperative-statement in the ON
+               EXCEPTION or ON OVERFLOW phrase.
+
+
+
+          On page E-33, in the example CLIB.C, in the structure definition
+          for ARGUMENT_ENTRY, on the line containing the field a_type,
+          there is a comment that reads "Arg type See Table Below".  Change
+          this comment to read:
+
+               Arg type, see table E-1.
+
+
+
+          On page F-12, in the description of SYSTEM, add the following to
+          the end of the paragraph that begins "The command is executed
+          using ...":
+
+               If the COMSPEC environment variable is undefined or
+               specifies a command processor that cannot be found, or the
+               specified command line is too long, then the run unit will
+               be stopped with a procedure error 204.  If there is
+               insufficient memory to load the command processor, then the
+               run unit will be stopped with a procedure error 207.  If the
+               command processor cannot be loaded because of some other
+               error, then the run unit will be stopped with a procedure
+               error 222.  The ON EXCEPTION or ON OVERFLOW phrase of the
+               CALL statement may be used to suppress all of these
+               procedure errors; if one of these errors occurs, the
+               imperative-statement in the ON EXCEPTION or ON OVERFLOW
+               phrase will be executed.
+
+          On page F-13, add the following new paragraph at the end of the
+          description of SYSTEM:
+
+               If the version of SYSTEM is incompatible with the runtime or
+               the argument count is not one on entry to SYSTEM, then the
+               run unit is stopped with the message "COBOL STOP RUN at line
+               000017 in SYSTEM ..." (the address specified in the message
+               may be different).
+
+
+
+          The sequence in which parameters are passed to non-COBOL programs
+          under DOS and OS/2 differs from that stated in Appendix E of the
+          RM/COBOL-85 version 5.3 User's Guide.  The correct calling
+          sequence is:
+
+          Adjust AX with initial flags
+          Adjust ES:BX with pointer to argument list
+          Adjust CX with parameter count
+          Adjust DS:DX with pointer to program name
+          push AX
+          push ES
+          push BX
+          push CX
+          push DS
+          push DX
+          Adjust ES:BX with pointer to Using List Structure
+          call far NonCobolSubprogram
+          mov  ReturnCode, AL
+
+          Note that a pointer to an argument list is pushed on the stack
+          but the register ES:BX points to a Using List structure.  Because
+          of these differences the example subroutines (ASMTEST.ASM,
+          FIRST.ASM, SECOND.ASM, CLIB.C and CTEST.C) do not appear in the
+          User's Guide correctly.  The examples on the delivery media
+          reflect the new parameter sequence.
+
+          These changes make C subroutine parameter passing the same for
+          ports of version 5.3 RM/COBOL-85 on DOS, OS/2, Windows and Unix.
+
+
+
+
+                          Compatibility with Liant Products
+
+          The RM/COBOL-85 Pop-Up Window Manager has been integrated into
+          the runtime command RUNCOBOL and is no longer a separate
+          terminate and stay resident (TSR) module on DOS.  You should
+          modify application batch files, for example, rmpanels.bat, which
+          invoke the window manager, window.exe, to no longer make the
+          unnecessary call.  A new configuration option, POP-UP-WINDOWS,
+          has been added to the RUN-ATTR configuration record to disable
+          the Pop-Up Window Manager and recover its memory if this facility
+          is not required.
+
+
+
+
+                          Compatibility with Other Products
+
+          A new runtime configuration option can be used to disable the use
+          of the DOS Commit File function (see page 9-19).  RM/COBOL-85
+          uses Commit File, where available, when an indexed file is
+          created or extended and when the FORCE-CLOSED configuration
+          option is requested.  The new configuration option can cause the
+          runtime to be aware that Commit File can not be used reliably and
+          that the file should be closed and reopened to implement the
+          FORCE-CLOSED.  This will have two side effects:  The first is
+          that the operation of unlocking, closing, reopening, and
+          relocking the file will be slower than the Commit File function.
+          The second is that the COBOL program will lose exclusive access
+          to the file during the period of the close and reopen and thus
+          may fail to regain exclusive access to the file.
+
+          There are three known situations in which the DOS Commit File
+          operation does not work properly: 1) When running LANTASTIC
+          version 3.02.  LANTASTIC version 4.1 works properly.  2) When
+          running SMARTDRV.EXE version 4.0 without the /Y option.  Using
+          the /Y option or running with a version later than 4.0 corrects
+          the problem.  3) When running versions of Novell Netware prior to
+          version 2.1.  Version 2.1 of Novell Netware corrects the problem.
+
+
+
+
+          BIOS Date Rollover
+
+          PCs running DOS under certain circumstances will not modify the
+          date when the time rolls through midnight.  In order for DOS to
+          update the date, two things must happen:  (1) the overflow flag
+          generated by the BIOS time tick handler must be available to DOS,
+          and (2) some program must request the time or date from DOS
+          before the time tick overflows for another midnight.  Thus, there
+          are two causes of DOS failing to maintain a correct date:  (1) a
+          DOS application, e.g., LAN software, causes the overflow flag to
+          be cleared by issuing the BIOS function to read the system timer
+          tick counter after midnight but before DOS reads the timer, or
+          (2) a DOS program (including COMMAND.COM) is busy computing or
+          waiting for user input through a two consecutive midnights
+          without reading the time or date or closing a modified file.
+
+          FIXDAY.EXE is a Terminate and Stay Resident task which monitors
+          whether the date is updated at midnight.  When the time
+          approaches midnight, approximately 23:59:45, the current date is
+          read from DOS.  Soon after midnight, approximate 00:01:05, the
+          date is again read from DOS.  If the date available from DOS
+          after midnight is the same as the date before midnight, DOS did
+          not do its job and FIXDAY sets the DOS date to the next day.
+
+          To use the program FIXDAY, just load it.  This can be done by
+          including it in your AUTOEXEC.BAT file.  The return code can be
+          tested with IF ERRORLEVEL to verify that it was loaded
+          successfully:
+
+               0    Program installed successfully.
+
+               1    Unable to locate DOS internal flags.
+
+               3    Program already installed.
+
+          This program has the following restrictions:
+
+               This program can be run only on DOS 2.0 and later systems.
+
+               It is not known whether the date rollover problem exists in
+               the OS/2 DOS compatibility box.  Therefore this program
+               chooses not to execute there.
+
+               The program depends on the timer ticks being available in
+               the BIOS data area at 0040:006C.  This may not be true on
+               some PCs which are not true clones.
+
+               Clearly, if the DOS date is one day past the real date and
+               the operator corrects this during the 65 seconds after
+               midnight, FIXDAY will decide the day was not advanced and
+               advance it again.
+
+
+
+
+          DESQView 386
+
+          Quarterdeck's DESQView 386 allows the operator to switch among
+          several concurrent programs.  If you intend to run more than one
+          version of RUNCOBOL under DESQView 386, we recommend that you
+          install SHARE.EXE before starting DESQView 386.  Failure to first
+          install SHARE.EXE will cause File Status 98 errors when a file is
+          opened by two instances of the runtime system.
+
+          When running under a DOS multitasking environment such as
+          DESQView 386, each instance of RUNCOBOL should be flagged to
+          allow preemptive scheduling.  Failure to enable preemptive
+          scheduling may cause your application to appear to hang when
+          sharing a file between two instances of RUNCOBOL.  To enable
+          preemptive scheduling under DESQView 386, with Change Program you
+          select the Advanced Options, then enter Y in the "Runs in
+          background" box.
+
+
+
+
+          DOS 5.0 DOSSHELL
+
+          The DOSSHELL program, provided with DOS 5.0, allows the operator
+          to switch among several concurrent programs.  If you intend to
+          run more than one version of RUNCOBOL under the DOSSHELL, we
+          recommend that you install SHARE.EXE before starting the
+          DOSSHELL.  Failure to first install SHARE.EXE will cause File
+          Status 98 errors when a file is opened by two instances of the
+          runtime system.
+
+          Because the DOSSHELL program is a nonpreemptive task switcher,
+          running two copies of RUNCOBOL sharing the same file will yield
+          undesirable results.  If one copy is heavily accessing an indexed
+          file, switching to the other program may cause the other program
+          to appear to be hung.  It is waiting for the first program to
+          unlock the file header but the first program is unable to run
+          because the task switcher is nonpreemptive.  Similar apparent
+          hangs can occur on sequential and relative organization files
+          when both programs are attempting to lock the same record.
+
+
+
+
+          DOS 5.0 SHARE.EXE and Diskettes
+
+          If you are loading RUNCOBOL.EXE from diskette under DOS 5.0 and
+          SHARE.EXE is installed, the diskette FAT (File Allocation Table)
+          can be clobbered if you change diskettes during execution.  This
+          happens if any files are open on the diskette when the diskette
+          is changed.  The version 5.30 of the RM/COBOL-85 product
+          automatically detects program files and message files that are on
+          floppy and opens and closes them around every operation.  You are
+          still at risk of clobbering the FAT if you have any data files
+          files open.  You must close data files explicitly in your COBOL
+          application.
+
+
+          The MKMSGSEG utility may be used to attach message files to
+          RM/COBOL-85 products to prevent the opening and closing of
+          message files and the RUN-FILE-ATTR configuration record keyword
+          KEEP-FLOPPY-OPEN may be used to prevent the opening and closing
+          of message and program files in situations where there is no
+          danger of floppy removal during execution.
+
+
+
+
+          Extended Keyboards
+
+          RM/COBOL-85 recognizes computers with extended keyboards and
+          accesses these keyboards with the BIOS Read Extended Keyboard
+          function.  Using this BIOS function guarantees that the extended
+          function keys are available.
+
+          Customers have encountered problems with some time slicing
+          environments (for example, running on a Novell nondedicated
+          server) which do not suspend the process when a Read Extended
+          Keyboard function is issued.  Customers have also encountered
+          problems with some older Terminate-and-Stay-Resident programs
+          which intercept and filter keyboard input.  If you have a
+          keyboard BIOS which returns extended function keys to an old Read
+          Keyboard function, have problems with degraded performance in a
+          time slicing environment, or have problems with keyboard TSRs,
+          try setting the following in your configuration file:
+
+               TERM-ATTR KEYBOARD=STANDARD
+
+          If you have an enhanced keyboard and your F11 and F12 keys don't
+          function properly, try setting the following in your
+          configuration file:
+
+               TERM-ATTR KEYBOARD=ENHANCED
+
+
+
+
+          HI-SCREEN Pro II
+
+          Softway, Inc.'s HI-SCREEN Pro II does not correctly process
+          RM/COBOL-85 display operations to the screen.  The HI-SCREEN Pro
+          II software attempts to capture BIOS screen display operations,
+          interpret the display operands as commands, and action the
+          commands onto the screen.  Three problems appear when using this
+          software with RM/COBOL-85.  First, beginning with RM/COBOL-85
+          version 5.20 the default screen interface is direct video RAM.
+          To use the HI-SCREEN Pro II software, you must specify
+          TERM-INTERFACE BIOS.  Second, the RM/COBOL-85 screen display code
+          uses the BIOS string write function on newer video BIOS ROMs.
+          The HI-SCREEN Pro II software recognizes only the BIOS write
+          single character function.  The optional patch described below
+          must be applied to force RM/COBOL-85 to use the write single
+          character function on newer video BIOS ROMs.  Third, the command
+          passed to the HI-SCREEN Pro II software is likely to affect a
+          larger screen region than the size of the displayed operand.
+          This prevents the pop-up window manager software from saving and
+          restoring the true screen contents when the DOS terminal
+          interface is used.  Again, you must specify TERM-INTERFACE BIOS.
+
+          To disable use of the BIOS Write String function in the RM/COBOL-
+          85 runtime, a copy of RUNCOBOL.EXE must be placed in a private
+          directory, and the RMPATCH utility program must be executed using
+          a RUNCOBOL.EXE other than the one being patched.  For example,
+          assuming that the RUNCOBOL.EXE and RMPATCH.COB were installed in
+          the directory C:\TOOLS, and that the directory C:\TMP was
+          available as a private directory, the following steps would be
+          needed to apply this patch:
+
+          C:
+          CD \TMP
+          COPY \TOOLS\RUNCOBOL.EXE RUNCOBOL.EXE
+          \TOOLS\RUNCOBOL \TOOLS\RMPATCH
+          Y
+          f runcobol.exe
+          v 2714f b4 c0 cd 15 72 06 81 0e
+          r 27153 eb
+          e
+
+          If RMPATCH showed no verification errors, then perform the final
+          step:
+
+          ATTRIB -R \TOOLS\RUNCOBOL.EXE
+          COPY RUNCOBOL.EXE \TOOLS\RUNCOBOL.EXE
+          ATTRIB +R \TOOLS\RUNCOBOL.EXE
+
+
+
+
+          OS/2 2.0 Virtual DOS Machines
+
+          The original GA (General Availability) release of OS/2 2.0 fails
+          to return the correct drive letter when a DOS interrupt 21
+          function 4400 is issued in a Virtual DOS Machine: the function
+          always reports the file resides on drive A.  This causes a
+          significant performance degradation in the RM/COBOL-85 file
+          system.  To avoid corruption problems on diskettes, the
+          RM/COBOL-85 file system always forces modified data to diskettes
+          immediately.  Because of this problem, the RM/COBOL-85 file
+          system believes all files reside on diskette and therefore
+          commits modified data to disk immediately on all files.  This
+          causes a significant performance degradation on local disk
+          access.  This problem is fixed in in OS/2 2.1, and in the 11/92
+          version of the OS/2 2.0 Service Pack.
+
+
+          Novell NETWARE XMS and EMS Shells
+
+          There is a bug in the Novell Netware XMS and EMS shells, versions
+          3.01 A-D.  This bug causes them to return incorrect information
+          for the server name when asked to resolve a file name for a file
+          that resides on the server.  Novell's recommendation is to use
+          the NET3 or NET4 shells instead of the XMS or EMS versions until
+          they release the next version of the shell software.  If the
+          flawed Netware Shells are used they could cause problems in the
+          RM/COBOL-85 Runtime System.  These problems include the
+          possibility of having an OPEN statement open a different file
+          than the one specified in the SELECT clause.
+
+
+
+
+          Novell NETWARE 1.1
+
+          On some early versions of network software, including Novell
+          Netware 1.1.1, the RM/COBOL-85 I/O system fails when opening a
+          file with a filename longer than eight characters or an extension
+          longer than three characters.  If you encounter this problem use
+          filenames of eight or fewer characters with extensions of three
+          or fewer characters.  If a COBOL program specifies a file name
+          with too many characters in the SELECT clause you can set an
+          environment variable to override that name and avoid the problem
+          without recompiling the program.
+
+
+
+          There is a performance versus recoverability tradeoff involving
+          the DOS Commit File function and NetWare.  The user should first
+          read the "DISABLE-COMMIT-FILE Configuration Option" paragraph
+          under the "Version 5.3 Enhancements" section near the beginning
+          of the User's Guide and the information on the pages it
+          references.  The paragraph states that unlocking, closing,
+          reopening, and relocking the file is slower than the Commit File.
+          This is not necessarily true for Novell's NETX Workstation Shell.
+          NETX correctly implements Commit File such that every operation
+          that modifies the file waits until the Novell server has actually
+          written all of the data to the server's disk before it completes.
+          Closing and reopening the file appears to flush data from the
+          local machine to the server but does not wait for the server to
+          actually write the disk.  Therefore, the Commit File may take
+          several times as long as the Close/Reopen.  In contrast, Novell's
+          NET5 Workstation Shell appears to do nothing when a Commit File
+          is issued so it is faster than the Close/Reopen; however, the
+          user is not getting the recoverability that was requested.  As a
+          result, a user upgrading from NET5 to NETX may notice a
+          significant slow down when writing indexed files due to the above
+          mentioned difference in the way Commit File works.  With the
+          NetWare 4 VLM client, Novell has implemented a TRUE COMMIT option
+          which allows the user to specify whether or not Commit File waits
+          for the server to write the data to the disk.  A NetWare 4 client
+          can be used with a NetWare 3 server so the user may wish to
+          consider this alternative.  The user is encouraged to experiment
+          with various NetWare and RM/COBOL-85 options in a controlled
+          environment and then decide which configuration provides the
+          level of performance and recoverability the user desires.
+
+
+
+
+          PC-NFS
+
+          In order for PC-NFS from Sun Microsystems to be able to properly
+          apply region locks to files on a UNIX NFS server, version 3 or
+          later of the "Network Lock Manager" program must be installed on
+          all connected UNIX systems.  Failure to insure that all systems
+          are current could prevent file and record locking from working or
+          cause processes to "hang."  See the PC-NFS installation manual
+          for directions on determining the version of the "Network Lock
+          Manager" on your system.  If you need to upgrade Interactive UNIX
+          System V.3.2/386, contact Interactive Systems and request updates
+          SSU4.a and SSU4.b.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
