@@ -1,0 +1,25 @@
+Fecha 20/12/2010                                                         Hoja 01
+
+                  Listado de pasajes vendidos y aprobados
+
+  Código micro: 000001  Detalle micro:  EMPRESA ARGENTINA DE TRANSPORT
+  Código tramo: 0001  Detalle tramo: EMPRESA ARGENTINA - TRAMO 1
+  Fecha: 2010-12-11  Hora: 03:54
+
+                    NRO-VENTA       IMPORTE       AGENCIA
+--------------------------------------------------------------------------------
+                      000001         009000          1
+                      000002         009000          1
+                      000003         009000          1
+                      000004         009000          1
+                      000005         009000          1
+                      000006         009000          1
+                      000007         009000          1
+                      000008         009000          1
+                      000009         009000          1
+                      000010         009000          1
+
+      Totales por viaje      Cantidad de ventas 10      Importe 090000
+
+   Totales generales    Cantidad de ventas 000010     Importe 000090000
+

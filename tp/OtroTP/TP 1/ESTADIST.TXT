@@ -1,0 +1,6 @@
+       ESTADISTICA DE RECHAZOS por no existenciade pasajes/ supero maximo de pasajes
+
+
+             00:01-06:00 Hs    06:01-12:00 Hs    12:01-18:00 Hs    18:01-00:00 Hs   %Tramo
+
+TRAMO 0001    00,00%  33,33%    00,00%  00,00%    00,00%  00,00%    00,00%  00,00%    33,33
