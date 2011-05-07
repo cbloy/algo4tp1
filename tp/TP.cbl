@@ -16,10 +16,49 @@
       	       ACCESS MODE IS SEQUENTIAL
 		       FILE STATUS IS FS-AUTOS.
 		   
-	   
+		   SELECT SOL1
+               ASSIGN TO "..\SOL1.TXT"
+               ORGANIZATION IS LINE SEQUENTIAL 
+               FILE STATUS IS FS-SOL1.
+			   
+		   SELECT SOL2
+               ASSIGN TO "..\SOL2.TXT"
+               ORGANIZATION IS LINE SEQUENTIAL 
+               FILE STATUS IS FS-SOL2.
+
+		   SELECT SOL3
+               ASSIGN TO "..\SOL3.TXT"
+               ORGANIZATION IS LINE SEQUENTIAL 
+               FILE STATUS IS FS-SOL3.			   
+
+			   
 	   DATA DIVISION.
 	   
        FILE SECTION.
+       FD SOL1.
+       01  SOL1-REG.
+           05  SOL1-CLAVE.
+              10  SOL1-PATENTE                      PIC X(06).
+              10  SOL1-FECHA                        PIC 9(08).
+		   05  SOL1-TIPO-DOC                        PIC X.
+		   05  SOL1-NRO-DOC                         PIC X(20).
+
+       FD SOL2.
+       01  SOL2-REG.
+           05  SOL2-CLAVE.
+              10  SOL2-PATENTE                      PIC X(06).
+              10  SOL2-FECHA                        PIC 9(08).
+		   05  SOL2-TIPO-DOC                        PIC X.
+		   05  SOL2-NRO-DOC                         PIC X(20).
+
+       FD SOL3.
+       01  SOL3-REG.
+           05  SOL3-CLAVE.
+              10  SOL3-PATENTE                      PIC X(06).
+              10  SOL3-FECHA                        PIC 9(08).
+		   05  SOL3-TIPO-DOC                        PIC X.
+		   05  SOL3-NRO-DOC                         PIC X(20).
+		   
        FD AUTOS.
 	   01  AUT-REG.
 	       05  AUT-PATENTE        PIC X(6).
@@ -31,13 +70,30 @@
 	   
 	   WORKING-STORAGE SECTION.
 	   
+	   01  WS-MENOR.
+           05  WS-CLAVE-MENOR.
+              10  SOL3-PATENTE                      PIC X(06).
+              10  SOL3-FECHA                        PIC 9(08).
+			  
       *****************
       *  FILE STATUS  *	  
       *****************
 	   01  FS-AUTOS                     PIC X(02).
 	       88  FS-AUTOS-OK              VALUE '00'.
            88  FS-AUTOS-FIN             VALUE '10'.
- 
+		   
+       01  FS-SOL1                                       PIC X(02).
+           88  FS-SOL1-OK                                VALUE '00'.
+           88  FS-SOL1-FIN                               VALUE '10'.
+		   
+       01  FS-SOL2                                       PIC X(02).
+           88  FS-SOL2-OK                                VALUE '00'.
+           88  FS-SOL2-FIN                               VALUE '10'.
+		   
+       01  FS-SOL3                                       PIC X(02).
+           88  FS-SOL3-OK                                VALUE '00'.
+           88  FS-SOL3-FIN                               VALUE '10'.
+		   
       * PARA CHEQUEO DE FILE STATUS
        01  FILE-STATUS.
           05  FS                       PIC X(02).
@@ -132,15 +188,114 @@
 		   
        1000-INICIO.
            PERFORM 1100-ABRIR-ARCHIVOS.
+		   PERFORM 8000-LEER-SOL1.
+		   PERFORM 8100-LEER-SOL2.
+		   PERFORM 8200-LEER-SOL3.
+		   DISPLAY "VOY A DETERMINAR". 
+		   PERFORM 2100-DETER-CLAVE-MENOR.
+		   DISPLAY "LISTO EL DET". 
 		   PERFORM 1200-CARGAR-TABLAS.
 	  
-       1100-ABRIR-ARCHIVOS.
+      **************************************************************
+      *               APERTURAS DE ARCHIVOS                        *
+      **************************************************************
+	   1100-ABRIR-ARCHIVOS.
+	       PERFORM 1101-ABRIR-ARCHIVO-AUTOS.
+	  	   PERFORM 1102-ABRIR-ARCHIVO-SOLICITUD1.	  	   
+		   PERFORM 1103-ABRIR-ARCHIVO-SOLICITUD2.	  	   
+		   PERFORM 1104-ABRIR-ARCHIVO-SOLICITUD3.
+	  
+       1101-ABRIR-ARCHIVO-AUTOS.
 		   OPEN INPUT  AUTOS.
            MOVE FS-AUTOS      TO FS.
            MOVE "AUTOS   "    TO FS-NOMBRE.
            MOVE "ABRIR"       TO FS-FUNCION.
            PERFORM 8900-CHECK-FILE-STATUS.
+		   
+	   1102-ABRIR-ARCHIVO-SOLICITUD1.
+	       OPEN INPUT  SOL1.
+           MOVE FS-SOL1         TO FS.
+           MOVE "SOL1   " TO FS-NOMBRE.
+           MOVE "ABRIR"         TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+		   
+	   1103-ABRIR-ARCHIVO-SOLICITUD2.
+	       OPEN INPUT  SOL2.
+           MOVE FS-SOL2         TO FS.
+           MOVE "SOL2   " TO FS-NOMBRE.
+           MOVE "ABRIR"         TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+		   
+	   1104-ABRIR-ARCHIVO-SOLICITUD3.
+	       OPEN INPUT  SOL3.
+           MOVE FS-SOL3         TO FS.
+           MOVE "SOL3   " TO FS-NOMBRE.
+           MOVE "ABRIR"         TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+      **************************************************************
+      *       HASTA ACA APERTURAS DE ARCHIVOS                      *
+      **************************************************************
+	  
+      **************************************************************
+      *       LEO ARCHIVOS                      *
+      **************************************************************
+	  
+	   8000-LEER-SOL1.
+           READ SOL1 AT END 
+					 MOVE HIGH-VALUES TO SOL1-CLAVE
+					 SET FS-SOL1-FIN  TO TRUE
+           END-READ.
+
+           IF NOT FS-SOL1-OK AND NOT FS-SOL1-FIN
+               DISPLAY 'ERROR AL INTENTAR LEER SOL1'
+               PERFORM 9999-CANCELAR-PROGRAMA
+           END-IF.
+
+       8100-LEER-SOL2.
+           READ SOL2 AT END 
+                     MOVE HIGH-VALUES TO SOL2-CLAVE
+                     SET FS-SOL2-FIN  TO TRUE
+           END-READ.
+
+           IF NOT FS-SOL2-OK AND NOT FS-SOL2-FIN
+               DISPLAY 'ERROR AL INTENTAR LEER SOL2'
+               PERFORM 9999-CANCELAR-PROGRAMA
+           END-IF.
        
+       8200-LEER-SOL3.
+           READ SOL3 AT END 
+                     MOVE HIGH-VALUES TO SOL3-CLAVE
+                     SET FS-SOL3-FIN  TO TRUE
+           END-READ.
+
+           IF NOT FS-SOL3-OK AND NOT FS-SOL3-FIN
+               DISPLAY 'ERROR AL INTENTAR LEER SOL3'
+               PERFORM 9999-CANCELAR-PROGRAMA
+           END-IF.
+      **************************************************************
+      *      HASTA ACA LEO ARCHIVOS                      *
+      **************************************************************		   
+      **************************************************************
+      *                    DETERMINARES                            *
+      **************************************************************
+	   2100-DETER-CLAVE-MENOR.
+	   
+           MOVE SOL1-CLAVE TO WS-CLAVE-MENOR.
+           
+           IF WS-CLAVE-MENOR GREATER THAN SOL2-CLAVE
+                MOVE SOL2-CLAVE TO WS-CLAVE-MENOR
+                DISPLAY 'EL MENOR ES SOL2'
+		   END-IF.
+		   
+           IF WS-CLAVE-MENOR GREATER THAN SOL3-CLAVE
+			 MOVE SOL3-CLAVE  TO WS-CLAVE-MENOR
+				DISPLAY 'EL MENOR ES SOL3'
+			ELSE
+				DISPLAY 'EL MENOR ES SOL1'
+           END-IF.
+		   
+           DISPLAY 'CLAVE MENOR: ' WS-CLAVE-MENOR.
+	  
 	   8400-LEER-AUTOS.
            READ AUTOS AT END SET FS-AUTOS-FIN TO TRUE.
 		   
@@ -169,6 +324,7 @@
               PERFORM 9999-CANCELAR-PROGRAMA
            END-IF.	
 		   
+
        9000-FINAL.
            CLOSE AUTOS.
            
