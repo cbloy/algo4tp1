@@ -84,36 +84,55 @@
       *  TABLAS  *
       ************
 	   01  TABLA-AUTOS.
-	       05  TABLA-AUT                OCCURS 300 TIMES.
-		       09  TABLA-AUTOS-REG.
-			       11  AUTO-PATENTE     PIC X(6).
-				   11  AUTO-DESC        PIC X(30).
-				   11  AUTO-MARCA       PIC X(20).
-				   11  AUTO-COLOR       PIC X(10).
-				   11  AUTO-TAMANIO     PIC X.
-				   11  AUTO-IMPORTE     PIC 9(4)V99.
+	       05  TABLA-AUT                OCCURS 300 TIMES
+      *		                                ASCENDING KEY AUT-PATENTE
+								        INDEXED BY IN-AUT.
+		       09  TABLA-AUT-REG.
+			       11  AUT-PATENTE     PIC X(6).
+				   11  AUT-DESC        PIC X(30).
+				   11  AUT-MARCA       PIC X(20).
+				   11  AUT-COLOR       PIC X(10).
+				   11  AUT-TAMANIO     PIC X.
+				   11  AUT-IMPORTE     PIC 9(4)V99.
 				   
        01  TABLA-ESTAD.
 	       05  ESTAD-MARCAS             OCCURS 100 TIMES.
 		       09  ESTAD-MARCA          PIC X(10).
 			   09  ESTAD-MESES          OCCURS 12 TIMES.
 			       11  ESTAD-MES        PIC 9(3).
-				   
+	   
+
+       01  IND-I 										PIC 9(3).	   
+       01  IND-J 										PIC 9(2).
+	   
        PROCEDURE DIVISION.
 	   PGM.		
            DISPLAY "INICIA EL PROGRAMA".
            PERFORM 1000-INICIO.
-		   PERFORM 8400-LEER-AUTOS.
-		   DISPLAY AUT-REG
-		   PERFORM 8400-LEER-AUTOS.
-		   DISPLAY AUT-REG
-		   PERFORM 8400-LEER-AUTOS.
-		   DISPLAY AUT-REG
-           DISPLAY "FINALIZA EL PROGRAMA". 
+      **************************************************	   
+		   DISPLAY "IMPRIMO LOS 2 PRIMEROS A MANOPLA"
+		   MOVE 1 TO IND-I.
+		   DISPLAY TABLA-AUT-REG(IND-I).
+		   ADD 1 TO IND-I.
+		   DISPLAY TABLA-AUT-REG(IND-I).
+		   
+		   DISPLAY "IMPRIMO AHORA DESDE LA TABLA"
+		   MOVE 1 TO IND-I.
+		   PERFORM TMP-IMPRIMIR-TABLA-AUT
+				  VARYING IND-I FROM 1 BY 1
+                  UNTIL IND-I > 4.
+
+      **************************************************
+		   
+		   DISPLAY "FINALIZA EL PROGRAMA". 
 		   STOP RUN.
+	   
+	   TMP-IMPRIMIR-TABLA-AUT.
+	       DISPLAY TABLA-AUT-REG(IND-I). 
 		   
        1000-INICIO.
            PERFORM 1100-ABRIR-ARCHIVOS.
+		   PERFORM 1200-CARGAR-TABLAS.
 	  
        1100-ABRIR-ARCHIVOS.
 		   OPEN INPUT  AUTOS.
@@ -129,6 +148,18 @@
                DISPLAY 'ERROR AL INTENTAR LEER AUTOS'
                PERFORM 9999-CANCELAR-PROGRAMA
            END-IF.
+		   
+	   1200-CARGAR-TABLAS.
+		   PERFORM 1300-CARGAR-TABLA-AUTOS
+				  VARYING IN-AUT FROM 1 BY 1
+                  UNTIL FS-AUTOS-FIN 
+				  OR IN-AUT > 300.
+		   MOVE 1 TO IND-I.		  
+		
+	   1300-CARGAR-TABLA-AUTOS.
+           PERFORM 8400-LEER-AUTOS.
+           MOVE AUT-REG TO TABLA-AUT-REG(IN-AUT).
+
        8900-CHECK-FILE-STATUS.
            IF FS NOT EQUAL "00"
               DISPLAY "CANCELACION POR ERROR"
