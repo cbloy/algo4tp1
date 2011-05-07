@@ -31,6 +31,26 @@
                ORGANIZATION IS LINE SEQUENTIAL 
                FILE STATUS IS FS-SOL3.			   
 
+		   SELECT ALQ
+               ASSIGN TO "..\ALQ.TXT"
+               ORGANIZATION IS LINE SEQUENTIAL 
+               FILE STATUS IS FS-ALQ.
+
+		   SELECT RECH
+               ASSIGN TO "..\RECHAZOS.TXT"
+               ORGANIZATION IS LINE SEQUENTIAL 
+               ACCESS MODE IS SEQUENTIAL
+               FILE STATUS IS FS-RECH.
+			   
+		   SELECT ESTAD
+               ASSIGN TO "..\ESTADIST.TXT"
+               ORGANIZATION IS LINE SEQUENTIAL 
+               FILE STATUS IS FS-ESTAD.
+
+		   SELECT   LISTADO	
+		       ASSIGN TO "LISTADO.TXT" 
+			   ORGANIZATION IS LINE SEQUENTIAL.	
+
 			   
 	   DATA DIVISION.
 	   
@@ -68,6 +88,31 @@
 		   05  AUT-TAMANIO        PIC X.
 		   05  AUT-IMPORTE        PIC 9(4)V99.
 	   
+       FD ALQ.
+	   01  ALQ-REG.
+	       05  ALQ-CLAVE.
+              10  ALQ-PATENTE                      PIC X(06).
+              10  ALQ-FECHA                        PIC 9(08).
+		   05  ALQ-TIPO-DOC                        PIC X.
+		   05  ALQ-NRO-DOC                         PIC X(20).
+		   05  ALQ-IMPORTE                         PIC 9(4)V99.
+		   
+       FD RECH.
+       01  RECH-REG.
+           05  RECH-CLAVE.
+              10  RECH-PATENTE                      PIC X(06).
+              10  RECH-FECHA                        PIC 9(08).
+		   05  RECH-TIPO-DOC                        PIC X.
+		   05  RECH-NRO-DOC                         PIC X(20).
+		   05  RECH-MOTIVO                          PIC 9.
+		   05  RECH-AGENCIA                         PIC 9.
+		   
+	   FD ESTAD.
+	   01 LINEA-ESTADISTICA						    PIC X(100).
+	   
+	   FD LISTADO.
+	   01 LINEA											PIC X(80).
+	   
 	   WORKING-STORAGE SECTION.
 	   
 	   01  WS-MENOR.
@@ -93,6 +138,19 @@
        01  FS-SOL3                                       PIC X(02).
            88  FS-SOL3-OK                                VALUE '00'.
            88  FS-SOL3-FIN                               VALUE '10'.
+		   
+	   01  FS-ALQ                     PIC X(02).
+	       88  FS-ALQ-OK              VALUE '00'.
+           88  FS-ALQ-FIN             VALUE '10'.
+		   
+	   01  FS-RECH                     PIC X(02).
+	       88  FS-RECH-OK              VALUE '00'.
+           88  FS-RECH-FIN             VALUE '10'.
+		   
+	   01  FS-ESTAD                     PIC X(02).
+	       88  FS-ESTAD-OK              VALUE '00'.
+           88  FS-ESTAD-FIN             VALUE '10'.
+		   
 		   
       * PARA CHEQUEO DE FILE STATUS
        01  FILE-STATUS.
@@ -213,6 +271,10 @@
 	  	   PERFORM 1102-ABRIR-ARCHIVO-SOLICITUD1.	  	   
 		   PERFORM 1103-ABRIR-ARCHIVO-SOLICITUD2.	  	   
 		   PERFORM 1104-ABRIR-ARCHIVO-SOLICITUD3.
+		   PERFORM 1105-ABRIR-ARCHIVO-ALQUILERES.
+		   PERFORM 1106-ABRIR-ARCHIVO-RECHAZOS.
+		   PERFORM 1107-ABRIR-ARCHIVO-ESTAD.
+		   PERFORM 1108-ABRIR-ARCHIVO-LISTADO.
 	  
        1101-ABRIR-ARCHIVO-AUTOS.
 		   OPEN INPUT  AUTOS.
@@ -241,12 +303,37 @@
            MOVE "SOL3   " TO FS-NOMBRE.
            MOVE "ABRIR"         TO FS-FUNCION.
            PERFORM 8900-CHECK-FILE-STATUS.
+		   
+	   1105-ABRIR-ARCHIVO-ALQUILERES.
+	   	   OPEN INPUT  ALQ.
+           MOVE FS-ALQ         TO FS.
+           MOVE "ALQ   "       TO FS-NOMBRE.
+           MOVE "ABRIR"        TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+
+	   1106-ABRIR-ARCHIVO-RECHAZOS.
+	       OPEN OUTPUT  RECH.
+           MOVE FS-RECH         TO FS.
+           MOVE "RECH   "       TO FS-NOMBRE.
+           MOVE "ABRIR"         TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+	   
+	   1107-ABRIR-ARCHIVO-ESTAD.
+	   	   OPEN OUTPUT  ESTAD.
+           MOVE FS-ESTAD         TO FS.
+           MOVE "ESTAD   "       TO FS-NOMBRE.
+           MOVE "ABRIR"          TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+		  
+	   1108-ABRIR-ARCHIVO-LISTADO.
+		   OPEN OUTPUT LISTADO.
+		   
       **************************************************************
       *       HASTA ACA APERTURAS DE ARCHIVOS                      *
       **************************************************************
 	  
       **************************************************************
-      *       LEO ARCHIVOS                      *
+      *       LEO ARCHIVOS                                         *
       **************************************************************
 	  
 	   8000-LEER-SOL1.
@@ -358,6 +445,13 @@
 
        9000-FINAL.
            CLOSE AUTOS.
+		   CLOSE SOL1.
+           CLOSE SOL2.
+           CLOSE SOL3.
+           CLOSE ALQ.
+           CLOSE RECH.
+		   CLOSE ESTAD.
+		   CLOSE LISTADO.
            
        9999-CANCELAR-PROGRAMA.
            PERFORM 9000-FINAL.
