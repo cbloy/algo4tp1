@@ -114,6 +114,15 @@
       **************		   
       *  LISTADOS  *
       **************
+       01  TOTAL-PAT-IMPORTE            PIC 9(7)V99.
+	   01  TOTAL-PAT-DIAS               PIC 999.
+	   01  TOTAL-GRAL-IMPORTE           PIC 9(7)V99.
+	   01  MOTIVO-RECHAZO               PIC X.
+	   01  CONT-LINEAS                  PIC 99.
+	   01  EXISTE-AUTO                  PIC X.
+	   01  PATENTE-ANTERIOR             PIC X(6).
+	   01  PATENTE-MENOR                PIC X(6).
+	   
        01  FECHA.
    		   03  FECHA-AA   				PIC 9(02).
 		   03  FECHA-MM					PIC 9(02).
@@ -153,9 +162,10 @@
 				   
        01  TABLA-ESTAD.
 	       05  ESTAD-MARCAS             OCCURS 100 TIMES.
-		       09  ESTAD-MARCA          PIC X(10).
+		       09  ESTAD-MARCA          PIC X(20).
 			   09  ESTAD-MESES          OCCURS 12 TIMES.
 			       11  ESTAD-MES        PIC 9(3).
+			   09  ESTAD-TOTAL          PIC 9(4).
 	   
 
        01  IND-I 										PIC 9(3).	   
@@ -166,18 +176,16 @@
            DISPLAY "INICIA EL PROGRAMA".
            PERFORM 1000-INICIO.
       **************************************************	   
-		   DISPLAY "IMPRIMO LOS 2 PRIMEROS A MANOPLA"
-		   MOVE 1 TO IND-I.
-		   DISPLAY TABLA-AUT-REG(IND-I).
-		   ADD 1 TO IND-I.
-		   DISPLAY TABLA-AUT-REG(IND-I).
-		   
-		   DISPLAY "IMPRIMO AHORA DESDE LA TABLA"
-		   MOVE 1 TO IND-I.
-		   PERFORM TMP-IMPRIMIR-TABLA-AUT
-				  VARYING IND-I FROM 1 BY 1
-                  UNTIL IND-I > 4.
-
+      *	   DISPLAY "IMPRIMO LOS 2 PRIMEROS A MANOPLA"
+      *	   		   MOVE 1 TO IND-I.
+      *	   		   DISPLAY TABLA-AUT-REG(IND-I).
+      *	   		   ADD 1 TO IND-I.
+      *	   		   DISPLAY TABLA-AUT-REG(IND-I).
+      *	   		   DISPLAY "IMPRIMO AHORA DESDE LA TABLA"
+      *	   		   MOVE 1 TO IND-I.
+      *	   		   PERFORM TMP-IMPRIMIR-TABLA-AUT
+      *	   				  VARYING IND-I FROM 1 BY 1
+      *	                     UNTIL IND-I > 5.
       **************************************************
 		   
 		   DISPLAY "FINALIZA EL PROGRAMA". 
@@ -195,11 +203,12 @@
 		   PERFORM 2100-DETER-CLAVE-MENOR.
 		   DISPLAY "LISTO EL DET". 
 		   PERFORM 1200-CARGAR-TABLAS.
+		   PERFORM 1300-INICIALIZAR-VARIABLES.
 	  
       **************************************************************
       *               APERTURAS DE ARCHIVOS                        *
       **************************************************************
-	   1100-ABRIR-ARCHIVOS.
+       1100-ABRIR-ARCHIVOS.
 	       PERFORM 1101-ABRIR-ARCHIVO-AUTOS.
 	  	   PERFORM 1102-ABRIR-ARCHIVO-SOLICITUD1.	  	   
 		   PERFORM 1103-ABRIR-ARCHIVO-SOLICITUD2.	  	   
@@ -275,6 +284,28 @@
       **************************************************************
       *      HASTA ACA LEO ARCHIVOS                      *
       **************************************************************		   
+ 
+      ***************************************************************
+      * 	INICIALIZO LAS VARIABLES								*
+      ***************************************************************
+       1300-INICIALIZAR-VARIABLES.
+           MOVE HIGH-VALUES TO CLAVE-ANTERIOR.
+		   MOVE HIGH-VALUES TO CLAVE-ACTUAL.
+		   MOVE ZERO TO TOTAL-PAT-IMPORTE.
+		   MOVE ZERO TO TOTAL-PAT-DIAS.
+		   MOVE ZERO TO TOTAL-GRAL-IMPORTE.
+		   MOVE ZERO TO ENC-N-HOJA.
+		   MOVE ZERO TO CONT-LINEAS.		   
+		   MOVE 'X' TO MOTIVO-RECHAZO.		   
+		   MOVE 'X' TO EXISTE-AUTO.
+		   MOVE 'X' TO PATENTE-ANTERIOR.
+		   MOVE 'X' TO PATENTE-MENOR.
+		   
+		   
+      ***************************************************************
+      * 	HASTA ACA INICIALIZO LAS VARIABLES						*
+      ***************************************************************
+	  
       **************************************************************
       *                    DETERMINARES                            *
       **************************************************************
