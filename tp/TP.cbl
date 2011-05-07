@@ -117,8 +117,13 @@
 	   
 	   01  WS-MENOR.
            05  WS-CLAVE-MENOR.
-              10  SOL3-PATENTE                      PIC X(06).
-              10  SOL3-FECHA                        PIC 9(08).
+              10  CLAVE-MENOR-PATENTE                      PIC X(06).
+              10  CLAVE-MENOR-FECHA                        PIC 9(08).
+
+       01  WS-ANT.
+           05  WS-CLAVE-ANT.
+              10  CLAVE-ANT-PATENTE                      PIC X(06).
+              10  CLAVE-ANT-FECHA                        PIC 9(08).
 			  
       *****************
       *  FILE STATUS  *	  
@@ -233,19 +238,16 @@
 	   PGM.		
            DISPLAY "INICIA EL PROGRAMA".
            PERFORM 1000-INICIO.
-      **************************************************	   
-      *	   DISPLAY "IMPRIMO LOS 2 PRIMEROS A MANOPLA"
-      *	   		   MOVE 1 TO IND-I.
-      *	   		   DISPLAY TABLA-AUT-REG(IND-I).
-      *	   		   ADD 1 TO IND-I.
-      *	   		   DISPLAY TABLA-AUT-REG(IND-I).
-      *	   		   DISPLAY "IMPRIMO AHORA DESDE LA TABLA"
-      *	   		   MOVE 1 TO IND-I.
-      *	   		   PERFORM TMP-IMPRIMIR-TABLA-AUT
-      *	   				  VARYING IND-I FROM 1 BY 1
-      *	                     UNTIL IND-I > 5.
-      **************************************************
-		   
+		   PERFORM 8300-LEER-ALQ.
+		   PERFORM 8000-LEER-SOL1.
+		   PERFORM 8100-LEER-SOL2.
+		   PERFORM 8200-LEER-SOL3.
+		   PERFORM 2100-DETER-CLAVE-MENOR.
+		   MOVE WS-MENOR TO WS-ANT.
+		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
+		   PERFORM 6000-PROCESAR.
+		   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
+		   PERFORM 7100-IMPRIMIR-POR-MARCA.
 		   DISPLAY "FINALIZA EL PROGRAMA". 
 		   STOP RUN.
 	   
@@ -254,12 +256,6 @@
 		   
        1000-INICIO.
            PERFORM 1100-ABRIR-ARCHIVOS.
-		   PERFORM 8000-LEER-SOL1.
-		   PERFORM 8100-LEER-SOL2.
-		   PERFORM 8200-LEER-SOL3.
-		   DISPLAY "VOY A DETERMINAR". 
-		   PERFORM 2100-DETER-CLAVE-MENOR.
-		   DISPLAY "LISTO EL DET". 
 		   PERFORM 1200-CARGAR-TABLAS.
 		   PERFORM 1300-INICIALIZAR-VARIABLES.
 	  
@@ -368,8 +364,20 @@
                DISPLAY 'ERROR AL INTENTAR LEER SOL3'
                PERFORM 9999-CANCELAR-PROGRAMA
            END-IF.
+		   
+	   8300-LEER-ALQ.
+	       READ ALQ AT END 
+                     MOVE HIGH-VALUES TO ALQ-CLAVE
+                     SET FS-ALQ-FIN  TO TRUE
+           END-READ.
+
+           IF NOT FS-ALQ-OK AND NOT FS-ALQ-FIN
+               DISPLAY 'ERROR AL INTENTAR LEER ALQUILER'
+               PERFORM 9999-CANCELAR-PROGRAMA
+           END-IF.
+	   
       **************************************************************
-      *      HASTA ACA LEO ARCHIVOS                      *
+      *      HASTA ACA LEO ARCHIVOS                                *
       **************************************************************		   
  
       ***************************************************************
@@ -392,6 +400,18 @@
       ***************************************************************
       * 	HASTA ACA INICIALIZO LAS VARIABLES						*
       ***************************************************************
+	  
+	  5000-BUSCAR-PATENTE-EN-AUTOS.
+	       DISPLAY "ENTRE AL BUSCAR DE PATENTE".
+		   
+	  6000-PROCESAR.
+	       DISPLAY "ENTRE AL PROCESAR".
+	  
+	  7000-IMPRIMIR-TOTAL-GRAL.
+	       DISPLAY "ENTRE AL IMPRIMIR GRAL".
+	  
+	  7100-IMPRIMIR-POR-MARCA.
+	       DISPLAY "ENTRE AL IMPRIMIR POR MARCA".
 	  
       **************************************************************
       *                    DETERMINARES                            *
