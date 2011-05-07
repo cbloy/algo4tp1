@@ -49,7 +49,13 @@
 
 		   SELECT   LISTADO	
 		       ASSIGN TO "LISTADO.TXT" 
-			   ORGANIZATION IS LINE SEQUENTIAL.	
+			   ORGANIZATION IS LINE SEQUENTIAL.
+
+           SELECT  ALQ-ACT
+               ASSIGN TO "ALQ-ACT.TXT"
+			   ORGANIZATION IS LINE SEQUENTIAL
+			   ACCESS MODE IS SEQUENTIAL
+			   FILE STATUS IS FS-ALQ-ACT.
 
 			   
 	   DATA DIVISION.
@@ -96,6 +102,16 @@
 		   05  ALQ-TIPO-DOC                        PIC X.
 		   05  ALQ-NRO-DOC                         PIC X(20).
 		   05  ALQ-IMPORTE                         PIC 9(4)V99.
+		   
+		   
+	   FD ALQ-ACT.
+	   01  ALQ-ACT-REG.
+	       05  ALQ-ACT-CLAVE.
+              10  ALQ-ACT-PATENTE                      PIC X(06).
+              10  ALQ-ACT-FECHA                        PIC 9(08).
+		   05  ALQ-ACT-TIPO-DOC                        PIC X.
+		   05  ALQ-ACT-NRO-DOC                         PIC X(20).
+		   05  ALQ-ACT-IMPORTE                         PIC 9(4)V99.
 		   
        FD RECH.
        01  RECH-REG.
@@ -156,23 +172,21 @@
 	       88  FS-ESTAD-OK              VALUE '00'.
            88  FS-ESTAD-FIN             VALUE '10'.
 		   
+       01  FS-ALQ-RECH                  PIC X(02).
+	       88  FS-ALQ-RECH-OK           VALUE '00'.           
+		   88  FS-ALQ-RECH-FIN          VALUE '10'.
 		   
+		01 FS-ALQ-ACT					PIC	X(02).
+		   88 FS-ALQ-ACT-OK			VALUE '00'.
+		   88 FS-ALQ-ACT-FIN			VALUE '10'.
+			
       * PARA CHEQUEO DE FILE STATUS
        01  FILE-STATUS.
           05  FS                       PIC X(02).
           05  FS-NOMBRE                PIC X(08).
           05  FS-FUNCION               PIC X(05).	  
 		   
-      ************		   
-      *  CLAVES  *
-      ************
-	   01  CLAVE-ANTERIOR.
-	       05  PATENTE                  PIC X(6).
-		   05  FECHA                    PIC 9(8).
-	   
-       01  CLAVE-ACTUAL.
-	       05  PATENTE                  PIC X(6).
-		   05  FECHA                    PIC 9(8).	   
+      	   
 		   
       **************		   
       *  LISTADOS  *
@@ -324,6 +338,14 @@
            MOVE "ABRIR"        TO FS-FUNCION.
            PERFORM 8900-CHECK-FILE-STATUS.
 
+	  1105-ABRIR-ARCHIVO-ALQUILERES-ACT.
+	   	   OPEN OUTPUT  ALQ-ACT.
+           MOVE FS-ALQ-ACT     TO FS.
+           MOVE "ALQ ACT   "   TO FS-NOMBRE.
+           MOVE "ABRIR"        TO FS-FUNCION.
+           PERFORM 8900-CHECK-FILE-STATUS.
+		   
+		   
 	   1106-ABRIR-ARCHIVO-RECHAZOS.
 	       OPEN OUTPUT  RECH.
            MOVE FS-RECH         TO FS.
@@ -387,7 +409,7 @@
 	       READ ALQ AT END 
                      MOVE HIGH-VALUES TO ALQ-CLAVE
                      SET FS-ALQ-FIN  TO TRUE
-           END-READ.
+           END	-READ.
 
            IF NOT FS-ALQ-OK AND NOT FS-ALQ-FIN
                DISPLAY 'ERROR AL INTENTAR LEER ALQUILER'
@@ -402,8 +424,6 @@
       * 	INICIALIZO LAS VARIABLES								*
       ***************************************************************
        1300-INICIALIZAR-VARIABLES.
-           MOVE HIGH-VALUES TO CLAVE-ANTERIOR.
-		   MOVE HIGH-VALUES TO CLAVE-ACTUAL.
 		   MOVE ZERO TO TOTAL-PAT-IMPORTE.
 		   MOVE ZERO TO TOTAL-PAT-DIAS.
 		   MOVE ZERO TO TOTAL-GRAL-IMPORTE.
@@ -613,8 +633,14 @@
            CLOSE RECH.
 		   CLOSE ESTAD.
 		   CLOSE LISTADO.
+		   CLOSE ALQ-ACT.
            
        9999-CANCELAR-PROGRAMA.
            PERFORM 9000-FINAL.
            DISPLAY "SALIDA POR CANCELACION DE PROGRAMA".
 		   STOP RUN.		   
+		   
+	   3000-PROCESAR-ALQUILERES.
+	       MOVE  ALQ-REG TO ALQ-ACT-REG.
+		   WRITE ALQ-ACT-REG.
+		   MOVE CORRESPONDING  WS-CLAVE-MENOR TO WS-CLAVE-ANT.
