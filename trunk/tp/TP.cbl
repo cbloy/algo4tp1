@@ -216,12 +216,12 @@
       *		                                ASCENDING KEY AUT-PATENTE
 								        INDEXED BY IN-AUT.
 		       09  TABLA-AUT-REG.
-			       11  AUT-PATENTE     PIC X(6).
-				   11  AUT-DESC        PIC X(30).
-				   11  AUT-MARCA       PIC X(20).
-				   11  AUT-COLOR       PIC X(10).
-				   11  AUT-TAMANIO     PIC X.
-				   11  AUT-IMPORTE     PIC 9(4)V99.
+			       11  T-AUT-PATENTE     PIC X(6).
+				   11  T-AUT-DESC        PIC X(30).
+				   11  T-AUT-MARCA       PIC X(20).
+				   11  T-AUT-COLOR       PIC X(10).
+				   11  T-AUT-TAMANIO     PIC X.
+				   11  T-AUT-IMPORTE     PIC 9(4)V99.
 				   
        01  TABLA-ESTAD.
 	       05  ESTAD-MARCAS             OCCURS 100 TIMES.
@@ -233,6 +233,10 @@
 
        01  IND-I 										PIC 9(3).	   
        01  IND-J 										PIC 9(2).
+	   01  IND-I2 										PIC 9(3).
+	   01  IND-MAR 										PIC 9(3).
+	   01  IND-MES                                      PIC 9(2).
+	   01  MARCA-ENCONTRADO                             PIC X.
 	   
        PROCEDURE DIVISION.
 	   PGM.		
@@ -252,11 +256,20 @@
 			  AND FS-ALQ-FIN.
 		   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
 		   PERFORM 7100-IMPRIMIR-POR-MARCA.
+
+		   MOVE 1 TO IND-MAR.
+		   PERFORM TMP-IMPRIMIR-TABLA-MARCAS
+				  VARYING IND-MAR FROM 1 BY 1
+                  UNTIL IND-MAR > 2.
+		   
 		   DISPLAY "FINALIZA EL PROGRAMA". 
 		   STOP RUN.
 	   
 	   TMP-IMPRIMIR-TABLA-AUT.
 	       DISPLAY TABLA-AUT-REG(IND-I). 
+	   TMP-IMPRIMIR-TABLA-MARCAS.
+      *     DISPLAY ESTAD-MARCA(IND-MAR).    
+	       DISPLAY ESTAD-MARCAS(IND-MAR).    
 		   
        1000-INICIO.
            PERFORM 1100-ABRIR-ARCHIVOS.
@@ -534,6 +547,7 @@
            END-IF.
 		   
 	   1200-CARGAR-TABLAS.
+	       MOVE 1 TO IND-MAR.
 		   PERFORM 1300-CARGAR-TABLA-AUTOS
 				  VARYING IN-AUT FROM 1 BY 1
                   UNTIL FS-AUTOS-FIN 
@@ -543,6 +557,42 @@
 	   1300-CARGAR-TABLA-AUTOS.
            PERFORM 8400-LEER-AUTOS.
            MOVE AUT-REG TO TABLA-AUT-REG(IN-AUT).
+		   
+           PERFORM 1400-CARGAR-TABLA-ESTAD.
+		   
+		   
+       
+	   1400-CARGAR-TABLA-ESTAD.
+		   MOVE 1 TO IND-I2.
+		   MOVE 'N' TO MARCA-ENCONTRADO.
+		   
+           PERFORM 1500-BUSCAR-TABLA-ESTAD UNTIL IND-I2 > 100 
+      					OR MARCA-ENCONTRADO = 'S'. 
+		   
+           IF MARCA-ENCONTRADO EQUAL 'N' THEN
+		        
+      	        MOVE AUT-MARCA TO ESTAD-MARCA(IND-MAR)
+				
+				MOVE 1 TO IND-MES
+				PERFORM 1401-CARGAR-ESTAD-MESES-ZERO
+				        VARYING IND-MES FROM 1 BY 1
+						UNTIL IND-MES > 12
+			    
+				MOVE ZERO TO ESTAD-TOTAL(IND-MAR)
+				
+		        ADD 1 TO IND-MAR
+           END-IF.
+		   
+       1401-CARGAR-ESTAD-MESES-ZERO.
+	       MOVE ZERO TO ESTAD-MES(IND-MAR, IND-MES).
+		   	   
+   	   1500-BUSCAR-TABLA-ESTAD.
+           IF ESTAD-MARCA(IND-I2) EQUAL AUT-MARCA
+      		   MOVE 'S' TO MARCA-ENCONTRADO
+      	   ELSE
+      		   ADD 1 TO IND-I2
+      	   END-IF.
+		   
 
        8900-CHECK-FILE-STATUS.
            IF FS NOT EQUAL "00"
