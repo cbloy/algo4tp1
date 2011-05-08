@@ -156,6 +156,8 @@
               10  CLAVE-ANT-PATENTE                      PIC X(06).
               10  CLAVE-ANT-FECHA                        PIC 9(08).
 			  
+	   01  WS-PAT-ANT                                    PIC X(6).
+			  
       *****************
       *  FILE STATUS  *	  
       *****************
@@ -279,14 +281,12 @@
 	       PERFORM 8200-LEER-SOL3.	
 		   
 		   PERFORM 2100-DETER-CLAVE-MENOR.
-		   		   		   
+		   
 		   PERFORM 6000-PROCESAR
-
-      * Lo deje comentado porque es lo que pincha el while infinito		   
-      *	           UNTIL FS-SOL1-FIN
-      *	      AND FS-SOL2-FIN
-      *		  AND FS-SOL3-FIN
-      *		       AND FS-ALQ-FIN.
+				UNTIL FS-SOL1-FIN
+				AND FS-SOL2-FIN
+				AND FS-SOL3-FIN
+				AND FS-ALQ-FIN.
       
 		   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
 		   PERFORM 7100-IMPRIMIR-POR-MARCA.
@@ -459,7 +459,7 @@
 	   6000-PROCESAR.
 	       DISPLAY "ENTRE AL PROCESAR".
 		   
-		   MOVE WS-MENOR TO WS-ANT.
+		   MOVE CLAVE-MENOR-PATENTE TO WS-PAT-ANT.
       
       * Si encuentra el auto por patente en la tabla de autos: 
       *     Guarda en AUT-REG y EXISTE-AUTO = '1'
@@ -473,15 +473,14 @@
 	       MOVE ZERO TO TOTAL-PAT-IMPORTE.
 	       MOVE ZERO TO TOTAL-PAT-DIAS.
 		   
-		   MOVE WS-MENOR TO WS-ANT.
-		   
 		   PERFORM 6100-PROCESAR-PAT
 		      UNTIL (FS-SOL1-FIN
 			  AND FS-SOL2-FIN
 			  AND FS-SOL3-FIN
 			  AND FS-ALQ-FIN)
-				OR CLAVE-MENOR-PATENTE NOT EQUAL CLAVE-ANT-PATENTE.
-	       IF EXISTE-AUTO = '1' THEN
+				OR CLAVE-MENOR-PATENTE NOT EQUAL WS-PAT-ANT.
+	       
+		   IF EXISTE-AUTO = '1' THEN
 		       PERFORM 7300-IMPRIMIR-PIE
 		   END-IF.
 
@@ -493,7 +492,8 @@
 		   PERFORM 6300-POSIBLE-SOL1.
 		   PERFORM 6500-POSIBLE-SOL3.
 		   PERFORM 6400-POSIBLE-SOL2.
-		   MOVE WS-MENOR TO WS-ANT.
+
+		   MOVE CLAVE-MENOR-PATENTE TO WS-PAT-ANT
 		   PERFORM 2100-DETER-CLAVE-MENOR.
 
 	  
@@ -588,6 +588,8 @@
 	     MOVE SOL1-NRO-DOC  TO ALQ-ACT-NRO-DOC.
 		 MOVE SOL1-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
 		 MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.
+		 		 
+		 WRITE ALQ-ACT-REG.
 		   
 	   4100-PROCESAR-SOL2.
 	       DISPLAY "PROCESAR SOL2".
@@ -639,7 +641,8 @@
 	       MOVE SOL2-NRO-DOC  TO ALQ-ACT-NRO-DOC.
 		   MOVE SOL2-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
 		   MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.	
-	   
+	       WRITE ALQ-ACT-REG.
+		   
 	   4200-PROCESAR-SOL3.
 	       DISPLAY "PROCESAR SOL3".
 		   
@@ -690,6 +693,7 @@
 	       MOVE SOL3-NRO-DOC  TO ALQ-ACT-NRO-DOC.
 		   MOVE SOL3-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
 		   MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.
+		   WRITE ALQ-ACT-REG.
 	  
       **************************************************************
       *                    DETERMINARES                            *
