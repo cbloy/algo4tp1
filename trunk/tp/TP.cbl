@@ -225,9 +225,7 @@
       *  TABLAS  *
       ************
 	   01  TABLA-AUTOS.
-	       05  TABLA-AUT                OCCURS 300 TIMES
-      *		                                ASCENDING KEY AUT-PATENTE
-								        INDEXED BY IN-AUT.
+	       05  TABLA-AUT                OCCURS 300 TIMES.
 		       09  TABLA-AUT-REG.
 			       11  T-AUT-PATENTE     PIC X(6).
 				   11  T-AUT-DESC        PIC X(30).
@@ -262,19 +260,22 @@
 		   PERFORM 2100-DETER-CLAVE-MENOR.
 		   MOVE WS-MENOR TO WS-ANT.
 		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
-		   PERFORM 6000-PROCESAR
-		      UNTIL FS-SOL1-FIN
-			  AND FS-SOL2-FIN
-			  AND FS-SOL3-FIN
-			  AND FS-ALQ-FIN.
-		   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
-		   PERFORM 7100-IMPRIMIR-POR-MARCA.
+      *	   PERFORM 6000-PROCESAR
+      *	      UNTIL FS-SOL1-FIN
+      *		  AND FS-SOL2-FIN
+      *		  AND FS-SOL3-FIN
+      *		  AND FS-ALQ-FIN.
+      *	   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
+      *	   PERFORM 7100-IMPRIMIR-POR-MARCA.
 
 		   MOVE 1 TO IND-MAR.
 		   PERFORM TMP-IMPRIMIR-TABLA-MARCAS
 				  VARYING IND-MAR FROM 1 BY 1
                   UNTIL IND-MAR > 2.
 		   
+		   IF EXISTE-AUTO = '1'
+		      DISPLAY AUT-REG
+		   END-IF.
 		   DISPLAY "FINALIZA EL PROGRAMA". 
 		   STOP RUN.
 	   
@@ -439,9 +440,6 @@
       * 	HASTA ACA INICIALIZO LAS VARIABLES						*
       ***************************************************************
 	  
-	  5000-BUSCAR-PATENTE-EN-AUTOS.
-	       DISPLAY "ENTRE AL BUSCAR DE PATENTE".
-		   
 	  6000-PROCESAR.
 	       DISPLAY "ENTRE AL PROCESAR".
            IF EXISTE-AUTO = '1' THEN
@@ -537,8 +535,7 @@
 			   MOVE 1 TO RECH-AGENCIA
 			   DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
-		   END-IF.
-		   IF EXISTE-AUTO = '1' THEN
+		   ELSE IF EXISTE-AUTO = '0' THEN
 		       MOVE SOL1-PATENTE TO RECH-PATENTE
 			   MOVE SOL1-FECHA   TO RECH-FECHA
 			   MOVE SOL1-TIPO-DOC TO RECH-TIPO-DOC
@@ -611,15 +608,15 @@
 		   
 	   1200-CARGAR-TABLAS.
 	       MOVE 1 TO IND-MAR.
+		   MOVE 1 TO IND-I.
 		   PERFORM 1300-CARGAR-TABLA-AUTOS
-				  VARYING IN-AUT FROM 1 BY 1
+				  VARYING IND-I FROM 1 BY 1
                   UNTIL FS-AUTOS-FIN 
-				  OR IN-AUT > 300.
-		   MOVE 1 TO IND-I.		  
-		
+				  OR IND-I > 300.
+		   		
 	   1300-CARGAR-TABLA-AUTOS.
            PERFORM 8400-LEER-AUTOS.
-           MOVE AUT-REG TO TABLA-AUT-REG(IN-AUT).
+           MOVE AUT-REG TO TABLA-AUT-REG(IND-I).
 		   
            PERFORM 1400-CARGAR-TABLA-ESTAD.
 		   
@@ -655,8 +652,24 @@
       	   ELSE
       		   ADD 1 TO IND-I2
       	   END-IF.
-		   
 
+       
+	   5000-BUSCAR-PATENTE-EN-AUTOS.
+	       DISPLAY CLAVE-MENOR-PATENTE.
+	       MOVE 1 TO IND-I.
+	       MOVE '0' TO EXISTE-AUTO
+	       PERFORM 5001-RECORRER-TABLA-AUTOS
+	               VARYING IND-I FROM 1 BY 1
+			       UNTIL IND-I > 300
+			       OR EXISTE-AUTO = '1'.
+			  
+	   5001-RECORRER-TABLA-AUTOS.
+           IF T-AUT-PATENTE(IND-I) EQUAL CLAVE-MENOR-PATENTE
+		       MOVE '1' TO EXISTE-AUTO
+			   MOVE TABLA-AUT-REG(IND-I) TO AUT-REG
+		   END-IF.
+	         
+		   
        8900-CHECK-FILE-STATUS.
            IF FS NOT EQUAL "00"
               DISPLAY "CANCELACION POR ERROR"
