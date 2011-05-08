@@ -128,6 +128,10 @@
 	   FD LISTADO.
 	   01 LINEA											PIC X(80).
 	   
+	   01 LINEA-AUX						PIC X(80).
+	   
+	   01 NRO-AGENCIA-IMPRIMIR          PIC X.
+	   
 	   WORKING-STORAGE SECTION.
 	   
 	   01  WS-MENOR.
@@ -494,29 +498,6 @@
 		        PERFORM 4200-PROCESAR-SOL3
 				PERFORM 8200-LEER-SOL3
 		  END-IF.
-
-
-	  7000-IMPRIMIR-TOTAL-GRAL.
-	       DISPLAY "ENTRE AL IMPRIMIR GRAL".
-	  
-	  7100-IMPRIMIR-POR-MARCA.
-	       DISPLAY "ENTRE AL IMPRIMIR POR MARCA".
-	  
-	  7200-IMPRIMIR-ENCABEZADO.
-	       DISPLAY "ENCABEZADO".
-	  
-	  7300-IMPRIMIR-PIE.
-	       DISPLAY "PIE".
-		   IF CONT-LINEAS = 60 THEN
-		      DISPLAY "IMPRIMIR SALTO DE PAGINA"
-			  PERFORM 7200-IMPRIMIR-ENCABEZADO
-			  MOVE 10 TO CONT-LINEAS
-			  ADD 1 TO ENC-N-HOJA
-		   END-IF.
-		   DISPLAY "IMPRMIO TOTALES".
-		   
-	  7400-IMPRIMIR-APROBADO.
-	      DISPLAY "IMPRIMIENDO APROBADOS".
 	  
 	  
 	  3000-PROCESAR-ALQUILERES.
@@ -550,6 +531,7 @@
 			   ADD AUT-IMPORTE TO TOTAL-GRAL-IMPORTE
 			   ADD 1 TO TOTAL-PAT-DIAS
 			   PERFORM 4001-GUARDAR-SOL1-ALQ-ACT
+			   MOVE 1 TO NRO-AGENCIA-IMPRIMIR
 			   PERFORM 7400-IMPRIMIR-APROBADO
 			   MOVE WS-MENOR TO WS-ANT
 	           PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS
@@ -668,7 +650,97 @@
 		       MOVE '1' TO EXISTE-AUTO
 			   MOVE TABLA-AUT-REG(IND-I) TO AUT-REG
 		   END-IF.
-	         
+	       
+
+      **************************************************************
+      *                    IMPRIMIR                                *
+      **************************************************************
+	  
+	   
+	   7000-IMPRIMIR-TOTAL-GRAL.
+	       DISPLAY "ENTRE AL IMPRIMIR GRAL".
+		   STRING 'Totales general            ' TOTAL-GRAL-IMPORTE
+		             DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+	  
+	   7100-IMPRIMIR-POR-MARCA.
+	       DISPLAY "ENTRE AL IMPRIMIR POR MARCA".
+	  
+	   7200-IMPRIMIR-ENCABEZADO.
+	       DISPLAY "ENCABEZADO".
+		   STRING  '    Patente: ' AUT-PATENTE
+		           '          Descripcion: ' AUT-DESC
+					DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   STRING  '         Marca: ' AUT-MARCA
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.		   
+		   STRING  '         Color: ' AUT-COLOR
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.		   
+		   STRING  '         Tamanio: ' AUT-TAMANIO
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   PERFORM 7501-IMPRIMIR-LINEA-VACIA.
+		   STRING  '            Fecha         Tipo Doc           '
+		           '            Nro Document       Agencia       '
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   STRING  '-------------------------------------------'
+		           '-------------------------------------------'
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+	  
+	   7300-IMPRIMIR-PIE.
+	       DISPLAY "PIE".
+		   STRING 'Totales por patente            '
+		          '                  Cantidad de dias' TOTAL-PAT-DIAS
+		          '   Importe' TOTAL-PAT-IMPORTE
+		             DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   
+	   7400-IMPRIMIR-APROBADO.
+	      DISPLAY "IMPRIMIENDO APROBADOS".
+		  STRING '                '  ALQ-ACT-PATENTE
+		         '                '  ALQ-ACT-FECHA
+		         '                '  ALQ-ACT-TIPO-DOC
+		         '                '  ALQ-ACT-NRO-DOC
+		         '                '  NRO-AGENCIA-IMPRIMIR
+		             DELIMITED BY SIZE INTO LINEA.
+		  PERFORM 7500-IMPRIMIR-LINEA.
+		  
+		   
+		   
+	   7500-IMPRIMIR-LINEA.
+			IF CONT-LINEAS EQUAL 60
+				PERFORM 7502-IMPRIMIR-SALTO-PAGINA.
+			WRITE LINEA.
+			ADD 1 TO CONT-LINEAS.
+			MOVE SPACES TO LINEA.
+			
+	   7501-IMPRIMIR-LINEA-VACIA.
+			MOVE SPACES TO LINEA.
+			WRITE LINEA.	   
+			ADD 1 TO CONT-LINEAS.
+			
+	   7502-IMPRIMIR-SALTO-PAGINA.
+			MOVE LINEA TO LINEA-AUX.
+			PERFORM 7503-ARMAR-ENCABEZADO-PAGINA.
+           	WRITE LINEA.
+			PERFORM 7501-IMPRIMIR-LINEA-VACIA.			
+			MOVE LINEA-AUX TO LINEA.
+
+	   7503-ARMAR-ENCABEZADO-PAGINA.
+			PERFORM 7504-ARMAR-FECHA.
+			ADD 1 TO ENC-N-HOJA.
+			MOVE ZEROES TO CONT-LINEAS.
+			MOVE ENCABEZADO-HOJA TO LINEA.
+
+	   7504-ARMAR-FECHA.
+			ACCEPT FECHA FROM DATE.
+			MOVE FECHA-DD TO ENC-FECHA-DD.
+			MOVE FECHA-MM TO ENC-FECHA-MM.
+			MOVE FECHA-AA TO ENC-FECHA-AA.		
 		   
        8900-CHECK-FILE-STATUS.
            IF FS NOT EQUAL "00"
