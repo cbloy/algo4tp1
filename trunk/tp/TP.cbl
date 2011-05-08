@@ -279,14 +279,7 @@
 	       PERFORM 8200-LEER-SOL3.	
 		   
 		   PERFORM 2100-DETER-CLAVE-MENOR.
-		   
-		   MOVE WS-MENOR TO WS-ANT.
-      
-      * Si encuentra el auto por patente en la tabla de autos: 
-      *     Guarda en AUT-REG y EXISTE-AUTO = '1'
-      * Sino EXISTE-AUTO = '0'
-		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
-		   
+		   		   		   
 		   PERFORM 6000-PROCESAR
 
       * Lo deje comentado porque es lo que pincha el while infinito		   
@@ -465,18 +458,29 @@
 	  
 	   6000-PROCESAR.
 	       DISPLAY "ENTRE AL PROCESAR".
+		   
+		   MOVE WS-MENOR TO WS-ANT.
+      
+      * Si encuentra el auto por patente en la tabla de autos: 
+      *     Guarda en AUT-REG y EXISTE-AUTO = '1'
+      * Sino EXISTE-AUTO = '0'
+		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
+		   
            IF EXISTE-AUTO = '1' THEN
 		       PERFORM 7200-IMPRIMIR-ENCABEZADO
 		       MOVE 10 TO CONT-LINEAS
 		   END-IF.
 	       MOVE ZERO TO TOTAL-PAT-IMPORTE.
 	       MOVE ZERO TO TOTAL-PAT-DIAS.
+		   
+		   MOVE WS-MENOR TO WS-ANT.
+		   
 		   PERFORM 6100-PROCESAR-PAT
 		      UNTIL (FS-SOL1-FIN
 			  AND FS-SOL2-FIN
 			  AND FS-SOL3-FIN
 			  AND FS-ALQ-FIN)
-			  OR CLAVE-MENOR-PATENTE NOT EQUAL CLAVE-ANT-PATENTE.
+				OR CLAVE-MENOR-PATENTE NOT EQUAL CLAVE-ANT-PATENTE.
 	       IF EXISTE-AUTO = '1' THEN
 		       PERFORM 7300-IMPRIMIR-PIE
 		   END-IF.
