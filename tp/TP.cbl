@@ -299,7 +299,8 @@
 		   PERFORM 7100-IMPRIMIR-POR-MARCA.
 	   			
 		   DISPLAY "FINALIZA EL PROGRAMA". 
-		   STOP RUN.
+		   PERFORM 9000-FINAL.
+		   STOP RUN.   
       **************************************************************
       *               RUTINAS                                      *
       **************************************************************
@@ -399,8 +400,8 @@
            END-READ.
 
            IF NOT FS-SOL1-OK AND NOT FS-SOL1-FIN
-               DISPLAY 'ERROR AL INTENTAR LEER SOL1'
-               PERFORM 9999-CANCELAR-PROGRAMA
+			   DISPLAY 'ERROR AL INTENTAR LEER SOL1'
+			   PERFORM 9999-CANCELAR-PROGRAMA
            END-IF.
 
        8100-LEER-SOL2.
@@ -875,7 +876,7 @@
 
        9000-FINAL.
            CLOSE AUTOS.
-		   CLOSE SOL1.
+		   CLOSE SOL1.	
            CLOSE SOL2.
            CLOSE SOL3.
            CLOSE ALQ.
@@ -887,5 +888,4 @@
        9999-CANCELAR-PROGRAMA.
            PERFORM 9000-FINAL.
            DISPLAY "SALIDA POR CANCELACION DE PROGRAMA".
-		   STOP RUN.		   
-		   
+		   STOP RUN.
