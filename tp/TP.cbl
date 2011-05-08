@@ -64,7 +64,10 @@
        01  SOL1-REG.
            05  SOL1-CLAVE.
               10  SOL1-PATENTE                      PIC X(06).
-              10  SOL1-FECHA                        PIC 9(08).
+              10  SOL1-FECHA.  
+			      15  SOL1-FECHA-AA                 PIC 9(04).
+				  15  SOL1-FECHA-MM                 PIC 9(02).
+				  15  SOL1-FECHA-DD                 PIC 9(02).
 		   05  SOL1-TIPO-DOC                        PIC X.
 		   05  SOL1-NRO-DOC                         PIC X(20).
 
@@ -72,7 +75,10 @@
        01  SOL2-REG.
            05  SOL2-CLAVE.
               10  SOL2-PATENTE                      PIC X(06).
-              10  SOL2-FECHA                        PIC 9(08).
+              10  SOL2-FECHA.  
+			      15  SOL2-FECHA-AA                 PIC 9(04).
+				  15  SOL2-FECHA-MM                 PIC 9(02).
+				  15  SOL2-FECHA-DD                 PIC 9(02).
 		   05  SOL2-TIPO-DOC                        PIC X.
 		   05  SOL2-NRO-DOC                         PIC X(20).
 
@@ -80,7 +86,10 @@
        01  SOL3-REG.
            05  SOL3-CLAVE.
               10  SOL3-PATENTE                      PIC X(06).
-              10  SOL3-FECHA                        PIC 9(08).
+              10  SOL3-FECHA.  
+			      15  SOL3-FECHA-AA                 PIC 9(04).
+				  15  SOL3-FECHA-MM                 PIC 9(02).
+				  15  SOL3-FECHA-DD                 PIC 9(02).
 		   05  SOL3-TIPO-DOC                        PIC X.
 		   05  SOL3-NRO-DOC                         PIC X(20).
 		   
@@ -97,7 +106,10 @@
 	   01  ALQ-REG.
 	       05  ALQ-CLAVE.
               10  ALQ-PATENTE                      PIC X(06).
-              10  ALQ-FECHA                        PIC 9(08).
+              10  ALQ-FECHA.  
+			      15  ALQ-FECHA-AA                 PIC 9(04).
+				  15  ALQ-FECHA-MM                 PIC 9(02).
+				  15  ALQ-FECHA-DD                 PIC 9(02).
 		   05  ALQ-TIPO-DOC                        PIC X.
 		   05  ALQ-NRO-DOC                         PIC X(20).
 		   05  ALQ-IMPORTE                         PIC 9(4)V99.
@@ -254,41 +266,44 @@
 	   01  MARCA-ENCONTRADO                             PIC X.
 	   
        PROCEDURE DIVISION.
+      **************************************************************
+      *               PROGRAMA PRINCIPAL                           *
+      **************************************************************	   
 	   PGM.		
-           DISPLAY "INICIA EL PROGRAMA".
-           PERFORM 1000-INICIO.
+			DISPLAY "INICIA EL PROGRAMA".
+	       PERFORM 1000-INICIO.
+		
 		   PERFORM 8300-LEER-ALQ.
 		   PERFORM 8000-LEER-SOL1.
-		   PERFORM 8100-LEER-SOL2.
-		   PERFORM 8200-LEER-SOL3.
-		   PERFORM 2100-DETER-CLAVE-MENOR.
-		   MOVE WS-MENOR TO WS-ANT.
-		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
-      *	   PERFORM 6000-PROCESAR
-      *	      UNTIL FS-SOL1-FIN
-      *		  AND FS-SOL2-FIN
-      *		  AND FS-SOL3-FIN
-      *		  AND FS-ALQ-FIN.
-      *	   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
-      *	   PERFORM 7100-IMPRIMIR-POR-MARCA.
-
-		   MOVE 1 TO IND-MAR.
-		   PERFORM TMP-IMPRIMIR-TABLA-MARCAS
-				  VARYING IND-MAR FROM 1 BY 1
-                  UNTIL IND-MAR > 2.
+		   PERFORM 8100-LEER-SOL2.       
+	       PERFORM 8200-LEER-SOL3.	
 		   
-		   IF EXISTE-AUTO = '1'
-		      DISPLAY AUT-REG
-		   END-IF.
+		   PERFORM 2100-DETER-CLAVE-MENOR.
+		   
+		   MOVE WS-MENOR TO WS-ANT.
+      
+      * Si encuentra el auto por patente en la tabla de autos: 
+      *     Guarda en AUT-REG y EXISTE-AUTO = '1'
+      * Sino EXISTE-AUTO = '0'
+		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
+		   
+		   PERFORM 6000-PROCESAR
+
+      * Lo deje comentado porque es lo que pincha el while infinito		   
+      *	           UNTIL FS-SOL1-FIN
+      *	      AND FS-SOL2-FIN
+      *		  AND FS-SOL3-FIN
+      *		       AND FS-ALQ-FIN.
+      
+		   PERFORM 7000-IMPRIMIR-TOTAL-GRAL.
+		   PERFORM 7100-IMPRIMIR-POR-MARCA.
+	   			
 		   DISPLAY "FINALIZA EL PROGRAMA". 
 		   STOP RUN.
-	   
-	   TMP-IMPRIMIR-TABLA-AUT.
-	       DISPLAY TABLA-AUT-REG(IND-I). 
-	   TMP-IMPRIMIR-TABLA-MARCAS.
-      *     DISPLAY ESTAD-MARCA(IND-MAR).    
-	       DISPLAY ESTAD-MARCAS(IND-MAR).    
-		   
+      **************************************************************
+      *               RUTINAS                                      *
+      **************************************************************
+	  
        1000-INICIO.
            PERFORM 1100-ABRIR-ARCHIVOS.
 		   PERFORM 1200-CARGAR-TABLAS.
@@ -299,9 +314,9 @@
       **************************************************************
        1100-ABRIR-ARCHIVOS.
 	       PERFORM 1101-ABRIR-ARCHIVO-AUTOS.
-	  	   PERFORM 1102-ABRIR-ARCHIVO-SOLICITUD1.	  	   
+		   PERFORM 1102-ABRIR-ARCHIVO-SOLICITUD1.	  	   
 		   PERFORM 1103-ABRIR-ARCHIVO-SOLICITUD2.	  	   
-		   PERFORM 1104-ABRIR-ARCHIVO-SOLICITUD3.
+	       PERFORM 1104-ABRIR-ARCHIVO-SOLICITUD3.
 		   PERFORM 1105-ABRIR-ARCHIVO-ALQUILERES.
 		   PERFORM 1106-ABRIR-ARCHIVO-RECHAZOS.
 		   PERFORM 1107-ABRIR-ARCHIVO-ESTAD.
@@ -377,6 +392,7 @@
       **************************************************************
 	  
 	   8000-LEER-SOL1.
+           DISPLAY "LEO SOL1.".
            READ SOL1 AT END 
 					 MOVE HIGH-VALUES TO SOL1-CLAVE
 					 SET FS-SOL1-FIN  TO TRUE
@@ -388,6 +404,7 @@
            END-IF.
 
        8100-LEER-SOL2.
+	       DISPLAY "LEO SOL2.".
            READ SOL2 AT END 
                      MOVE HIGH-VALUES TO SOL2-CLAVE
                      SET FS-SOL2-FIN  TO TRUE
@@ -399,6 +416,7 @@
            END-IF.
        
        8200-LEER-SOL3.
+	       DISPLAY "LEO SOL3.".
            READ SOL3 AT END 
                      MOVE HIGH-VALUES TO SOL3-CLAVE
                      SET FS-SOL3-FIN  TO TRUE
@@ -444,7 +462,7 @@
       * 	HASTA ACA INICIALIZO LAS VARIABLES						*
       ***************************************************************
 	  
-	  6000-PROCESAR.
+	   6000-PROCESAR.
 	       DISPLAY "ENTRE AL PROCESAR".
            IF EXISTE-AUTO = '1' THEN
 		       PERFORM 7200-IMPRIMIR-ENCABEZADO
@@ -464,7 +482,7 @@
 
 		   
 		   
-	  6100-PROCESAR-PAT.
+	   6100-PROCESAR-PAT.
 	       DISPLAY "ENTRE AL PROCESAR PATENTE".
 		   PERFORM 6200-POSIBLE-ALQ.
 		   PERFORM 6300-POSIBLE-SOL1.
@@ -474,13 +492,13 @@
 		   PERFORM 2100-DETER-CLAVE-MENOR.
 
 	  
-	  6200-POSIBLE-ALQ.
+	   6200-POSIBLE-ALQ.
 	       IF ALQ-CLAVE EQUAL WS-CLAVE-MENOR THEN
 		        PERFORM 3000-PROCESAR-ALQUILERES
 				PERFORM 8300-LEER-ALQ
 			END-IF.
 	  
-	  6300-POSIBLE-SOL1.
+	   6300-POSIBLE-SOL1.
 	      IF SOL1-CLAVE EQUAL WS-CLAVE-MENOR THEN
 		        PERFORM 4000-PROCESAR-SOL1
 				PERFORM 8000-LEER-SOL1
@@ -493,21 +511,22 @@
 		  END-IF.
 
 		  
-	  6500-POSIBLE-SOL3.
+	   6500-POSIBLE-SOL3.
 	      IF SOL3-CLAVE EQUAL WS-CLAVE-MENOR THEN
 		        PERFORM 4200-PROCESAR-SOL3
 				PERFORM 8200-LEER-SOL3
 		  END-IF.
-	  
-	  
-	  3000-PROCESAR-ALQUILERES.
+
+		  
+	   3000-PROCESAR-ALQUILERES.
 	       MOVE  ALQ-REG TO ALQ-ACT-REG.
 		   WRITE ALQ-ACT-REG.		  
 		   MOVE CORRESPONDING  WS-CLAVE-MENOR TO WS-CLAVE-ANT.
 	  
-	  4000-PROCESAR-SOL1.
-	       DISPLAY "PROCESAR SOL1".
+	   4000-PROCESAR-SOL1.
+           DISPLAY "PROCESAR SOL1".
 		   IF WS-MENOR EQUAL WS-ANT THEN
+		       DISPLAY "ES IGUAL AL ANT"
 		       MOVE SOL1-PATENTE TO RECH-PATENTE
 			   MOVE SOL1-FECHA   TO RECH-FECHA
 			   MOVE SOL1-TIPO-DOC TO RECH-TIPO-DOC
@@ -534,23 +553,128 @@
 			   MOVE 1 TO NRO-AGENCIA-IMPRIMIR
 			   PERFORM 7400-IMPRIMIR-APROBADO
 			   MOVE WS-MENOR TO WS-ANT
-	           PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS
+	           
+		       MOVE 'N' TO MARCA-ENCONTRADO
+		   
+               PERFORM 1500-BUSCAR-TABLA-ESTAD 
+			           VARYING IND-I2 FROM 1 BY 1
+			           UNTIL IND-I2 > 100 
+      			   	   OR MARCA-ENCONTRADO = 'S'  
+			   SUBTRACT 1 FROM IND-I2
+
+			   ADD 1 TO ESTAD-MES (IND-I2, SOL1-FECHA-MM)
+			   ADD 1 TO ESTAD-TOTAL (IND-I2)
 		   END-IF.
 		   
-	  4001-GUARDAR-SOL1-ALQ-ACT.
+	   4001-GUARDAR-SOL1-ALQ-ACT.
 		 MOVE SOL1-PATENTE TO ALQ-ACT-PATENTE.
 	     MOVE SOL1-FECHA   TO ALQ-ACT-FECHA.
 	     MOVE SOL1-NRO-DOC  TO ALQ-ACT-NRO-DOC.
 		 MOVE SOL1-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
 		 MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.
 		   
-	  4100-PROCESAR-SOL2.
+	   4100-PROCESAR-SOL2.
 	       DISPLAY "PROCESAR SOL2".
 		   
-	  4200-PROCESAR-SOL3.
-	       DISPLAY "PROCESAR SOL3".
-	  
+		   IF WS-MENOR EQUAL WS-ANT THEN
+		       DISPLAY "ES IGUAL AL ANT"
+		       MOVE SOL2-PATENTE TO RECH-PATENTE
+			   MOVE SOL2-FECHA   TO RECH-FECHA
+			   MOVE SOL2-TIPO-DOC TO RECH-TIPO-DOC
+			   MOVE SOL2-NRO-DOC  TO RECH-NRO-DOC
+			   MOVE 1 TO RECH-MOTIVO
+			   MOVE 2 TO RECH-AGENCIA
+			   DISPLAY "ESCRIBO EN RECH"
+			   WRITE RECH-REG
+		   ELSE IF EXISTE-AUTO = '0' THEN
+		       MOVE SOL2-PATENTE TO RECH-PATENTE
+			   MOVE SOL2-FECHA   TO RECH-FECHA
+			   MOVE SOL2-TIPO-DOC TO RECH-TIPO-DOC
+			   MOVE SOL2-NRO-DOC  TO RECH-NRO-DOC
+			   MOVE 2 TO RECH-MOTIVO
+			   MOVE 2 TO RECH-AGENCIA
+			   DISPLAY "ESCRIBO EN RECH"
+			   WRITE RECH-REG
+			   MOVE HIGH-VALUES TO WS-ANT
+		   ELSE
+		       ADD AUT-IMPORTE TO TOTAL-PAT-IMPORTE
+			   ADD AUT-IMPORTE TO TOTAL-GRAL-IMPORTE
+			   ADD 1 TO TOTAL-PAT-DIAS
+			   PERFORM 4101-GUARDAR-SOL2-ALQ-ACT
+			   MOVE 2 TO NRO-AGENCIA-IMPRIMIR
+			   PERFORM 7400-IMPRIMIR-APROBADO
+			   MOVE WS-MENOR TO WS-ANT
+	           
+		       MOVE 'N' TO MARCA-ENCONTRADO
+		   
+               PERFORM 1500-BUSCAR-TABLA-ESTAD 
+			           VARYING IND-I2 FROM 1 BY 1
+			           UNTIL IND-I2 > 100 
+      			   	   OR MARCA-ENCONTRADO = 'S'  
+			   SUBTRACT 1 FROM IND-I2
 
+			   ADD 1 TO ESTAD-MES (IND-I2, SOL2-FECHA-MM)
+			   ADD 1 TO ESTAD-TOTAL (IND-I2)
+		   END-IF.
+	
+	   4101-GUARDAR-SOL2-ALQ-ACT.
+		   MOVE SOL2-PATENTE TO ALQ-ACT-PATENTE.
+	       MOVE SOL2-FECHA   TO ALQ-ACT-FECHA.
+	       MOVE SOL2-NRO-DOC  TO ALQ-ACT-NRO-DOC.
+		   MOVE SOL2-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
+		   MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.	
+	   
+	   4200-PROCESAR-SOL3.
+	       DISPLAY "PROCESAR SOL3".
+		   
+		   IF WS-MENOR EQUAL WS-ANT THEN
+		       DISPLAY "ES IGUAL AL ANT"
+		       MOVE SOL3-PATENTE TO RECH-PATENTE
+			   MOVE SOL3-FECHA   TO RECH-FECHA
+			   MOVE SOL3-TIPO-DOC TO RECH-TIPO-DOC
+			   MOVE SOL3-NRO-DOC  TO RECH-NRO-DOC
+			   MOVE 1 TO RECH-MOTIVO
+			   MOVE 3 TO RECH-AGENCIA
+			   DISPLAY "ESCRIBO EN RECH"
+			   WRITE RECH-REG
+		   ELSE IF EXISTE-AUTO = '0' THEN
+		       MOVE SOL3-PATENTE TO RECH-PATENTE
+			   MOVE SOL3-FECHA   TO RECH-FECHA
+			   MOVE SOL3-TIPO-DOC TO RECH-TIPO-DOC
+			   MOVE SOL3-NRO-DOC  TO RECH-NRO-DOC
+			   MOVE 2 TO RECH-MOTIVO
+			   MOVE 3 TO RECH-AGENCIA
+			   DISPLAY "ESCRIBO EN RECH"
+			   WRITE RECH-REG
+			   MOVE HIGH-VALUES TO WS-ANT
+		   ELSE
+		       ADD AUT-IMPORTE TO TOTAL-PAT-IMPORTE
+			   ADD AUT-IMPORTE TO TOTAL-GRAL-IMPORTE
+			   ADD 1 TO TOTAL-PAT-DIAS
+			   PERFORM 4201-GUARDAR-SOL3-ALQ-ACT
+			   MOVE 3 TO NRO-AGENCIA-IMPRIMIR
+			   PERFORM 7400-IMPRIMIR-APROBADO
+			   MOVE WS-MENOR TO WS-ANT
+	           
+		       MOVE 'N' TO MARCA-ENCONTRADO
+		   
+               PERFORM 1500-BUSCAR-TABLA-ESTAD 
+			           VARYING IND-I2 FROM 1 BY 1
+			           UNTIL IND-I2 > 100 
+      			   	   OR MARCA-ENCONTRADO = 'S'  
+			   SUBTRACT 1 FROM IND-I2
+
+			   ADD 1 TO ESTAD-MES (IND-I2, SOL3-FECHA-MM)
+			   ADD 1 TO ESTAD-TOTAL (IND-I2)
+		   END-IF.
+	
+	   4201-GUARDAR-SOL3-ALQ-ACT.
+		   MOVE SOL3-PATENTE TO ALQ-ACT-PATENTE.
+	       MOVE SOL3-FECHA   TO ALQ-ACT-FECHA.
+	       MOVE SOL3-NRO-DOC  TO ALQ-ACT-NRO-DOC.
+		   MOVE SOL3-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
+		   MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.
+	  
       **************************************************************
       *                    DETERMINARES                            *
       **************************************************************
@@ -561,21 +685,21 @@
 		   DISPLAY  SOL1-CLAVE.
 		   DISPLAY  SOL2-CLAVE.
 		   DISPLAY  SOL3-CLAVE.
-		   DISPLAY 'EL MENOR ES ALQ'
+		   DISPLAY 'EL MENOR ES ALQ'.
 
            IF WS-CLAVE-MENOR GREATER THAN SOL1-CLAVE
                 MOVE SOL1-CLAVE TO WS-CLAVE-MENOR
                 DISPLAY 'EL MENOR ES SOL1'
 		   END-IF.
-           
+              
            IF WS-CLAVE-MENOR GREATER THAN SOL2-CLAVE
                 MOVE SOL2-CLAVE TO WS-CLAVE-MENOR
                 DISPLAY 'EL MENOR ES SOL2'
-		   END-IF.
+      	   END-IF.
 		   
            IF WS-CLAVE-MENOR GREATER THAN SOL3-CLAVE
-			 MOVE SOL3-CLAVE  TO WS-CLAVE-MENOR
-				DISPLAY 'EL MENOR ES SOL3'
+      		     MOVE SOL3-CLAVE  TO WS-CLAVE-MENOR
+       		     DISPLAY 'EL MENOR ES SOL3'
            END-IF.
 		   
            DISPLAY 'CLAVE MENOR: ' WS-CLAVE-MENOR.
@@ -605,10 +729,11 @@
 		   
        
 	   1400-CARGAR-TABLA-ESTAD.
-		   MOVE 1 TO IND-I2.
 		   MOVE 'N' TO MARCA-ENCONTRADO.
 		   
-           PERFORM 1500-BUSCAR-TABLA-ESTAD UNTIL IND-I2 > 100 
+           PERFORM 1500-BUSCAR-TABLA-ESTAD 
+		                VARYING IND-I2 FROM 1 BY 1
+		                UNTIL IND-I2 > 100 
       					OR MARCA-ENCONTRADO = 'S'. 
 		   
            IF MARCA-ENCONTRADO EQUAL 'N' THEN
@@ -631,14 +756,10 @@
    	   1500-BUSCAR-TABLA-ESTAD.
            IF ESTAD-MARCA(IND-I2) EQUAL AUT-MARCA
       		   MOVE 'S' TO MARCA-ENCONTRADO
-      	   ELSE
-      		   ADD 1 TO IND-I2
-      	   END-IF.
+     	   END-IF.
 
        
 	   5000-BUSCAR-PATENTE-EN-AUTOS.
-	       DISPLAY CLAVE-MENOR-PATENTE.
-	       MOVE 1 TO IND-I.
 	       MOVE '0' TO EXISTE-AUTO
 	       PERFORM 5001-RECORRER-TABLA-AUTOS
 	               VARYING IND-I FROM 1 BY 1
