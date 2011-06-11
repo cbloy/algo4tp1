@@ -64,8 +64,6 @@
            05  WS-FS-NOMBRE             		PIC X(08).
            05  WS-FS-FUNCION            		PIC X(05).
 		   
-	   77 NVOREGISTRO							PIC X VALUE 'N'.	   
-		
 
        PROCEDURE DIVISION.
 
