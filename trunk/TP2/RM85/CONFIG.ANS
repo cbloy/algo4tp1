@@ -1,0 +1,122 @@
+/*
+/* CONFIG.ANS  89/02/16
+/*
+/* This sample configuration file results in a configuration for the ANSI.SYS
+/* driver similar to that of the default RM/COBOL-85 BIOS configuration.
+/*
+TERM-INTERFACE DOS
+TERM-ATTR DATA-CHARACTERS=32,255
+TERM-INPUT                              CODE=01               SOH
+TERM-INPUT                              CODE=02               STX
+TERM-INPUT ACTION=CONTROL-BREAK                               ETX
+TERM-INPUT                              CODE=04               EOT
+TERM-INPUT                              CODE=05               ENQ
+TERM-INPUT                              CODE=06               ACK
+TERM-INPUT                              CODE=07               BEL
+TERM-INPUT ACTION=BACKSPACE                                   BS
+TERM-INPUT                              CODE=09               HT
+TERM-INPUT                              CODE=10               LF
+TERM-INPUT                              CODE=11               VT
+TERM-INPUT                              CODE=12               FF
+TERM-INPUT                              CODE=13 EXCEPTION=NO  CR
+TERM-INPUT                              CODE=14               SO
+TERM-INPUT                              CODE=15               SI
+TERM-INPUT                              CODE=16               DLE
+TERM-INPUT                              CODE=17               DC1
+TERM-INPUT                              CODE=18               DC2
+TERM-INPUT                              CODE=19               DC3
+TERM-INPUT                              CODE=20               DC4
+TERM-INPUT                              CODE=21               NAK
+TERM-INPUT                              CODE=22               SYN
+TERM-INPUT                              CODE=23               ETB
+TERM-INPUT                              CODE=24               CAN
+TERM-INPUT                              CODE=25               EM
+TERM-INPUT                              CODE=26               SUB
+TERM-INPUT ACTION=SCREEN-ESCAPE         CODE=27               ESC
+TERM-INPUT                              CODE=28               FS
+TERM-INPUT                              CODE=29               GS
+TERM-INPUT                              CODE=30               RS
+TERM-INPUT                              CODE=31               US
+TERM-INPUT ACTION=CONTROL-BREAK                               NUL 000
+TERM-INPUT                              CODE=56               NUL 015
+TERM-INPUT ACTION=ERASE-REMAINDER       CODE=57               NUL 018
+TERM-INPUT                              CODE=58               NUL 019
+TERM-INPUT                              CODE=59               NUL 023
+TERM-INPUT                              CODE=49               NUL 025
+TERM-INPUT                              CODE=41               NUL 030
+TERM-INPUT                              CODE=64               NUL 031
+TERM-INPUT                              CODE=61               NUL 032
+TERM-INPUT ACTION=ERASE-REMAINDER       CODE=13 EXCEPTION=NO  NUL 037
+TERM-INPUT                              CODE=40               NUL 046
+TERM-INPUT                              CODE=55               NUL 049
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=01               NUL 059
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=02               NUL 060
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=03               NUL 061
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=04               NUL 062
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=05               NUL 063
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=06               NUL 064
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=07               NUL 065
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=08               NUL 066
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=09               NUL 067
+TERM-INPUT ACTION=SCREEN-TERMINATE      CODE=10               NUL 068
+TERM-INPUT ACTION=SCREEN-HOME           CODE=54               NUL 071
+TERM-INPUT ACTION=SCREEN-PREVIOUS-FIELD CODE=52               NUL 072
+TERM-INPUT                              CODE=67               NUL 073
+TERM-INPUT ACTION=LEFT-ARROW                                  NUL 075
+TERM-INPUT ACTION=RIGHT-ARROW                                 NUL 077
+TERM-INPUT                              CODE=82               NUL 079
+TERM-INPUT                              CODE=53               NUL 080
+TERM-INPUT                              CODE=68               NUL 081
+TERM-INPUT ACTION=SET-RM-INSERTION                            NUL 082
+TERM-INPUT ACTION=DELETE-CHARACTER                            NUL 083
+TERM-INPUT                              CODE=11               NUL 084
+TERM-INPUT                              CODE=12               NUL 085
+TERM-INPUT                              CODE=13               NUL 086
+TERM-INPUT                              CODE=14               NUL 087
+TERM-INPUT                              CODE=15               NUL 088
+TERM-INPUT                              CODE=16               NUL 089
+TERM-INPUT                              CODE=17               NUL 090
+TERM-INPUT                              CODE=18               NUL 091
+TERM-INPUT                              CODE=19               NUL 092
+TERM-INPUT                              CODE=20               NUL 093
+TERM-INPUT                              CODE=21               NUL 094
+TERM-INPUT                              CODE=22               NUL 095
+TERM-INPUT                              CODE=23               NUL 096
+TERM-INPUT                              CODE=24               NUL 097
+TERM-INPUT                              CODE=25               NUL 098
+TERM-INPUT                              CODE=26               NUL 099
+TERM-INPUT                              CODE=27               NUL 100
+TERM-INPUT                              CODE=28               NUL 101
+TERM-INPUT                              CODE=29               NUL 102
+TERM-INPUT                              CODE=30               NUL 103
+TERM-INPUT                              CODE=31               NUL 104
+TERM-INPUT                              CODE=32               NUL 105
+TERM-INPUT                              CODE=33               NUL 106
+TERM-INPUT                              CODE=34               NUL 107
+TERM-INPUT                              CODE=35               NUL 108
+TERM-INPUT                              CODE=36               NUL 109
+TERM-INPUT                              CODE=37               NUL 110
+TERM-INPUT                              CODE=38               NUL 111
+TERM-INPUT                              CODE=39               NUL 112
+TERM-INPUT                              CODE=40               NUL 113
+TERM-INPUT                              CODE=65               NUL 115
+TERM-INPUT                              CODE=66               NUL 116
+TERM-INPUT                              CODE=83               NUL 117
+TERM-INPUT                              CODE=70               NUL 118
+TERM-INPUT                              CODE=81               NUL 119
+TERM-INPUT                              CODE=71               NUL 120
+TERM-INPUT                              CODE=72               NUL 121
+TERM-INPUT                              CODE=73               NUL 122
+TERM-INPUT                              CODE=74               NUL 123
+TERM-INPUT                              CODE=75               NUL 124
+TERM-INPUT                              CODE=76               NUL 125
+TERM-INPUT                              CODE=77               NUL 126
+TERM-INPUT                              CODE=78               NUL 127
+TERM-INPUT                              CODE=79               NUL 128
+TERM-INPUT                              CODE=80               NUL 129
+TERM-INPUT                              CODE=85               NUL 130
+TERM-INPUT                              CODE=87               NUL 131
+TERM-INPUT                              CODE=69               NUL 132
+TERM-INPUT				CODE=11 	      NUL 133
+TERM-INPUT				CODE=12 	      NUL 134
+

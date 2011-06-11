@@ -1,0 +1,264 @@
+
+
+
+                                   README Contents
+
+          This document contains the following sections:
+
+               Diskette Contents
+               Enhancements
+               Btrieve Deficiencies
+               RBADAPTR Deficiencies
+               Compatibility with Liant Products
+               Compatibility with Other Products
+
+
+                                  Diskette Contents
+
+          The following is a list of files included on your RM/COBOL-85 for
+          NetWare media:
+
+               README.NW            - this commentary file
+
+               RBADAPTR.EXE         - RM/COBOL-85 to Btrieve adapter
+
+               CONVERT\README.CNV   - a commentary file
+
+               CONVERT\DRIVER.COB   - RM/COBOL-85 Index File to Btrieve
+               CONVERT\OPENBTRV.COB - Open Btrieve file
+               CONVERT\NSRTBTRV.COB - Insert Btrieve record
+               CONVERT\CLOSBTRV.COB - Close Btrieve file
+               CONVERT\OPENRM.COB   - Open RM file
+               CONVERT\READRM.COB   - Read RM file
+               CONVERT\CLOSRM.COB   - Close RM file
+
+               CONVERT\DRIVER.CBL   - RM/COBOL-85 Index File to Btrieve
+               CONVERT\OPENBTRV.CBL - Open Btrieve file
+               CONVERT\NSRTBTRV.CBL - Insert Btrieve record
+               CONVERT\CLOSBTRV.CBL - Close Btrieve file
+               CONVERT\RMDATA.CPY   - RM data block
+               CONVERT\RMFILE.CPY   - RM file description
+
+          The CONVERT directory contains a program for converting an
+          existing RM/COBOL-85 Index file into a Btrieve file.  This
+          program has not undergone extensive testing and is being provided
+          "as is" to serve as an aid in converting an application file's
+          quickly to run using Btrieve.  If this program is insufficent to
+          serve your needs, some source of it is provided to allow it to be
+          customized.  See the CONVERT\README.CNV file for more
+          information.
+
+          If this program is still insufficient to meet the needs of your
+          application, it may be necessary to write a custom RM/COBOL-85
+          program to copy the RM/COBOL-85 index file records to a Btrieve
+          file.
+
+
+                                    Enhancements
+
+          None.
+
+
+                                Btrieve Deficiencies
+
+          On Btrieve version 5.00, there are conditions when a READ
+          PREVIOUS operation will not return the correct result.  If the
+          current record position is within a sequence of duplicates for
+          the current key, and another workstation causes the current
+          record and the record following it, which also must be a
+          duplicate, to be deleted, then a READ PREVIOUS will not result in
+          the record before the current record to be returned.  Instead a
+          record from the previous key is returned.
+
+
+
+          On Btrieve Version 5.00 and Version 5.10, using compressed files
+          can cause Btrieve record manager running on a NetWare 286 server
+          Version 2.15a to crash the server.  Every effort has been made to
+          ensure that the adapter does not cause this to happen.
+
+
+
+          On Btrieve version 5.00a using files with compression, Btrieve
+          will not correctly perform READ random operations on files with a
+          maximum record lengths less than 9 characters if the compression
+          buffer is set at 32K.
+
+
+
+          Error 30,24 may be returned on a COBOL OPEN because the page size
+          required for the file is greater than the maximum page size
+          currently configured for the Btrieve Record Manager.  The page
+          size must be a multiple of 512 between 512 and 4096 and be at
+          least as large as the fixed-length portion of a record.  The
+          default maximum page size for Workstation Btrieve is 1024 but can
+          be increased to as much as 4096 via the /P parameter.  For
+          example, load the Btrieve TSR with the command line:  BTRIEVE
+          /P:4096.  The default maximum page size for NetWare Btrieve is
+          4096 but it can be changed via the -p parameter.  The user should
+          check the LOAD BTRIEVE line in the system's BSTART.NCF file to
+          ensure that the -p=nnnn value is large enough.
+
+
+
+          Error 30,58 may be returned on a COBOL I/O operation because
+          Btrieve's compression buffer is not large enough.  The default
+          compression buffer size for Workstation Btrieve is 0 but can be
+          increased to as much as 64K bytes via the /U parameter.  For
+          example, load the Btrieve TSR with the command line:  BTRIEVE
+          /U:64.  The default compression buffer size for NetWare Btrieve
+          is also 0 but is usually set to 64K bytes via the -u parameter on
+          the LOAD BTRIEVE command.  The user should check the LOAD BTRIEVE
+          line in the system's BSTART.NCF file to ensure that the -u=nn
+          value is large enough.
+
+
+
+
+                                RBADAPTR Deficiencies
+
+          The adapter program is capable of being used by versions of
+          RM/COBOL-85 runtimes before Version 5.01, but the adapter is not
+          capable of scanning the RUNPATH environment variable itself.
+          Instead the adapter replies on the Version 5.01 runtime to scan
+          the RUNPATH environment variable.  Versions of the RM/COBOL-85
+          runtimes prior to Version 5.01 did this function internally only
+          for RM/COBOL-85 files.  As a result, if the adapter is used on
+          versions of the runtime prior to Version 5.01, the file to be
+          located either must be completely specified or can be located
+          relative to the current directory.
+
+
+
+
+          The RM/COBOL-85-to-Btrieve Adapter program does not have access
+          to the RM/COBOL-85 configuration information.  As a result, any
+          parameters placed in a RUN-INDEX-FILES configuration record will
+          not effect the Adapter program.
+
+
+
+          The Adapter can become confused by error codes returned from
+          Btrieve and return a Invalid Organization (39,01) erroneously.
+          This is because the Btrieve record manager returns a variety of
+          different error codes when it is requested by the Adapter to open
+          a file that is not a Btrieve file.  The File Manager allows
+          programs like the RM/COBOL-85 to Btrieve Adapter to attempt to
+          open files first.  The Adapter has no other mechanism of
+          determining if the file is really a Btrieve file except to
+          request the file to be opened.  Btrieve should return "Not a
+          Btrieve File" (30), and the Btrieve VAP on NetWare 286 does.
+          However, single user Btrieve Version 4.02 returns "I/O Error"
+          (02), and the Btrieve NLM on NetWare 386 can return "Page Size
+          Error" (24).  Furthermore, if the file is currently opened by the
+          File Manager, and a COBOL program requests that the file be
+          opened a second time, then when the Adapter has Btrieve attempt
+          to open the file (the File Manager has not realized that it
+          already has the file opened), the Btrieve VAP returns "Permission
+          Error" (94) and the Btrieve NLM returns "File In Use" (84).  The
+          Adapter, when it sees any of the above errors following an open,
+          will assume that the file is a Btrieve file. Thus, if the Adapter
+          reports invalid organization erroneously on a Btrieve file, the
+          error may really be one of the errors listed above.
+
+
+
+
+                                Documentation Changes
+
+          On page 7-13, in the paragraph describing the Btrieve Record
+          Manager's Expanded Memory Option (/E) should be:
+
+          The expanded memory option (/E) should be used if you have
+          expanded memory but do not want the Btrieve Record Manager to use
+          it.  This option forces the Btrieve Record Manager to use regular
+          memory for buffers.  The option may be necessary when using an
+          incompatible expanded memory manager or when encountering memory
+          access errors during program execution.
+
+          On page 7-34, in the paragraph describing the Btrieve Record
+          Manager's /E expanded memory option should be:
+
+          The expanded memory option forces the Btrieve Record Manager to
+          not use expanded memory for its data buffers.
+
+
+
+
+                          Compatibility with Liant Products
+
+               The RM/PANELS product may be used with the RM/COBOL-85-to-
+               Btrieve Adapter product.  If the panel library is stored in
+               a Btrieve file, be aware that your program will now require
+               a Btrieve and RM/COBOL-85-to-Btrieve Adapter to run
+               correctly.  This is because RM/PANELS uses indexed files for
+               the libraries.
+
+               In most cases, COBOL programs are not shipped with their
+               index data files. These files are created when the program
+               is installed.  This allows the decision as to which indexed
+               file format (RM/COBOL-85 or Btrieve) to use to be made
+               during the installation.  If the COBOL program makes use of
+               RM/PANELS, the Panel Library, which is an indexed file,
+               must be shipped with the COBOL program in order for it to
+               run.  If the Panel Library is created as a Btrieve indexed
+               file, then end-user computer system must be able to support
+               Btrieve files in order to run the COBOL program.  A simple
+               solution to this problem is to create the panel libraries as
+               RM/COBOL-85 indexed files.  In an installation where Btrieve
+               and the Adapter are active, the RM/COBOL-85 indexed files
+               will be recognized and correctly opened with no conflicts
+               from the Btrieve Record Manager.
+
+
+
+               The RM/PANELS product, when used with a RM/COBOL-85-to-
+               Btrieve Adapter product, requires that the Btrieve Record
+               Manager be able to handle 12000 character records.  This is
+               only a problem when the Btrieve record manager runs on a
+               Novell NetWare server.  There it must be configured for a
+               maximum record size upon installation.  If the panel
+               libraries are Btrieve files, then the Largest Record Size
+               configuration installation option must be no smaller than
+               12000.  Furthermore, the BREQUEST program must be notified
+               of the 12000 character record size via the Data Message
+               Length Option (/D) when it is started on the workstation.
+
+
+
+
+                          Compatibility with Other Products
+
+
+          Microsoft MAKE
+
+          The Microsoft Program Maintanence Utility version 4.07, also
+          known as MAKE, can not be used to install the adapter.  While
+          MAKE can be used to call the adapter to change options, after the
+          execution of RBADAPTR which results in the adapter being
+          installed, MAKE obtains an invalid return code and terminates
+          prematurely.  The adapter has been verified to return the correct
+          return code in this case.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
