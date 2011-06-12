@@ -60,7 +60,7 @@
        PROCEDURE DIVISION USING PARAM.
 	   
        SUB-PGM-TP2.
-		   DISPLAY 'SUB-PGM-TP2'.
+      *		   DISPLAY 'SUB-PGM-TP2'.
            PERFORM 100-VALIDAR-OPERACION.
            PERFORM 200-EVALUAR-OPERACION.
 		   PERFORM 999-VOLVER.
@@ -98,7 +98,7 @@
 		   PERFORM 900-CHECK-FILE-STATUS.   
 	      
        500-EVALUAR-LEER.
-		   DISPLAY 'ENTRA AL LEER'
+      *		   DISPLAY 'ENTRA AL LEER'
 	       IF (P-TIPO-IDEN NOT EQUAL 1 AND 
 		       P-TIPO-IDEN NOT EQUAL 2) THEN
 		      MOVE 99 TO P-RETORNO
@@ -115,7 +115,7 @@
 		   END-IF.
    
        510-GUARDAR-CLI-REG-RET.
-		   DISPLAY CLI-IDX-REG.
+      *		   DISPLAY CLI-IDX-REG.
            MOVE  CLI-IDX-REG TO P-CLI-REG.
 		   
        520-LIMPIAR-REG.
@@ -158,5 +158,5 @@
            END-IF.
 		   
 	   999-VOLVER.
-		   DISPLAY 'FIN TP2SUB'.
+      *		   DISPLAY 'FIN TP2SUB'.
 	       GOBACK.
