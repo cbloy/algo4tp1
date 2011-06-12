@@ -46,21 +46,21 @@
 	   FD ALQ-IDX.
 	   01  ALQ-IDX-REG.
 	       03  ALQ-IDX-CLAVE.
-              05  ALQ-IDX-PATENTE                      PIC X(06).
+              05  ALQ-IDX-PATENTE                      	PIC X(06).
               05  ALQ-IDX-FECHA.  
-			      07  ALQ-IDX-FECHA-AA                 PIC 9(04).
-				  07  ALQ-IDX-FECHA-MM                 PIC 9(02).
-				  07  ALQ-IDX-FECHA-DD                 PIC 9(02).
-		   03  ALQ-IDX-TIPO-DOC                        PIC X.
-		   03  ALQ-IDX-NRO-DOC                         PIC X(20).
-		   03  ALQ-IDX-IMPORTE                         PIC 9(4)V99.
-		   03  ALQ-IDX-CHOFER                          PIC X(7).
-		   03  ALQ-IDX-ESTADO                          PIC X.
+			      07  ALQ-IDX-FECHA-AA                 	PIC 9(04).
+				  07  ALQ-IDX-FECHA-MM                 	PIC 9(02).
+				  07  ALQ-IDX-FECHA-DD                 	PIC 9(02).
+		   03  ALQ-IDX-TIPO-DOC                        	PIC X.
+		   03  ALQ-IDX-NRO-DOC                         	PIC X(20).
+		   03  ALQ-IDX-IMPORTE                         	PIC 9(4)V99.
+		   03  ALQ-IDX-CHOFER                          	PIC X(7).
+		   03  ALQ-IDX-ESTADO                          	PIC X.
 		
        FD RECH-IDX.
 	   01 RECH-IDX-REG.
 	       03  RECH-IDX-CLAVE.
-              05  RECH-IDX-PATENTE                      PIC X(06).
+              05  RECH-IDX-PATENTE                 		PIC X(06).
               05  RECH-IDX-FECHA.  
 			      07  RECH-IDX-FECHA-AA                 PIC 9(04).
 				  07  RECH-IDX-FECHA-MM                 PIC 9(02).
@@ -72,102 +72,102 @@
 	   SD APRO.
 	   01 APRO-REG.
 	      03 APRO-CLAVE.
-		     05 APRO-CHOFER                         PIC X(7).
+		     05 APRO-CHOFER                         	PIC X(7).
 			 05 APRO-FECHA.
-			      07  APRO-FECHA-AA                 PIC 9(04).
-				  07  APRO-FECHA-MM                 PIC 9(02).
-				  07  APRO-FECHA-DD                 PIC 9(02).
-			 05 APRO-CLI-NUMERO                     PIC X(8).
-		  03 APRO-CHO-TURNO                         PIC X.
-		  03 APRO-CLI-TIPO-DOC                      PIC X.
-		  03 APRO-CLI-NRO-DOC                       PIC X(20).
-		  03 APRO-CLI-DIRECCION                     PIC X(30).
+			      07  APRO-FECHA-AA                 	PIC 9(04).
+				  07  APRO-FECHA-MM                 	PIC 9(02).
+				  07  APRO-FECHA-DD                 	PIC 9(02).
+			 05 APRO-CLI-NUMERO                     	PIC X(8).
+		  03 APRO-CHO-TURNO                         	PIC X.
+		  03 APRO-CLI-TIPO-DOC                      	PIC X.
+		  03 APRO-CLI-NRO-DOC                       	PIC X(20).
+		  03 APRO-CLI-DIRECCION                     	PIC X(30).
 		  
 	   FD  CLI-IDX. 
        01  CLI-IDX-REG.
 		   03 CLI-IDX-CLAVE.
-			   05 CLI-IDX-NUMERO				PIC X(08).
+			   05 CLI-IDX-NUMERO						PIC X(08).
 		   03 CLI-IDX-FEC-ALTA.
-			   05  CLI-IDX-FEC-ALTA-AA	    	PIC 9(04).
-			   05  CLI-IDX-FEC-ALTA-MM 			PIC 9(02).
-			   05  CLI-IDX-FEC-ALTA-DD 			PIC 9(02).
-		   03  CLI-IDX-TELEFONO            		PIC X(20).
-		   03  CLI-IDX-DIRECCION           		PIC X(30).
+			   05  CLI-IDX-FEC-ALTA-AA	    			PIC 9(04).
+			   05  CLI-IDX-FEC-ALTA-MM 					PIC 9(02).
+			   05  CLI-IDX-FEC-ALTA-DD 					PIC 9(02).
+		   03  CLI-IDX-TELEFONO            				PIC X(20).
+		   03  CLI-IDX-DIRECCION           				PIC X(30).
 		   03  CLI-IDX-CLAVE-ALT.
-               05  CLI-IDX-DOCUMENTO            PIC X(20).
+               05  CLI-IDX-DOCUMENTO            		PIC X(20).
 			   
 			   
 	   FD  CHO-IDX. 
        01  CHO-IDX-REG.
 		   03 CHO-IDX-CLAVE.
-			   05 CHO-IDX-LEGAJO				PIC X(07).
+			   05 CHO-IDX-LEGAJO						PIC X(07).
 			   05 CHO-IDX-FECHA-DESDE.
-			   	  07  CHO-IDX-FECHA-DESDE-AA    PIC 9(04).
-				  07  CHO-IDX-FECHA-DESDE-MM 	PIC 9(02).
-				  07  CHO-IDX-FECHA-DESDE-DD 	PIC 9(02).
+			   	  07  CHO-IDX-FECHA-DESDE-AA    		PIC 9(04).
+				  07  CHO-IDX-FECHA-DESDE-MM 			PIC 9(02).
+				  07  CHO-IDX-FECHA-DESDE-DD 			PIC 9(02).
 		   03 CHO-IDX-FECHA-HASTA.
-			   05  CHO-IDX-FECHA-HASTA-AA    	PIC 9(04).
-			   05  CHO-IDX-FECHA-HASTA-MM 		PIC 9(02).
-			   05  CHO-IDX-FECHA-HASTA-DD 		PIC 9(02).
-		   03  CHO-IDX-TURNO            		PIC X.
+			   05  CHO-IDX-FECHA-HASTA-AA    			PIC 9(04).
+			   05  CHO-IDX-FECHA-HASTA-MM 				PIC 9(02).
+			   05  CHO-IDX-FECHA-HASTA-DD 				PIC 9(02).
+		   03  CHO-IDX-TURNO            				PIC X.
 		   
 	   WORKING-STORAGE SECTION.
 	   
 	   01  WS-MENOR.
            05  WS-CLAVE-MENOR.
-              10  CLAVE-MENOR-PATENTE                      PIC X(06).
-              10  CLAVE-MENOR-FECHA                        PIC 9(08).
+              10  CLAVE-MENOR-PATENTE                   PIC X(06).
+              10  CLAVE-MENOR-FECHA           			PIC 9(08).
 
        01  WS-ANT.
            05  WS-CLAVE-ANT.
-              10  CLAVE-ANT-PATENTE                      PIC X(06).
-              10  CLAVE-ANT-FECHA                        PIC 9(08).
+              10  CLAVE-ANT-PATENTE            			PIC X(06).
+              10  CLAVE-ANT-FECHA                  		PIC 9(08).
 			  
 	   01  WS-PAT-ANT                                    PIC X(6).
 	   
-	   01  FS-ALQ-IDX							PIC X(02).
-           88  FS-ALQ-IDX-OK           			VALUE '00'.
-           88  FS-ALQ-IDX-FIN          			VALUE '10'.
-		   88  FS-ALQ-IDX-NO-EXIST				VALUE '23'.
+	   01  FS-ALQ-IDX									PIC X(02).
+           88  FS-ALQ-IDX-OK           					VALUE '00'.
+           88  FS-ALQ-IDX-FIN          					VALUE '10'.
+		   88  FS-ALQ-IDX-NO-EXIST						VALUE '23'.
 		
-	   01  FS-CHO-IDX							PIC X(02).
-           88  FS-CHO-IDX-OK           			VALUE '00'.
-           88  FS-CHO-IDX-FIN          			VALUE '10'.
-		   88  FS-CHO-IDX-NO-EXIST				VALUE '23'.
+	   01  FS-CHO-IDX									PIC X(02).
+           88  FS-CHO-IDX-OK           					VALUE '00'.
+           88  FS-CHO-IDX-FIN          					VALUE '10'.
+		   88  FS-CHO-IDX-NO-EXIST						VALUE '23'.
 	   		
-	   01  FS-RECH-IDX							PIC X(02).
-           88  FS-RECH-IDX-OK           			VALUE '00'.
-           88  FS-RECH-IDX-FIN          			VALUE '10'.
-		   88  FS-RECH-IDX-NO-EXIST				VALUE '23'.
+	   01  FS-RECH-IDX									PIC X(02).
+           88  FS-RECH-IDX-OK           				VALUE '00'.
+           88  FS-RECH-IDX-FIN          				VALUE '10'.
+		   88  FS-RECH-IDX-NO-EXIST						VALUE '23'.
 
-	   01  FS-CLI-IDX							PIC X(02).
-           88  FS-CLI-IDX-OK           			VALUE '00'.
-           88  FS-CLI-IDX-FIN          			VALUE '10'.
-		   88  FS-CLI-IDX-NO-EXIST				VALUE '23'.		   
+	   01  FS-CLI-IDX									PIC X(02).
+           88  FS-CLI-IDX-OK           					VALUE '00'.
+           88  FS-CLI-IDX-FIN          					VALUE '10'.
+		   88  FS-CLI-IDX-NO-EXIST						VALUE '23'.		   
 	   
       * PARA CHEQUEO DE FILE STATUS
        01  WS-FILE-STATUS.
-          05  WS-FS                       PIC X(02).
-          05  WS-FS-NOMBRE                PIC X(08).
-          05  WS-FS-FUNCION               PIC X(05).	 
+          05  WS-FS                       				PIC X(02).
+          05  WS-FS-NOMBRE                				PIC X(08).
+          05  WS-FS-FUNCION               				PIC X(05).	 
 	   
 	   01 PARAM.
-		   03 P-OP                     PIC X.
-		   03 P-RETORNO                PIC X(2).
-		   03 P-TIPO-IDEN              PIC 9.
-		   03 P-CLI-NUM                PIC X(8).
-		   03 P-CLI-DOC                PIC X(20).
+		   03 P-OP                     					PIC X.
+		   03 P-RETORNO                					PIC X(2).
+		   03 P-TIPO-IDEN              					PIC 9.
+		   03 P-CLI-NUM                					PIC X(8).
+		   03 P-CLI-DOC                					PIC X(20).
 		   03 P-CLI-REG.
 		      07 P-CLI-IDX-CLAVE.
-			     10 P-CLI-IDX-NUMERO				PIC X(08).
+			     10 P-CLI-IDX-NUMERO					PIC X(08).
 			  07 P-CLI-IDX-FEC-ALTA.
-				  10  P-CLI-IDX-FEC-ALTA-AA	    	PIC 9(04).
+				  10  P-CLI-IDX-FEC-ALTA-AA	    		PIC 9(04).
 				  10  P-CLI-IDX-FEC-ALTA-MM 			PIC 9(02).
 				  10  P-CLI-IDX-FEC-ALTA-DD 			PIC 9(02).
 			  07  P-CLI-IDX-TELEFONO            		PIC X(20).
 			  07  P-CLI-IDX-DIRECCION           		PIC X(30).
 			  07  P-CLI-IDX-CLAVE-ALT.
-				  10  P-CLI-IDX-DOCUMENTO            PIC X(20).
+				  10  P-CLI-IDX-DOCUMENTO            	PIC X(20).
 			  
 
 		   
@@ -178,11 +178,13 @@
       **************************************************************	   
 	   PGM.		
 		   DISPLAY "INICIA EL PROGRAMA".
+		   
 		   SORT APRO
-		   ON ASCENDING KEY APRO-CLAVE
+				ON ASCENDING KEY APRO-CLAVE
 		   INPUT  PROCEDURE IS 1000-PROCESO-INPUT
 		   OUTPUT PROCEDURE IS 5000-PROCESO-OUTPUT.
-	       DISPLAY "FINALIZA EL PROGRAMA". 
+	       
+		   DISPLAY "FINALIZA EL PROGRAMA". 
 		   STOP RUN.   
 
        1000-PROCESO-INPUT.
@@ -225,41 +227,40 @@
       *		  DISPLAY 'CLIENTE ABIERTO'.
 		  
 	   1200-PROCESAR-ALQ.	   
-	
-		IF ALQ-IDX-ESTADO EQUAL 'P' THEN 
+		  IF ALQ-IDX-ESTADO EQUAL 'P' THEN 
 	         PERFORM 1210-PROCESAR-ALQ-REG
 		  END-IF.
 		  PERFORM 8000-LEER-ALQ.
 		  
 	   1210-PROCESAR-ALQ-REG.
-		     MOVE ALQ-IDX-CHOFER TO CHO-IDX-LEGAJO.
-			 MOVE ZEROES TO CHO-IDX-FECHA-DESDE.
-			 MOVE ZEROES TO CHO-IDX-FECHA-HASTA.
-			 
-  			 START CHO-IDX 
+		  MOVE ALQ-IDX-CHOFER TO CHO-IDX-LEGAJO.
+		  MOVE ZEROES TO CHO-IDX-FECHA-DESDE.
+		  MOVE ZEROES TO CHO-IDX-FECHA-HASTA.
+
+  		  START CHO-IDX 
 					KEY IS NOT < CHO-IDX-CLAVE
-   			 END-START.
+   		  END-START.
 
-			 IF FS-CHO-IDX EQUAL '00' THEN
-				DISPLAY "CICLO READ INDEX"
-				PERFORM 8001-LEER-CHO UNTIL
-				  FS-CHO-IDX-FIN OR
-                  ALQ-IDX-FECHA > CHO-IDX-FECHA-HASTA OR
-				  ALQ-IDX-CHOFER NOT EQUAL CHO-IDX-LEGAJO OR
-                  ( CHO-IDX-FECHA-DESDE NOT > ALQ-IDX-FECHA AND 
-				    CHO-IDX-FECHA-HASTA NOT < ALQ-IDX-FECHA)
-
-				IF CHO-IDX-LEGAJO EQUAL ALQ-IDX-CHOFER AND
-                   CHO-IDX-FECHA-DESDE NOT > ALQ-IDX-FECHA AND 
-				   CHO-IDX-FECHA-HASTA NOT < ALQ-IDX-FECHA THEN
-				   DISPLAY CHO-IDX-FECHA-DESDE " " ALQ-IDX-FECHA " " CHO-IDX-FECHA-HASTA
-				  PERFORM 1220-APROBAR-ALQUILER
-				ELSE
-				   DISPLAY CHO-IDX-FECHA-DESDE " " ALQ-IDX-FECHA " " CHO-IDX-FECHA-HASTA
-				  PERFORM 1230-RECHAZAR-ALQUILER
-				END-IF
-			 END-IF.
-			 PERFORM 8000-LEER-ALQ.			 
+		  IF FS-CHO-IDX EQUAL '00' THEN
+			DISPLAY "CICLO READ INDEX"
+			PERFORM 8001-LEER-CHO UNTIL
+			  FS-CHO-IDX-FIN OR
+			  ALQ-IDX-FECHA > CHO-IDX-FECHA-HASTA OR
+			  ALQ-IDX-CHOFER NOT EQUAL CHO-IDX-LEGAJO OR
+			  ( CHO-IDX-FECHA-DESDE NOT > ALQ-IDX-FECHA AND 
+				CHO-IDX-FECHA-HASTA NOT < ALQ-IDX-FECHA)
+				
+			DISPLAY CHO-IDX-FECHA-DESDE " " ALQ-IDX-FECHA 
+				" " CHO-IDX-FECHA-HASTA
+			IF CHO-IDX-LEGAJO EQUAL ALQ-IDX-CHOFER AND
+			   CHO-IDX-FECHA-DESDE NOT > ALQ-IDX-FECHA AND 
+			   CHO-IDX-FECHA-HASTA NOT < ALQ-IDX-FECHA THEN			   
+			  PERFORM 1220-APROBAR-ALQUILER
+			ELSE			   
+			  PERFORM 1230-RECHAZAR-ALQUILER
+			END-IF
+		  END-IF.
+		 
 			 
 	   1220-APROBAR-ALQUILER.
 	     DISPLAY "APROBAR".
@@ -321,7 +322,13 @@
       	    READ CHO-IDX NEXT RECORD 
       				AT END SET FS-CHO-IDX-FIN TO TRUE
 			END-READ.
-			DISPLAY CHO-IDX-REG.
+			
+			IF NOT FS-CHO-IDX-OK AND NOT FS-CHO-IDX-FIN
+               DISPLAY 'ERROR AL INTENTAR LEER CHO-IDX'
+               GO 9999-CANCELAR-PROGRAMA
+            END-IF.
+		   
+			DISPLAY "CHO-IDX-REG" CHO-IDX-REG.
 	   
       ********************************************************
       * FIN DE LECTURA DE ARCHIVOS
