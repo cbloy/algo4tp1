@@ -5,6 +5,7 @@ echo compilo MAIN_TP2
 echo ----------------------------
 pause
 rmcobol ..\main_tp2.cbl
+rmcobol ..\SUBtp2.cbl
 echo ----------------------------
 echo Armo archivos IDX
 echo ----------------------------
