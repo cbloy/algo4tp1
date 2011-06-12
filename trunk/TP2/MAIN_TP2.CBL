@@ -248,10 +248,7 @@
 			PERFORM 8001-LEER-CHO UNTIL
 			  FS-CHO-IDX-FIN OR
 			  ALQ-IDX-CHOFER NOT EQUAL CHO-IDX-LEGAJO OR
-			  
-      * saco esta condicion porque sino nunca entra a leer.
-      *		   ALQ-IDX-FECHA > CHO-IDX-FECHA-HASTA OR			  
-	  
+			  CHO-IDX-FECHA-DESDE > ALQ-IDX-FECHA OR
 			  ( CHO-IDX-FECHA-DESDE NOT > ALQ-IDX-FECHA AND 
 				CHO-IDX-FECHA-HASTA NOT < ALQ-IDX-FECHA)
 
