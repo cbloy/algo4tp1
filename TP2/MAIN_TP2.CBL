@@ -74,12 +74,12 @@
 		
 	   SD APRO.
 	   01 APRO-REG.
-	      03 APRO-CLAVE.
-		     05 APRO-CHOFER                         	PIC X(7).
+	      03 APRO-CLAVE.		    
 			 05 APRO-FECHA.
 			      07  APRO-FECHA-AA                 	PIC 9(04).
 				  07  APRO-FECHA-MM                 	PIC 9(02).
 				  07  APRO-FECHA-DD                 	PIC 9(02).
+			 05 APRO-CHOFER                         	PIC X(7).
 			 05 APRO-CLI-NUMERO                     	PIC X(8).
 		  03 APRO-CHO-TURNO                         	PIC X.
 		  03 APRO-CLI-TIPO-DOC                      	PIC X.
@@ -130,7 +130,7 @@
               10  CLAVE-ANT-PATENTE            			PIC X(06).
               10  CLAVE-ANT-FECHA                  		PIC 9(08).
 			  
-	   01  WS-PAT-ANT                                    PIC X(6).
+	   01  WS-PAT-ANT                                	PIC X(6).
 	   
 	   01  FS-ALQ-IDX									PIC X(02).
            88  FS-ALQ-IDX-OK           					VALUE '00'.
@@ -181,45 +181,45 @@
       ***************		   
       *  IMPRESION  *
       ***************
-       01  TOT-CHOF                     PIC 9(7)V99.
-	   01  TOT-FECHA                     PIC 9(7)V99.
-	   01  TOT-GRAL                     PIC 9(7)V99.
-	   01  CONT-LINEAS                  PIC 99.
+       01  TOT-CHOF                     			PIC 9(7)V99.
+	   01  TOT-FECHA                     			PIC 9(7)V99.
+	   01  TOT-GRAL                     			PIC 9(7)V99.
+	   01  CONT-LINEAS                  			PIC 99.
 	   
        01  FECHA-ANT.
-   		   03  FECHA-ANT-AA   				PIC 9(04).
-		   03  FECHA-ANT-MM					PIC 9(02).
-		   03  FECHA-ANT-DD					PIC 9(02).
+   		   03  FECHA-ANT-AA   						PIC 9(04).
+		   03  FECHA-ANT-MM							PIC 9(02).
+		   03  FECHA-ANT-DD							PIC 9(02).
 		   
-	   01 CHOFER-ANT                        PIC X(7).
+	   01 CHOFER-ANT                        		PIC X(7).
 	   
        01  FECHA.
-   		  03  FECHA-AA   				PIC 9(02).
-		  03  FECHA-MM					PIC 9(02).
-		  03  FECHA-DD					PIC 9(02).
+   		  03  FECHA-AA   							PIC 9(02).
+		  03  FECHA-MM								PIC 9(02).
+		  03  FECHA-DD								PIC 9(02).
 		
 	   01  ENCABEZADO-HOJA.
-		   03 FILLER					PIC X(06)
-										VALUE 'Fecha '.
-		   03 ENC-FECHA-DD				PIC 99.
-		   03 FILLER					PIC X 
-										VALUE '/'.
-		   03 ENC-FECHA-MM				PIC 99.
-		   03 FILLER					PIC X 
-										VALUE '/'.
-		   03 FILLER 					PIC X(02) 
-										VALUE '20'.
-	       03 ENC-FECHA-AA				PIC 99.
-		   03 FILLER					PIC X(57).
-		   03 FILLER					PIC X(5) 
-										VALUE 'Hoja '.
-		   03 ENC-N-HOJA				PIC 99.
+		   03 FILLER								PIC X(06)
+													VALUE 'Fecha '.
+		   03 ENC-FECHA-DD							PIC 99.
+		   03 FILLER								PIC X 
+													VALUE '/'.
+		   03 ENC-FECHA-MM							PIC 99.
+		   03 FILLER								PIC X 
+													VALUE '/'.
+		   03 FILLER 								PIC X(02) 
+													VALUE '20'.
+	       03 ENC-FECHA-AA							PIC 99.
+		   03 FILLER								PIC X(57).
+		   03 FILLER								PIC X(5) 
+													VALUE 'Hoja '.
+		   03 ENC-N-HOJA							PIC 99.
 		   
        01  ENCABEZADO-HOJA-TITULO.
-           03 FILLER                    PIC X(25).
-           03 FILLER                    PIC X(32)
-               VALUE 'LISTADO DE ALQUILERES APROBADOS'.
-           03 FILLER                    PIC X(25).
+           03 FILLER                    			PIC X(25).
+           03 FILLER                   				PIC X(32)
+						VALUE 'LISTADO DE ALQUILERES APROBADOS'.
+           03 FILLER              				    PIC X(25).
 
 		   
 		   
@@ -366,42 +366,16 @@
 		   PERFORM 5600-IMPRIMIR-TOT-GRAL.
 		   CLOSE LISTADO.
   
-	   5600-IMPRIMIR-TOT-GRAL.
-	      STRING 'Totales generales: ' TOT-GRAL 
-		                 DELIMITED BY SIZE INTO LINEA.
-		  PERFORM 7500-IMPRIMIR-LINEA.	   
-	   
 	   5100-INICIO-OUT.
 	      MOVE ZERO TO TOT-GRAL.
 	      MOVE ZERO TO TOT-CHOF.
 	      MOVE ZERO TO TOT-FECHA.
-		  MOVE 9 TO CONT-LINEAS.
+		  MOVE 1 TO CONT-LINEAS.
 		  MOVE 1 TO ENC-N-HOJA.
 		  
 	   5200-LEER-APRO.
 	      RETURN APRO AT END SET FS-APRO-FIN TO TRUE.
 		  DISPLAY APRO-CLI-NRO-DOC.
-		  
-	   5400-IMPRIMIR-ENCAB-CHOFER.
-		   STRING  '    Fecha: ' APRO-FECHA-DD
-		           '/'   APRO-FECHA-MM
-				   '/' APRO-FECHA-AA
-					DELIMITED BY SIZE INTO LINEA.
-		   PERFORM 7500-IMPRIMIR-LINEA.
-		   STRING  '    Chofer: ' APRO-CHOFER
-		           ' Turno: ' APRO-CHO-TURNO
-					DELIMITED BY SIZE INTO LINEA.
-		   PERFORM 7500-IMPRIMIR-LINEA.
-		   PERFORM 7501-IMPRIMIR-LINEA-VACIA.
-		   STRING  '           Cliente       Tipo Doc '
-		           '       Nro Document       Direccion       '
-			       DELIMITED BY SIZE INTO LINEA.
-		   PERFORM 7500-IMPRIMIR-LINEA.
-		   STRING  '-------------------------------------------'
-		           '-------------------------------------------'
-			       DELIMITED BY SIZE INTO LINEA.
-		   PERFORM 7500-IMPRIMIR-LINEA.
-		   ADD 5 TO CONT-LINEAS.
 	   
 	   5300-IMPRIMIR-ENCABEZADO-FECHA.
 	      ACCEPT FECHA FROM DATE.
@@ -414,7 +388,32 @@
 		  PERFORM 7500-IMPRIMIR-LINEA.
 		  MOVE SPACE TO LINEA.
 		  PERFORM 7500-IMPRIMIR-LINEA.
-		  MOVE 4 TO CONT-LINEAS.
+		  
+	   5400-IMPRIMIR-ENCAB-CHOFER.
+		   STRING  '    '
+				   'Fecha:  ' APRO-FECHA-DD
+		           '/'   	  APRO-FECHA-MM
+				   '/' 	 	  APRO-FECHA-AA
+					DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   STRING  '    '    
+				   'Chofer: ' APRO-CHOFER
+		           ' Turno: ' APRO-CHO-TURNO
+					DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   PERFORM 7501-IMPRIMIR-LINEA-VACIA.
+		   STRING  '    '
+				   'Cliente    '
+				   'Tipo Doc   '
+		           'Nro. Documento         '       
+				   'Direccion                     '
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   STRING  '    '
+				   '--------------------------------------'
+		           '-------------------------------------------'
+			       DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
 		  
 	   5500-IMPRIMIR-APRO.
 		  MOVE APRO-FECHA-DD TO FECHA-ANT-DD.
@@ -432,17 +431,12 @@
 			 PERFORM 5300-IMPRIMIR-ENCABEZADO-FECHA
 		  END-IF.
 		  DISPLAY "IMRPIMO TOTAL FECHA".
-		  PERFORM 5520-IMPRIMIR-TOT-FECHA.
+		  PERFORM 5512-IMPRIMIR-TOT-FECHA.
 		  MOVE ZERO TO TOT-FECHA.	   
 		  
-	   5520-IMPRIMIR-TOT-FECHA.
-	       STRING 'Totales por fecha: ' TOT-FECHA 
-		              DELIMITED BY SIZE INTO LINEA.
-		   PERFORM 7500-IMPRIMIR-LINEA.
-	
 	   5510-CICLO-POR-FECHA.
 	      MOVE APRO-CHOFER TO CHOFER-ANT.
-		  IF CONT-LINEAS > 55 THEN
+		  IF CONT-LINEAS > 54 THEN
 		     PERFORM 7100-IMPRIMIR-SALTO
 			 PERFORM 5300-IMPRIMIR-ENCABEZADO-FECHA
 		  END-IF.
@@ -452,8 +446,8 @@
 		                   APRO-CHOFER NOT EQUAL CHOFER-ANT OR
 						   APRO-FECHA NOT EQUAL FECHA-ANT OR 
 						   FS-APRO-FIN.
-		  DISPLAY "SALIO DEL CHICLO CHOFER".
-		  IF CONT-LINEAS > 60 THEN
+		  DISPLAY "SALIO DEL CICLO CHOFER".
+		  IF CONT-LINEAS > 59 THEN
 		     PERFORM 7100-IMPRIMIR-SALTO
 			 PERFORM 5300-IMPRIMIR-ENCABEZADO-FECHA
 			 PERFORM 5400-IMPRIMIR-ENCAB-CHOFER
@@ -464,9 +458,17 @@
 	   5511-IMPRIMIR-TOT-CHOF.
            MOVE SPACE TO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
-	   	   STRING 'Totales por chofer: ' TOT-CHOF 
+	   	   STRING '    ' 
+				  'Totales por chofer: ' TOT-CHOF 
 		              DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
+
+	   5512-IMPRIMIR-TOT-FECHA.
+	       STRING '    ' 
+				  'Totales por fecha: ' TOT-FECHA 
+		              DELIMITED BY SIZE INTO LINEA.
+		   PERFORM 7500-IMPRIMIR-LINEA.
+		   PERFORM 7501-IMPRIMIR-LINEA-VACIA.			   
 		  
 	   5520-CICLO-POR-CHOFER.
 	      IF CONT-LINEAS > 60 THEN
@@ -477,27 +479,33 @@
 		  PERFORM 5521-IMPRIMIR-CLIENTE.
 		  ADD 1 TO TOT-CHOF.
 		  ADD 1 TO TOT-FECHA.
-		  ADD 1 TO CONT-LINEAS.
 		  ADD 1 TO TOT-GRAL.
 		  MOVE APRO-FECHA TO FECHA-ANT.
 		  MOVE APRO-CHOFER TO CHOFER-ANT.
 		  PERFORM 5200-LEER-APRO.
-	   
+		   
 	   5521-IMPRIMIR-CLIENTE.
 	      DISPLAY "IMPRIMIENDO CLIENTES". 
-		  STRING  '           ' APRO-CLI-NUMERO
-		          '       ' APRO-CLI-TIPO-DOC
-                  '            ' APRO-CLI-NRO-DOC 
-                  '	 ' APRO-CLI-DIRECCION
+		  STRING  '    ' APRO-CLI-NUMERO
+		          '   ' APRO-CLI-TIPO-DOC
+                  '          ' APRO-CLI-NRO-DOC 
+                  '   ' APRO-CLI-DIRECCION
 		             DELIMITED BY SIZE INTO LINEA.
 		  PERFORM 7500-IMPRIMIR-LINEA.
+
+	  5600-IMPRIMIR-TOT-GRAL.
+	      STRING '    ' 
+				 'Totales generales: ' TOT-GRAL 
+		                 DELIMITED BY SIZE INTO LINEA.
+		  PERFORM 7500-IMPRIMIR-LINEA.	   
 	   
 	   7100-IMPRIMIR-SALTO.
 			MOVE LINEA TO LINEA-AUX.
-           	WRITE LINEA.
+           	PERFORM 7500-IMPRIMIR-LINEA.
 			PERFORM 7501-IMPRIMIR-LINEA-VACIA.			
 			MOVE LINEA-AUX TO LINEA.
 			ADD 1 TO ENC-N-HOJA.
+			MOVE 1 TO CONT-LINEAS.
 			
 	   7500-IMPRIMIR-LINEA.
 			WRITE LINEA.
@@ -507,6 +515,7 @@
 	   7501-IMPRIMIR-LINEA-VACIA.
 			MOVE SPACES TO LINEA.
 			WRITE LINEA.
+			ADD 1 TO CONT-LINEAS.
 			
 	   8000-LEER-ALQ.
 	       
