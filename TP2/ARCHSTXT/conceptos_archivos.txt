@@ -1,0 +1,20 @@
+PATENTE AAAXXX
+	ESTADOS: P o T
+	CHOFER: va a estar disponible.
+	SE VAN A APROBAR
+
+PATENTE ZZZXXX
+	ESTADOS: P o R o T
+	CHOFER: no va a estar disponible.
+	SE VAN A RECHAZAR
+
+
+LEGAJO	LEG10XXX
+	el chofer va a estar disponible
+	SE VAN A APROBAR
+	PANTENTES: AAAXXX
+
+LEGAJO	LEG99XXX
+	el chofer no va a estar disponible
+	NO SE VAN A APROBAR
+	PANTENTES: ZZZXXX
