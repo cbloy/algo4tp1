@@ -1,0 +1,723 @@
+Fecha 18/06/2011                                                         Hoja  1
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  10/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+    CLI00003   D          30333444               CONGRESO 333
+
+    Totales por chofer:     3
+
+    Fecha:  10/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     2
+
+    Fecha:  10/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  11/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00002   D          20222333               BOYACA 222
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     3
+
+    Fecha:  11/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     2
+
+
+Fecha 18/06/2011                                                         Hoja  2
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  11/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00008   D          80888999               HONDURAS 888
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  12/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     3
+
+    Fecha:  12/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00006   D          60666777               FITZ ROY 666
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+
+    Fecha:  12/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  13/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     3
+
+
+Fecha 18/06/2011                                                         Hoja  3
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  13/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     2
+
+    Fecha:  13/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  14/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     2
+
+    Fecha:  14/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+    Fecha:  14/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00002   D          20222333               BOYACA 222
+    CLI00003   D          30333444               CONGRESO 333
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+
+Fecha 18/06/2011                                                         Hoja  4
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  15/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00006   D          60666777               FITZ ROY 666
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+
+    Fecha:  15/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00008   D          80888999               HONDURAS 888
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+    Fecha:  15/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  16/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     2
+
+    Fecha:  16/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+
+Fecha 18/06/2011                                                         Hoja  5
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  16/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  17/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00008   D          80888999               HONDURAS 888
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+
+    Fecha:  17/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+    CLI00003   D          30333444               CONGRESO 333
+
+    Totales por chofer:     3
+
+    Fecha:  17/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  18/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+
+
+Fecha 18/06/2011                                                         Hoja  6
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  18/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00002   D          20222333               BOYACA 222
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     3
+
+    Fecha:  18/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00006   D          60666777               FITZ ROY 666
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  19/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+
+    Totales por chofer:     2
+
+    Fecha:  19/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     3
+
+    Fecha:  19/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+
+Fecha 18/06/2011                                                         Hoja  7
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  20/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00002   D          20222333               BOYACA 222
+    CLI00003   D          30333444               CONGRESO 333
+
+    Totales por chofer:     2
+
+    Fecha:  20/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     3
+
+    Fecha:  20/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00008   D          80888999               HONDURAS 888
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  21/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     2
+
+    Fecha:  21/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00006   D          60666777               FITZ ROY 666
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     3
+
+
+Fecha 18/06/2011                                                         Hoja  8
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  21/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  22/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     2
+
+    Fecha:  22/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     3
+
+    Fecha:  22/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  23/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     2
+
+
+Fecha 18/06/2011                                                         Hoja  9
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  23/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     3
+
+    Fecha:  23/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00002   D          20222333               BOYACA 222
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  24/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+
+    Fecha:  24/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+    Fecha:  24/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+
+Fecha 18/06/2011                                                         Hoja 10
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  25/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+
+    Fecha:  25/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     3
+
+    Fecha:  25/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  26/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00009   D          90999000               IBARROLA 999
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+    Fecha:  26/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00003   D          30333444               CONGRESO 333
+
+    Totales por chofer:     2
+
+
+Fecha 18/06/2011                                                         Hoja 11
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  26/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  27/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00007   D          70777888               GALLO 777
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+    Fecha:  27/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00003   D          30333444               CONGRESO 333
+
+    Totales por chofer:     2
+
+    Fecha:  27/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00006   D          60666777               FITZ ROY 666
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  28/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     3
+
+
+Fecha 18/06/2011                                                         Hoja 12
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  28/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00003   D          30333444               CONGRESO 333
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     2
+
+    Fecha:  28/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00006   D          60666777               FITZ ROY 666
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+    Fecha:  29/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00001   D          10111222               ARENALES 111
+    CLI00002   D          20222333               BOYACA 222
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     3
+
+    Fecha:  29/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00004   D          40444555               DARDO ROCHA 444
+    CLI00005   D          50555666               EMILIO MITRE 555
+
+    Totales por chofer:     2
+
+    Fecha:  29/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00007   D          70777888               GALLO 777
+    CLI00008   D          80888999               HONDURAS 888
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+
+
+Fecha 18/06/2011                                                         Hoja 13
+                         LISTADO DE ALQUILERES APROBADOS
+
+    Fecha:  30/01/2011
+    Chofer: LEG1000 Turno: M
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00002   D          20222333               BOYACA 222
+    CLI00002   D          20222333               BOYACA 222
+    CLI00004   D          40444555               DARDO ROCHA 444
+
+    Totales por chofer:     3
+
+    Fecha:  30/01/2011
+    Chofer: LEG1001 Turno: T
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00005   D          50555666               EMILIO MITRE 555
+    CLI00007   D          70777888               GALLO 777
+
+    Totales por chofer:     2
+
+    Fecha:  30/01/2011
+    Chofer: LEG1002 Turno: N
+
+    Cliente    Tipo Doc   Nro. Documento         Direccion
+    ----------------------------------------------------------------------------
+    CLI00008   D          80888999               HONDURAS 888
+    CLI00009   D          90999000               IBARROLA 999
+
+    Totales por chofer:     2
+    Totales por fecha:      7
+    Totales general:      147
