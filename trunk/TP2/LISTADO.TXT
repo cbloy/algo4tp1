@@ -1,4 +1,4 @@
-Fecha 18/06/2011                                                         Hoja  1
+Fecha 20/06/2011                                                         Hoja  1
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  10/01/2011
@@ -53,9 +53,7 @@ Fecha 18/06/2011                                                         Hoja  1
     CLI00006   D          60666777               FITZ ROY 666
 
     Totales por chofer:     2
-
-
-Fecha 18/06/2011                                                         Hoja  2
+Fecha 20/06/2011                                                         Hoja  2
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  11/01/2011
@@ -111,9 +109,7 @@ Fecha 18/06/2011                                                         Hoja  2
     CLI00006   D          60666777               FITZ ROY 666
 
     Totales por chofer:     3
-
-
-Fecha 18/06/2011                                                         Hoja  3
+Fecha 20/06/2011                                                         Hoja  3
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  13/01/2011
@@ -168,9 +164,7 @@ Fecha 18/06/2011                                                         Hoja  3
 
     Totales por chofer:     2
     Totales por fecha:      7
-
-
-Fecha 18/06/2011                                                         Hoja  4
+Fecha 20/06/2011                                                         Hoja  4
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  15/01/2011
@@ -225,9 +219,7 @@ Fecha 18/06/2011                                                         Hoja  4
     CLI00009   D          90999000               IBARROLA 999
 
     Totales por chofer:     3
-
-
-Fecha 18/06/2011                                                         Hoja  5
+Fecha 20/06/2011                                                         Hoja  5
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  16/01/2011
@@ -282,9 +274,7 @@ Fecha 18/06/2011                                                         Hoja  5
     CLI00009   D          90999000               IBARROLA 999
 
     Totales por chofer:     2
-
-
-Fecha 18/06/2011                                                         Hoja  6
+Fecha 20/06/2011                                                         Hoja  6
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  18/01/2011
@@ -340,9 +330,7 @@ Fecha 18/06/2011                                                         Hoja  6
 
     Totales por chofer:     2
     Totales por fecha:      7
-
-
-Fecha 18/06/2011                                                         Hoja  7
+Fecha 20/06/2011                                                         Hoja  7
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  20/01/2011
@@ -397,9 +385,7 @@ Fecha 18/06/2011                                                         Hoja  7
     CLI00007   D          70777888               GALLO 777
 
     Totales por chofer:     3
-
-
-Fecha 18/06/2011                                                         Hoja  8
+Fecha 20/06/2011                                                         Hoja  8
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  21/01/2011
@@ -454,9 +440,7 @@ Fecha 18/06/2011                                                         Hoja  8
     CLI00005   D          50555666               EMILIO MITRE 555
 
     Totales por chofer:     2
-
-
-Fecha 18/06/2011                                                         Hoja  9
+Fecha 20/06/2011                                                         Hoja  9
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  23/01/2011
@@ -512,9 +496,7 @@ Fecha 18/06/2011                                                         Hoja  9
 
     Totales por chofer:     2
     Totales por fecha:      7
-
-
-Fecha 18/06/2011                                                         Hoja 10
+Fecha 20/06/2011                                                         Hoja 10
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  25/01/2011
@@ -569,9 +551,7 @@ Fecha 18/06/2011                                                         Hoja 10
     CLI00003   D          30333444               CONGRESO 333
 
     Totales por chofer:     2
-
-
-Fecha 18/06/2011                                                         Hoja 11
+Fecha 20/06/2011                                                         Hoja 11
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  26/01/2011
@@ -627,9 +607,7 @@ Fecha 18/06/2011                                                         Hoja 11
     CLI00009   D          90999000               IBARROLA 999
 
     Totales por chofer:     3
-
-
-Fecha 18/06/2011                                                         Hoja 12
+Fecha 20/06/2011                                                         Hoja 12
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  28/01/2011
@@ -684,9 +662,7 @@ Fecha 18/06/2011                                                         Hoja 12
 
     Totales por chofer:     2
     Totales por fecha:      7
-
-
-Fecha 18/06/2011                                                         Hoja 13
+Fecha 20/06/2011                                                         Hoja 13
                          LISTADO DE ALQUILERES APROBADOS
 
     Fecha:  30/01/2011
@@ -720,4 +696,4 @@ Fecha 18/06/2011                                                         Hoja 13
 
     Totales por chofer:     2
     Totales por fecha:      7
-    Totales general:      147
+    Totales general:      147
