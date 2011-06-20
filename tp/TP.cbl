@@ -22,7 +22,7 @@
                FILE STATUS IS FS-SOL1.
 			   
 		   SELECT SOL2
-               ASSIGN TO "..\SOL2.TXT"
+               ASSIGN TO "..\SOL2.TXT"	
                ORGANIZATION IS LINE SEQUENTIAL 
                FILE STATUS IS FS-SOL2.
 
@@ -135,14 +135,13 @@
 		   05  RECH-AGENCIA                         PIC 9.
 		   
 	   FD ESTAD.
-	   01 LINEA-ESTADISTICA						    PIC X(100).
+	   01 LINEA-ESTAD    						    PIC X(100).
 	   
 	   FD LISTADO.
-	   01 LINEA											PIC X(80).
+	   01 LINEA										PIC X(100).
 	   
-	   01 LINEA-AUX						PIC X(80).
-	   
-	   01 NRO-AGENCIA-IMPRIMIR          PIC X.
+	   01 LINEA-AUX						PIC X(80).	   
+	   01 NRO-AGENCIA-IMPRIMIR          PIC X(1).
 	   
 	   WORKING-STORAGE SECTION.
 	   
@@ -155,8 +154,13 @@
            05  WS-CLAVE-ANT.
               10  CLAVE-ANT-PATENTE                      PIC X(06).
               10  CLAVE-ANT-FECHA                        PIC 9(08).
+	   
+	   01  WS-IMP-ENCABEZADO							 PIC X.	  
 			  
 	   01  WS-PAT-ANT                                    PIC X(6).
+	   01  WS-TOTAL-MES                                  PIC 9(3).
+	   
+	   01  WS-ITEM-MES                                   PIC X(3).
 			  
       *****************
       *  FILE STATUS  *	  
@@ -210,9 +214,13 @@
       **************
        01  TOTAL-PAT-IMPORTE            PIC 9(7)V99.
 	   01  TOTAL-PAT-DIAS               PIC 999.
+	   01  TOTAL-IMPR-DIAS              PIC Z(3)9 BLANK ZERO.
 	   01  TOTAL-GRAL-IMPORTE           PIC 9(7)V99.
+	   01  TOTAL-IMPR-IMPORTE           PIC Z(5)9.99 BLANK ZERO.
+	   01  AGENCIA-IMPR                 PIC Z(1)9 BLANK ZERO.
 	   01  MOTIVO-RECHAZO               PIC X.
 	   01  CONT-LINEAS                  PIC 99.
+	   01  CONT-ESTAD-LINEAS			PIC 99.
 	   01  EXISTE-AUTO                  PIC X.
 	   01  PATENTE-ANTERIOR             PIC X(6).
 	   01  PATENTE-MENOR                PIC X(6).
@@ -237,8 +245,61 @@
 		   03 FILLER					PIC X(57).
 		   03 FILLER					PIC X(5) 
 										VALUE 'Hoja '.
-		   03 ENC-N-HOJA				PIC 99.		   
+		   03 ENC-N-HOJA				PIC 99.	
+      	   
+       01  ESTRUC-ESTAD.
+	       03 FILLER                    PIC X(3).
+		   03 EST-ESTAD-MARCA           PIC X(10).
+		   03 FILLER                    PIC X(3).
+		   03 EST-ESTAD-ENE             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-FEB             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-MAR             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-ABR             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-MAY             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-JUN             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-JUL             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-AGO             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-SEP             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-OCT             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-NOV             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-DEC             PIC Z(3)9 BLANK ZERO.
+		   03 FILLER                    PIC X(2).
+		   03 EST-ESTAD-TOTAL           PIC Z(3)9 BLANK ZERO.
+		   
+	   01  ENCABEZADO-ESTAD.
+		   03 FILLER					PIC X(06)
+										VALUE 'Fecha '.
+		   03 ENC-ESTAD-FECHA-DD				PIC 99.
+		   03 FILLER					PIC X 
+										VALUE '/'.
+		   03 ENC-ESTAD-FECHA-MM				PIC 99.
+		   03 FILLER					PIC X 
+										VALUE '/'.
+		   03 FILLER 					PIC X(02) 
+										VALUE '20'.
+	       03 ENC-ESTAD-FECHA-AA		PIC 99.
+		   03 FILLER					PIC X(57).
+		   03 FILLER					PIC X(5) 
+										VALUE 'Hoja '.
+		  
+		   03 ENC-ESTAD-HOJA				PIC 99.		   
 
+	  	
+		
+	   01  CANT-AUTOS                   PIC 9(3) VALUE 000.
+
+		   
       ************		   
       *  TABLAS  *
       ************
@@ -258,6 +319,10 @@
 			   09  ESTAD-MESES          OCCURS 12 TIMES.
 			       11  ESTAD-MES        PIC 9(3).
 			   09  ESTAD-TOTAL          PIC 9(4).
+			   
+       01  TABLA-TOTAL-MES.
+	        05  ESTAD-TOT-MES           OCCURS 12 TIMES.
+			   09  ESTAD-TOTAL-MES      PIC 9(3) VALUE 000.    
 	   
 
        01  IND-I 										PIC 9(3).	   
@@ -265,6 +330,7 @@
 	   01  IND-I2 										PIC 9(3).
 	   01  IND-MAR 										PIC 9(3).
 	   01  IND-MES                                      PIC 9(2).
+	   01  IND-EST                                      PIC 9(3).
 	   01  MARCA-ENCONTRADO                             PIC X.
 	   
        PROCEDURE DIVISION.
@@ -282,6 +348,7 @@
 		   
 		   PERFORM 2100-DETER-CLAVE-MENOR.
 		   
+		   DISPLAY 'PROCESA ARCHIVOS'
 		   PERFORM 6000-PROCESAR
 				UNTIL FS-SOL1-FIN
 				AND FS-SOL2-FIN
@@ -386,7 +453,7 @@
       **************************************************************
 	  
 	   8000-LEER-SOL1.
-           DISPLAY "LEO SOL1.".
+      *    DISPLAY "LEO SOL1.".
            READ SOL1 AT END 
 					 MOVE HIGH-VALUES TO SOL1-CLAVE
 					 SET FS-SOL1-FIN  TO TRUE
@@ -398,7 +465,7 @@
            END-IF.
 
        8100-LEER-SOL2.
-	       DISPLAY "LEO SOL2.".
+      *    DISPLAY "LEO SOL2.".
            READ SOL2 AT END 
                      MOVE HIGH-VALUES TO SOL2-CLAVE
                      SET FS-SOL2-FIN  TO TRUE
@@ -410,7 +477,7 @@
            END-IF.
        
        8200-LEER-SOL3.
-	       DISPLAY "LEO SOL3.".
+      *    DISPLAY "LEO SOL3.".
            READ SOL3 AT END 
                      MOVE HIGH-VALUES TO SOL3-CLAVE
                      SET FS-SOL3-FIN  TO TRUE
@@ -422,7 +489,7 @@
            END-IF.
 		   
 	   8300-LEER-ALQ.
-	       DISPLAY "LEO ALQ.".
+      *    DISPLAY "LEO ALQ.".
 	       READ ALQ AT END 
                      MOVE HIGH-VALUES TO ALQ-CLAVE
                      SET FS-ALQ-FIN  TO TRUE
@@ -445,7 +512,9 @@
 		   MOVE ZERO TO TOTAL-PAT-DIAS.
 		   MOVE ZERO TO TOTAL-GRAL-IMPORTE.
 		   MOVE ZERO TO ENC-N-HOJA.
-		   MOVE ZERO TO CONT-LINEAS.		   
+		   MOVE ZERO TO ENC-ESTAD-HOJA.
+		   MOVE ZERO TO CONT-LINEAS.
+		   MOVE ZERO TO CONT-ESTAD-LINEAS
 		   MOVE 'X' TO MOTIVO-RECHAZO.		   
 		   MOVE 'X' TO EXISTE-AUTO.
 		   MOVE 'X' TO PATENTE-ANTERIOR.
@@ -457,7 +526,7 @@
       ***************************************************************
 	  
 	   6000-PROCESAR.
-	       DISPLAY "ENTRE AL PROCESAR".
+      *    DISPLAY "ENTRE AL PROCESAR".
 		   
 		   MOVE CLAVE-MENOR-PATENTE TO WS-PAT-ANT.
       
@@ -467,9 +536,13 @@
 		   PERFORM 5000-BUSCAR-PATENTE-EN-AUTOS.
 		   
            IF EXISTE-AUTO = '1' THEN
-		       PERFORM 7200-IMPRIMIR-ENCABEZADO
-		       MOVE 10 TO CONT-LINEAS
+		       PERFORM 7503-IMPRIMIR-ENC-PAGINA			  
+		       PERFORM 7200-IMPRIMIR-ENCABEZADO		       
 		   END-IF.
+		   
+		   
+		   
+		   
 	       MOVE ZERO TO TOTAL-PAT-IMPORTE.
 	       MOVE ZERO TO TOTAL-PAT-DIAS.
 		   
@@ -481,13 +554,13 @@
 				OR CLAVE-MENOR-PATENTE NOT EQUAL WS-PAT-ANT.
 	       
 		   IF EXISTE-AUTO = '1' THEN
-		       PERFORM 7300-IMPRIMIR-PIE
+		       PERFORM 7300-IMPRIMIR-PIE			  
 		   END-IF.
 
 		   
 		   
 	   6100-PROCESAR-PAT.
-	       DISPLAY "ENTRE AL PROCESAR PATENTE".
+      *    DISPLAY "ENTRE AL PROCESAR PATENTE".
 		   PERFORM 6200-POSIBLE-ALQ.
 		   PERFORM 6300-POSIBLE-SOL1.
 		   PERFORM 6500-POSIBLE-SOL3.
@@ -540,16 +613,16 @@
 		   ADD 1 TO ESTAD-TOTAL (IND-I2).
 	  
 	   4000-PROCESAR-SOL1.
-           DISPLAY "PROCESAR SOL1".
+      *    DISPLAY "PROCESAR SOL1".
 		   IF WS-MENOR EQUAL WS-ANT THEN
-		       DISPLAY "ES IGUAL AL ANT"
+      *    		DISPLAY "ES IGUAL AL ANT"
 		       MOVE SOL1-PATENTE TO RECH-PATENTE
 			   MOVE SOL1-FECHA   TO RECH-FECHA
 			   MOVE SOL1-TIPO-DOC TO RECH-TIPO-DOC
 			   MOVE SOL1-NRO-DOC  TO RECH-NRO-DOC
 			   MOVE 1 TO RECH-MOTIVO
 			   MOVE 1 TO RECH-AGENCIA
-			   DISPLAY "ESCRIBO EN RECH"
+      *    	   DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
 		   ELSE IF EXISTE-AUTO = '0' THEN
 		       MOVE SOL1-PATENTE TO RECH-PATENTE
@@ -558,7 +631,7 @@
 			   MOVE SOL1-NRO-DOC  TO RECH-NRO-DOC
 			   MOVE 2 TO RECH-MOTIVO
 			   MOVE 1 TO RECH-AGENCIA
-			   DISPLAY "ESCRIBO EN RECH"
+      *    		DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
 			   MOVE HIGH-VALUES TO WS-ANT
 		   ELSE
@@ -567,9 +640,10 @@
 			   ADD 1 TO TOTAL-PAT-DIAS
 			   PERFORM 4001-GUARDAR-SOL1-ALQ-ACT
 			   MOVE 1 TO NRO-AGENCIA-IMPRIMIR
+			   
 			   PERFORM 7400-IMPRIMIR-APROBADO
-			   MOVE WS-MENOR TO WS-ANT
-	           
+			   
+			   MOVE WS-MENOR TO WS-ANT	           
 		       MOVE 'N' TO MARCA-ENCONTRADO
 		   
                PERFORM 1500-BUSCAR-TABLA-ESTAD 
@@ -587,22 +661,21 @@
 	     MOVE SOL1-FECHA   TO ALQ-ACT-FECHA.
 	     MOVE SOL1-NRO-DOC  TO ALQ-ACT-NRO-DOC.
 		 MOVE SOL1-TIPO-DOC TO ALQ-ACT-TIPO-DOC.
-		 MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.
-		 		 
+		 MOVE AUT-IMPORTE TO ALQ-ACT-IMPORTE.		 		 
 		 WRITE ALQ-ACT-REG.
 		   
 	   4100-PROCESAR-SOL2.
-	       DISPLAY "PROCESAR SOL2".
+      *    DISPLAY "PROCESAR SOL2".
 		   
 		   IF WS-MENOR EQUAL WS-ANT THEN
-		       DISPLAY "ES IGUAL AL ANT"
+      *		       DISPLAY "ES IGUAL AL ANT"
 		       MOVE SOL2-PATENTE TO RECH-PATENTE
 			   MOVE SOL2-FECHA   TO RECH-FECHA
 			   MOVE SOL2-TIPO-DOC TO RECH-TIPO-DOC
 			   MOVE SOL2-NRO-DOC  TO RECH-NRO-DOC
 			   MOVE 1 TO RECH-MOTIVO
 			   MOVE 2 TO RECH-AGENCIA
-			   DISPLAY "ESCRIBO EN RECH"
+      *			   DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
 		   ELSE IF EXISTE-AUTO = '0' THEN
 		       MOVE SOL2-PATENTE TO RECH-PATENTE
@@ -611,7 +684,7 @@
 			   MOVE SOL2-NRO-DOC  TO RECH-NRO-DOC
 			   MOVE 2 TO RECH-MOTIVO
 			   MOVE 2 TO RECH-AGENCIA
-			   DISPLAY "ESCRIBO EN RECH"
+      *			   DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
 			   MOVE HIGH-VALUES TO WS-ANT
 		   ELSE
@@ -620,9 +693,10 @@
 			   ADD 1 TO TOTAL-PAT-DIAS
 			   PERFORM 4101-GUARDAR-SOL2-ALQ-ACT
 			   MOVE 2 TO NRO-AGENCIA-IMPRIMIR
+			   
 			   PERFORM 7400-IMPRIMIR-APROBADO
-			   MOVE WS-MENOR TO WS-ANT
-	           
+			   
+			   MOVE WS-MENOR TO WS-ANT	           
 		       MOVE 'N' TO MARCA-ENCONTRADO
 		   
                PERFORM 1500-BUSCAR-TABLA-ESTAD 
@@ -644,17 +718,17 @@
 	       WRITE ALQ-ACT-REG.
 		   
 	   4200-PROCESAR-SOL3.
-	       DISPLAY "PROCESAR SOL3".
+      *	       DISPLAY "PROCESAR SOL3".
 		   
 		   IF WS-MENOR EQUAL WS-ANT THEN
-		       DISPLAY "ES IGUAL AL ANT"
+      *		       DISPLAY "ES IGUAL AL ANT"
 		       MOVE SOL3-PATENTE TO RECH-PATENTE
 			   MOVE SOL3-FECHA   TO RECH-FECHA
 			   MOVE SOL3-TIPO-DOC TO RECH-TIPO-DOC
 			   MOVE SOL3-NRO-DOC  TO RECH-NRO-DOC
 			   MOVE 1 TO RECH-MOTIVO
 			   MOVE 3 TO RECH-AGENCIA
-			   DISPLAY "ESCRIBO EN RECH"
+      *			   DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
 		   ELSE IF EXISTE-AUTO = '0' THEN
 		       MOVE SOL3-PATENTE TO RECH-PATENTE
@@ -663,7 +737,7 @@
 			   MOVE SOL3-NRO-DOC  TO RECH-NRO-DOC
 			   MOVE 2 TO RECH-MOTIVO
 			   MOVE 3 TO RECH-AGENCIA
-			   DISPLAY "ESCRIBO EN RECH"
+      *			   DISPLAY "ESCRIBO EN RECH"
 			   WRITE RECH-REG
 			   MOVE HIGH-VALUES TO WS-ANT
 		   ELSE
@@ -672,9 +746,10 @@
 			   ADD 1 TO TOTAL-PAT-DIAS
 			   PERFORM 4201-GUARDAR-SOL3-ALQ-ACT
 			   MOVE 3 TO NRO-AGENCIA-IMPRIMIR
+			   
 			   PERFORM 7400-IMPRIMIR-APROBADO
-			   MOVE WS-MENOR TO WS-ANT
-	           
+			   
+			   MOVE WS-MENOR TO WS-ANT	           
 		       MOVE 'N' TO MARCA-ENCONTRADO
 		   
                PERFORM 1500-BUSCAR-TABLA-ESTAD 
@@ -701,28 +776,24 @@
 	   2100-DETER-CLAVE-MENOR.
 	   
            MOVE ALQ-CLAVE TO WS-CLAVE-MENOR.
-		   DISPLAY  ALQ-CLAVE.		   
-		   DISPLAY  SOL1-CLAVE.
-		   DISPLAY  SOL2-CLAVE.
-		   DISPLAY  SOL3-CLAVE.
-		   DISPLAY 'EL MENOR ES ALQ'.
+      *		   DISPLAY  ALQ-CLAVE.		   
+      *		   DISPLAY  SOL1-CLAVE.
+      *		   DISPLAY  SOL2-CLAVE.
+      *		   DISPLAY  SOL3-CLAVE.
 
            IF WS-CLAVE-MENOR GREATER THAN SOL1-CLAVE
                 MOVE SOL1-CLAVE TO WS-CLAVE-MENOR
-                DISPLAY 'EL MENOR ES SOL1'
 		   END-IF.
               
            IF WS-CLAVE-MENOR GREATER THAN SOL2-CLAVE
                 MOVE SOL2-CLAVE TO WS-CLAVE-MENOR
-                DISPLAY 'EL MENOR ES SOL2'
-      	   END-IF.
+     	   END-IF.
 		   
            IF WS-CLAVE-MENOR GREATER THAN SOL3-CLAVE
       		     MOVE SOL3-CLAVE  TO WS-CLAVE-MENOR
-       		     DISPLAY 'EL MENOR ES SOL3'
            END-IF.
 		   
-           DISPLAY 'CLAVE MENOR: ' WS-CLAVE-MENOR.
+      *		   DISPLAY 'CLAVE MENOR: ' WS-CLAVE-MENOR.
 	  
 	   8400-LEER-AUTOS.
            READ AUTOS AT END SET FS-AUTOS-FIN TO TRUE.
@@ -743,9 +814,10 @@
 	   1300-CARGAR-TABLA-AUTOS.
            PERFORM 8400-LEER-AUTOS.
            MOVE AUT-REG TO TABLA-AUT-REG(IND-I).
-		   
-           PERFORM 1400-CARGAR-TABLA-ESTAD.
-		   
+		   PERFORM 1400-CARGAR-TABLA-ESTAD.		  
+      *    DISPLAY 'CANTIDAD DE AUTOS: '.
+
+ 
 		   
        
 	   1400-CARGAR-TABLA-ESTAD.
@@ -757,9 +829,10 @@
       					OR MARCA-ENCONTRADO = 'S'. 
 		   
            IF MARCA-ENCONTRADO EQUAL 'N' THEN
-		        
+		        ADD 1 TO CANT-AUTOS
       	        MOVE AUT-MARCA TO ESTAD-MARCA(IND-MAR)
-				
+      *	        DISPLAY "MARCA: "
+      *			DISPLAY AUT-MARCA
 				MOVE 1 TO IND-MES
 				PERFORM 1401-CARGAR-ESTAD-MESES-ZERO
 				        VARYING IND-MES FROM 1 BY 1
@@ -799,62 +872,74 @@
 	  
 	   
 	   7000-IMPRIMIR-TOTAL-GRAL.
-	       DISPLAY "ENTRE AL IMPRIMIR GRAL".
-		   STRING 'Totales general            ' TOTAL-GRAL-IMPORTE
-		             DELIMITED BY SIZE INTO LINEA.
-		   PERFORM 7500-IMPRIMIR-LINEA.
+	      
+		   MOVE ZEROES TO TOTAL-IMPR-IMPORTE.
+		   MOVE TOTAL-GRAL-IMPORTE TO TOTAL-IMPR-IMPORTE.
+		   
+		   STRING 'Totales general '
+		          '                        '
+		          '         Importe: ' TOTAL-IMPR-IMPORTE				  
+		   DELIMITED BY SIZE INTO LINEA.
+		   WRITE LINEA.
 	  
-	   7100-IMPRIMIR-POR-MARCA.
-	       DISPLAY "ENTRE AL IMPRIMIR POR MARCA".
-	  
+	     
 	   7200-IMPRIMIR-ENCABEZADO.
-	       DISPLAY "ENCABEZADO".
+      *	       DISPLAY "ENCABEZADO".
 		   STRING  '    Patente: ' AUT-PATENTE
-		           '          Descripcion: ' AUT-DESC
+		           '  Descripcion: ' AUT-DESC
 					DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
-		   STRING  '         Marca: ' AUT-MARCA
+		   STRING  '                     Marca: ' AUT-MARCA
 			       DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.		   
-		   STRING  '         Color: ' AUT-COLOR
+		   STRING  '                     Color: ' AUT-COLOR
 			       DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.		   
-		   STRING  '         Tamanio: ' AUT-TAMANIO
+		   STRING  '                     Tamanio: ' AUT-TAMANIO
 			       DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
 		   PERFORM 7501-IMPRIMIR-LINEA-VACIA.
-		   STRING  '            Fecha         Tipo Doc           '
-		           '            Nro Document       Agencia       '
+		   STRING  '    Fecha         Tipo Doc      '
+		           '   Nro Documento       Agencia       '
 			       DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
 		   STRING  '-------------------------------------------'
-		           '-------------------------------------------'
+		           '-----------------------------------'
 			       DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
+		   
 	  
 	   7300-IMPRIMIR-PIE.
-	       DISPLAY "PIE".
-		   STRING 'Totales por patente            '
-		          '                  Cantidad de dias' TOTAL-PAT-DIAS
-		          '   Importe' TOTAL-PAT-IMPORTE
+           MOVE ZEROES TO TOTAL-IMPR-DIAS.
+		   MOVE ZEROES TO TOTAL-IMPR-IMPORTE.
+           MOVE TOTAL-PAT-DIAS TO TOTAL-IMPR-DIAS.
+		   MOVE TOTAL-PAT-IMPORTE TO 
+		   TOTAL-IMPR-IMPORTE.
+		   STRING 'Totales por patente    '
+		          ' Cantidad de dias: ' TOTAL-IMPR-DIAS
+		          '   Importe: ' TOTAL-IMPR-IMPORTE
 		             DELIMITED BY SIZE INTO LINEA.
 		   PERFORM 7500-IMPRIMIR-LINEA.
 		   
+		   
 	   7400-IMPRIMIR-APROBADO.
-	      DISPLAY "IMPRIMIENDO APROBADOS".
-		  STRING '                '  ALQ-ACT-PATENTE
-		         '                '  ALQ-ACT-FECHA
-		         '                '  ALQ-ACT-TIPO-DOC
-		         '                '  ALQ-ACT-NRO-DOC
-		         '                '  NRO-AGENCIA-IMPRIMIR
+      *	      DISPLAY "IMPRIMIENDO APROBADOS".
+		  MOVE NRO-AGENCIA-IMPRIMIR TO AGENCIA-IMPR.
+		  STRING '    '  ALQ-ACT-FECHA
+		         '          '  ALQ-ACT-TIPO-DOC
+		         '               '  ALQ-ACT-NRO-DOC
+		         AGENCIA-IMPR
 		             DELIMITED BY SIZE INTO LINEA.
 		  PERFORM 7500-IMPRIMIR-LINEA.
 		  
 		   
 		   
 	   7500-IMPRIMIR-LINEA.
-			IF CONT-LINEAS EQUAL 60
-				PERFORM 7502-IMPRIMIR-SALTO-PAGINA.
+			IF CONT-LINEAS EQUAL 60              		
+				MOVE LINEA TO LINEA-AUX			
+				PERFORM 7503-IMPRIMIR-ENC-PAGINA          					
+			    MOVE LINEA-AUX TO LINEA
+			END-IF.			
 			WRITE LINEA.
 			ADD 1 TO CONT-LINEAS.
 			MOVE SPACES TO LINEA.
@@ -864,25 +949,195 @@
 			WRITE LINEA.	   
 			ADD 1 TO CONT-LINEAS.
 			
-	   7502-IMPRIMIR-SALTO-PAGINA.
-			MOVE LINEA TO LINEA-AUX.
-			PERFORM 7503-ARMAR-ENCABEZADO-PAGINA.
-           	WRITE LINEA.
-			PERFORM 7501-IMPRIMIR-LINEA-VACIA.			
-			MOVE LINEA-AUX TO LINEA.
+	   	
 
-	   7503-ARMAR-ENCABEZADO-PAGINA.
+	   7503-IMPRIMIR-ENC-PAGINA.
 			PERFORM 7504-ARMAR-FECHA.
 			ADD 1 TO ENC-N-HOJA.
 			MOVE ZEROES TO CONT-LINEAS.
 			MOVE ENCABEZADO-HOJA TO LINEA.
-
+			WRITE LINEA AFTER PAGE.
+			MOVE SPACES TO LINEA.
+			STRING '           Listado de autos ' 
+			       'alquilados aprobados         ' 
+				   DELIMITED BY SIZE INTO LINEA.			
+			WRITE LINEA.
+			MOVE SPACES TO LINEA.
+			ADD 2 TO CONT-LINEAS.
+			
+			
+			
+			
+        		
 	   7504-ARMAR-FECHA.
 			ACCEPT FECHA FROM DATE.
 			MOVE FECHA-DD TO ENC-FECHA-DD.
 			MOVE FECHA-MM TO ENC-FECHA-MM.
-			MOVE FECHA-AA TO ENC-FECHA-AA.		
+			MOVE FECHA-AA TO ENC-FECHA-AA.
+			
+			
+			
+			
+      **************************************
+      *     RUTINAS ESTADISTICA            *
+      **************************************		
+	  7100-IMPRIMIR-POR-MARCA.
+      *	       DISPLAY "ENTRE AL IMPRIMIR POR MARCA".		  
+		   PERFORM 7110-IMPRIMIR-ENCABEZADO-MARCA.           
+		   PERFORM 7120-IMPRIMIR-LISTA-MARCA
+				  VARYING IND-MAR FROM 1 BY 1
+                  UNTIL IND-MAR > 100 OR  
+				  IND-MAR > CANT-AUTOS.
+           PERFORM 7130-IMPRIMIR-R-TOTALES.
+	   
+	   
+	      
+           
+	   
+       7120-IMPRIMIR-LISTA-MARCA.
+	      MOVE SPACES TO ESTRUC-ESTAD.
+		  MOVE ESTAD-MARCA(IND-MAR) TO EST-ESTAD-MARCA.
+	      PERFORM 7121-IMPRIMIR-ESTAD-MES
+	               VARYING IND-MES FROM 1 BY 1
+			       UNTIL IND-MES > 12.
+	       MOVE ESTAD-TOTAL (IND-MAR) TO EST-ESTAD-TOTAL. 
+	       MOVE ESTRUC-ESTAD TO LINEA-ESTAD.         
+		   PERFORM 7506-IMPRIMIR-LINEA-ESTAD.
+	     
+	   7121-IMPRIMIR-ESTAD-MES.
+	       EVALUATE IND-MES		   
+		   WHEN 1 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-ENE
+		   WHEN 2 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-FEB
+		   WHEN 3 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-MAR
+		   WHEN 4 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-ABR
+		   WHEN 5 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-MAY
+		   WHEN 6 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-JUN
+		   WHEN 7 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-JUL
+		   WHEN 8 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-AGO
+		   WHEN 9 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-SEP
+		   WHEN 10 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-OCT
+		   WHEN 11 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-NOV
+		   WHEN 12 		   
+		   MOVE ESTAD-MES (IND-MAR, IND-MES) TO EST-ESTAD-DEC
+		   END-EVALUATE.		    
+	       ADD ESTAD-MES (IND-MAR, IND-MES) TO 
+		   ESTAD-TOTAL-MES (IND-MES).
+           	  
+		
+		
+       7506-IMPRIMIR-LINEA-ESTAD.
+			IF CONT-ESTAD-LINEAS EQUAL 60	    
+				PERFORM 7507-IMP-SALTO-PAGINA-ESTAD.
+			WRITE LINEA-ESTAD.
+			ADD 1 TO CONT-ESTAD-LINEAS.
+			MOVE SPACES TO LINEA-ESTAD.
+				   
+		   				
+		
+       7504-ARMAR-FECHA-ESTAD.
+			ACCEPT FECHA FROM DATE.
+			MOVE FECHA-DD TO ENC-ESTAD-FECHA-DD.
+			MOVE FECHA-MM TO ENC-ESTAD-FECHA-MM.
+			MOVE FECHA-AA TO ENC-ESTAD-FECHA-AA.
+			
+       7505-ARMAR-ENC-PAGINA-ESTAD.
+			PERFORM 7504-ARMAR-FECHA-ESTAD.
+			ADD 1 TO ENC-ESTAD-HOJA.			
+			MOVE ENCABEZADO-ESTAD TO LINEA-ESTAD.
+			
+			
+       
+		
+       7507-IMP-SALTO-PAGINA-ESTAD.
+			MOVE LINEA-ESTAD TO LINEA-AUX.
+			MOVE ZEROES TO CONT-ESTAD-LINEAS.			
+			PERFORM 7110-IMPRIMIR-ENCABEZADO-MARCA.
+			MOVE LINEA-AUX TO LINEA-ESTAD.
+		
+		
+	   7110-IMPRIMIR-ENCABEZADO-MARCA.
+      *	   	   DISPLAY "ENCABEZADO MARCA".
+           PERFORM 7505-ARMAR-ENC-PAGINA-ESTAD.
+           WRITE LINEA-ESTAD AFTER PAGE.
+		   MOVE SPACES TO LINEA-ESTAD.
+		   MOVE '  Listado estadístico de Alquileres por mes'
+		   TO LINEA-ESTAD.
+		   WRITE LINEA-ESTAD.
+		   STRING  '   Marca         Ene    Feb   Mar   Abr   May  ' 
+		           'Jun   Jul   Ago   Sep   Oct   Nov   Dec   Total'
+					DELIMITED BY SIZE INTO LINEA-ESTAD.
+		   WRITE LINEA-ESTAD.
+           STRING  '-------------------------------------------'
+                   '-------------------------------------------   -----'		   
+					DELIMITED BY SIZE INTO LINEA-ESTAD.           
+		   WRITE LINEA-ESTAD.
+		   ADD 4 TO CONT-ESTAD-LINEAS.
+		
+		
+		
+       7508-IMP-LINEA-VACIA-ESTAD.
+			MOVE SPACES TO LINEA-ESTAD.
+			WRITE LINEA-ESTAD.	   
+			ADD 1 TO CONT-ESTAD-LINEAS.		
+			
+			
+		
+     	7130-IMPRIMIR-R-TOTALES.
+		   MOVE SPACES TO ESTRUC-ESTAD.	
+           MOVE ZEROES TO WS-TOTAL-MES.		   
+	       PERFORM 7131-IMP-TOTAL-MES
+                   VARYING IND-MES FROM 1 BY 1
+			       UNTIL IND-MES > 12.
 		   
+		   PERFORM 7508-IMP-LINEA-VACIA-ESTAD.		   
+		   MOVE 'Totales ' TO EST-ESTAD-MARCA. 
+		   MOVE WS-TOTAL-MES TO EST-ESTAD-TOTAL.
+		   MOVE ESTRUC-ESTAD TO LINEA-ESTAD.		   
+		   PERFORM 7506-IMPRIMIR-LINEA-ESTAD.
+		   
+       
+	   7131-IMP-TOTAL-MES.
+	      EVALUATE IND-MES		   
+		   WHEN 1 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-ENE
+		   WHEN 2 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-FEB
+		   WHEN 3 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-MAR
+		   WHEN 4 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-ABR
+		   WHEN 5 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-MAY
+		   WHEN 6 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-JUN
+		   WHEN 7 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-JUL
+		   WHEN 8 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-AGO
+		   WHEN 9 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-SEP
+		   WHEN 10 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-OCT
+		   WHEN 11 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-NOV
+		   WHEN 12 		   
+		   MOVE ESTAD-TOTAL-MES (IND-MES) TO EST-ESTAD-DEC
+		   END-EVALUATE.
+           ADD ESTAD-TOTAL-MES (IND-MES) TO WS-TOTAL-MES. 	      
+	    
+		
+		
        8900-CHECK-FILE-STATUS.
            IF FS NOT EQUAL "00"
               DISPLAY "CANCELACION POR ERROR"
