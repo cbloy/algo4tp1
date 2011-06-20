@@ -1,0 +1,146 @@
+Fecha 20/06/2011                                                         Hoja 01
+           Listado de autos alquilados aprobados
+    Patente: AAA000  Descripcion: ALFA AZUL 3 PUERTAS
+                     Marca: ALFA ROMEO
+                     Color: AZUL
+                     Tamanio: C
+
+    Fecha         Tipo Doc         Nro Documento       Agencia
+------------------------------------------------------------------------------
+    20110501          D               25666777             1
+    20110502          D               25666777             1
+    20110503          D               25666777             1
+    20110504          D               25666777             1
+Totales por patente     Cantidad de dias:    4   Importe:     12.00Fecha 20/06/2011                                                         Hoja 02
+           Listado de autos alquilados aprobados
+    Patente: AAA111  Descripcion: ALFA NEGRO 4 PUERTAS
+                     Marca: ALFA ROMEO
+                     Color: NEGRO
+                     Tamanio: G
+
+    Fecha         Tipo Doc         Nro Documento       Agencia
+------------------------------------------------------------------------------
+Totales por patente     Cantidad de dias:        Importe:Fecha 20/06/2011                                                         Hoja 03
+           Listado de autos alquilados aprobados
+    Patente: AAA999  Descripcion: ALFA ROJO 5 PUERTAS
+                     Marca: ALFA ROMEO
+                     Color: ROJO
+                     Tamanio: G
+
+    Fecha         Tipo Doc         Nro Documento       Agencia
+------------------------------------------------------------------------------
+    20110501          D               30000000             3
+    20110504          D               30448362             1
+Totales por patente     Cantidad de dias:    2   Importe:      8.00Fecha 20/06/2011                                                         Hoja 04
+           Listado de autos alquilados aprobados
+    Patente: ABC123  Descripcion: RENAULT 12 5 PTAS
+                     Marca: RENAULT 12 LT
+                     Color: BLANCO
+                     Tamanio: G
+
+    Fecha         Tipo Doc         Nro Documento       Agencia
+------------------------------------------------------------------------------
+    20100101          D               27235788             3
+    20100201          D               27235788             3
+    20100301          D               27235788             3
+    20100401          D               27235788             3
+    20100501          D               27235788             3
+    20100601          D               27235788             3
+    20100701          D               27235788             3
+    20100801          D               27235788             3
+    20100901          D               27235788             3
+    20101001          D               27235788             3
+    20101101          D               27235788             3
+    20101201          D               27235788             3
+Totales por patente     Cantidad de dias:   12   Importe:     60.00Fecha 20/06/2011                                                         Hoja 05
+           Listado de autos alquilados aprobados
+    Patente: IYE394  Descripcion: VW BORA NEGRO 5 PTAS
+                     Marca: VW BORA
+                     Color: NEGRO
+                     Tamanio: M
+
+    Fecha         Tipo Doc         Nro Documento       Agencia
+------------------------------------------------------------------------------
+    20100101          D               27235788             1
+    20100201          D               27235788             1
+    20100301          D               27235788             1
+    20100401          D               27235788             1
+    20100501          D               27235788             1
+    20100601          D               27235788             1
+    20100701          D               27235788             1
+    20100801          D               27235788             1
+    20100901          D               27235788             1
+    20101001          D               27235788             1
+    20101101          D               27235788             1
+    20110201          D               27235788             2
+    20110301          D               27235788             2
+    20110401          D               27235788             2
+    20110501          D               27235788             2
+    20110601          D               27235788             2
+    20110701          D               27235788             2
+    20110801          D               27235788             2
+    20110901          D               27235788             2
+    20111001          D               27235788             2
+    20111101          D               27235788             2
+    20111201          D               27235788             1
+    20110101          D               27235788             1
+    20110201          D               27235788             1
+    20110301          D               27235788             1
+    20110401          D               27235788             1
+    20110501          D               27235788             1
+    20110601          D               27235788             1
+    20110701          D               27235788             1
+    20110801          D               27235788             1
+    20110901          D               27235788             1
+    20111001          D               27235788             1
+    20111101          D               27235788             1
+    20111201          D               27235788             1
+    20110201          D               27235788             2
+    20110301          D               27235788             2
+    20110401          D               27235788             2
+    20110501          D               27235788             2
+    20110601          D               27235788             2
+    20110701          D               27235788             2
+    20110801          D               27235788             2
+    20110901          D               27235788             2
+    20111001          D               27235788             2
+    20111101          D               27235788             2
+    20111201          D               27235788             2
+    20110101          D               27235788             2
+    20110201          D               27235788             2
+    20110301          D               27235788             2
+    20110401          D               27235788             2
+    20110501          D               27235788             2
+    20110601          D               27235788             2Fecha 20/06/2011                                                         Hoja 06
+           Listado de autos alquilados aprobados
+
+    20110801          D               27235788             2
+    20110901          D               27235788             2
+    20111001          D               27235788             2
+    20111101          D               27235788             2
+    20111201          D               27235788             2
+    20120101          D               27235788             1
+    20120201          D               27235788             1
+Totales por patente     Cantidad de dias:   59   Importe:    295.00Fecha 20/06/2011                                                         Hoja 07
+           Listado de autos alquilados aprobados
+    Patente: IYE395  Descripcion: VW GOL AZUL 3 PTAS
+                     Marca: VW GOL
+                     Color: AZUL
+                     Tamanio: M
+
+    Fecha         Tipo Doc         Nro Documento       Agencia
+------------------------------------------------------------------------------
+    20110101          D               27235788             2
+    20110201          D               27235788             2
+    20110301          D               27235788             2
+    20110401          D               27235788             2
+    20110501          D               27235788             2
+    20110601          D               27235788             2
+    20110701          D               27235788             2
+    20110801          D               27235788             2
+    20110901          D               27235788             2
+    20111001          D               27235788             2
+    20111101          D               27235788             2
+    20111201          D               27235788             2
+Totales por patente     Cantidad de dias:   12   Importe:     60.00
+Totales general                                  Importe:    435.00

@@ -1,0 +1,11 @@
+Fecha 20/06/2011                                                         Hoja 01
+  Listado estadístico de Alquileres por mes
+   Marca         Ene    Feb   Mar   Abr   May  Jun   Jul   Ago   Sep   Oct   Nov   Dec   Total
+--------------------------------------------------------------------------------------   -----
+   ALFA ROMEO      4     1     1           6                                              12
+   BMW
+   VW BORA         4     6     5     5     5     5     5     5     5     5     5     4    59
+   VW GOL          1     1     1     1     1     1     1     1     1     1     1     1    12
+   RENAULT 12      1     1     1     1     1     1     1     1     1     1     1     1    12
+
+   Totales        10     9     8     7    13     7     7     7     7     7     7     6    95
